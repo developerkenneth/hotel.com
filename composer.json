@@ -1,0 +1,19 @@
+{
+  "name": "kenneth/hotel-management",
+  "description": "hotel management project",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "kenneth",
+      "email": "107970456+developerkenneth@users.noreply.github.com"
+    }
+  ],
+  "require": {
+    "robmorgan/phinx": "^0.16.12"
+  }
+}
