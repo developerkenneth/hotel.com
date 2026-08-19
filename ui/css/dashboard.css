@@ -1,0 +1,780 @@
+/* ================================
+   RESET & BASE STYLES
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #000000;
+    --secondary-color: #FF6B00;
+    --background-color: #F8F8F8;
+    --surface-color: #FFFFFF;
+    --text-color: #000000;
+    --muted-text: #777777;
+    --border-color: #EAEAEA;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* ================================
+   DASHBOARD LAYOUT
+================================ */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr) 320px;
+    min-height: 100vh;
+}
+/* ================================
+   DASHBOARD SIDEBAR
+================================ */
+
+.dashboard-sidebar {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    min-height: 100vh;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hotel Logo */
+
+.hotel-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+
+.hotel-logo i {
+    color: var(--secondary-color);
+    font-size: 22px;
+}
+
+/* Navigation */
+
+.dashboard-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dashboard-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 15px;
+    border-radius: 8px;
+    color: #cccccc;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.dashboard-nav-link i {
+    width: 20px;
+    font-size: 16px;
+}
+
+.dashboard-nav-link:hover {
+    background-color: #1c1c1c;
+    color: var(--surface-color);
+}
+
+/* Active Navigation */
+
+.dashboard-nav-link.active {
+    background-color: var(--secondary-color);
+    color: var(--surface-color);
+}
+
+/* Sidebar Footer */
+
+.dashboard-sidebar-footer {
+    margin-top: auto;
+    padding-top: 30px;
+}
+
+.logout-link:hover {
+    background-color: #1c1c1c;
+    color: #ff6b00;
+}
+
+/* ================================
+   MAIN DASHBOARD
+================================ */
+
+.dashboard-main {
+    padding: 35px 40px;
+    background-color: var(--background-color);
+    min-width: 0;
+}
+
+/* ================================
+   DASHBOARD HEADER
+================================ */
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+.dashboard-greeting {
+    color: var(--muted-text);
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.dashboard-welcome h1 {
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.dashboard-subtitle {
+    color: var(--muted-text);
+    font-size: 14px;
+}
+
+.dashboard-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification-button {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    background-color: var(--surface-color);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.notification-button i {
+    font-size: 16px;
+}
+
+.notification-indicator {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.profile-image {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.profile-button i {
+    font-size: 11px;
+}
+
+
+/* ================================
+   DASHBOARD SUMMARY
+================================ */
+
+.dashboard-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.summary-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.summary-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background-color: #fff1e8;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.summary-icon i {
+    font-size: 19px;
+}
+
+.summary-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.summary-label {
+    color: var(--muted-text);
+    font-size: 13px;
+}
+
+.summary-value {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+/* ================================
+   DASHBOARD SECTIONS
+================================ */
+
+.dashboard-section {
+    margin-bottom: 35px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.section-label {
+    color: var(--muted-text);
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.section-heading h2 {
+    font-size: 20px;
+}
+
+.section-action {
+    color: var(--secondary-color);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.section-action:hover {
+    text-decoration: underline;
+}
+
+/* ================================
+   UPCOMING BOOKING
+================================ */
+
+.upcoming-booking-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 25px;
+}
+
+.booking-room-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.booking-details {
+    padding: 5px 0;
+}
+
+.booking-status {
+    margin-bottom: 10px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background-color: #fff1e8;
+    color: var(--secondary-color);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.booking-details h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.booking-location {
+    color: var(--muted-text);
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.booking-location i {
+    color: var(--secondary-color);
+    margin-right: 5px;
+}
+
+.booking-information {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.booking-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.booking-info-item span,
+.booking-reference span {
+    color: var(--muted-text);
+    font-size: 11px;
+}
+
+.booking-info-item strong {
+    font-size: 13px;
+}
+
+.booking-reference {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.booking-reference strong {
+    font-size: 13px;
+}
+
+/* ================================
+   RECENT BOOKINGS
+================================ */
+
+.recent-bookings {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.booking-history-item {
+    display: grid;
+    grid-template-columns: 45px 1fr auto auto;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.booking-history-item:last-child {
+    border-bottom: none;
+}
+
+.booking-history-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background-color: #fff1e8;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.booking-history-details h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.booking-history-details p {
+    color: var(--muted-text);
+    font-size: 12px;
+}
+
+.booking-price {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.completed-status {
+    background-color: #eaf7ee;
+    color: #218838;
+}
+
+.pending-status {
+    background-color: #fff1e8;
+    color: var(--secondary-color);
+}
+
+/* ================================
+   RIGHT PANEL
+================================ */
+
+.dashboard-right-panel {
+    background-color: var(--surface-color);
+    border-left: 1px solid var(--border-color);
+    padding: 35px 25px;
+    min-height: 100vh;
+}
+
+/* Profile Card */
+
+.profile-card {
+    background-color: var(--background-color);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-card-header,
+.right-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-card-label,
+.room-preview-label {
+    color: var(--muted-text);
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.profile-card-header h2,
+.right-panel-heading h2 {
+    font-size: 17px;
+}
+
+.profile-edit-button,
+.more-button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--surface-color);
+    cursor: pointer;
+}
+
+.profile-edit-button i,
+.more-button i {
+    font-size: 12px;
+}
+
+.profile-card-content {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.profile-card-image {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+}
+
+.profile-card-content h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.profile-email {
+    color: var(--muted-text);
+    font-size: 12px;
+}
+
+/* Room Preview */
+
+.room-preview-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.room-preview-image {
+    height: 170px;
+    position: relative;
+}
+
+.room-preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.room-feature-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--surface-color);
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.room-feature-badge i {
+    color: var(--secondary-color);
+}
+
+.room-preview-content {
+    padding: 18px;
+}
+
+.room-preview-content h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.room-preview-location {
+    color: var(--muted-text);
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.room-preview-location i {
+    color: var(--secondary-color);
+}
+
+.room-preview-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.room-price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.room-price strong {
+    font-size: 15px;
+}
+
+.room-price span {
+    color: var(--muted-text);
+    font-size: 10px;
+}
+
+.room-book-button {
+    background-color: var(--secondary-color);
+    color: var(--surface-color);
+    padding: 9px 13px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* Notifications */
+
+.notifications-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.notification-item {
+    display: flex;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background-color: #fff1e8;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notification-icon i {
+    font-size: 12px;
+}
+
+.notification-content h3 {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.notification-content p {
+    color: var(--muted-text);
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.notification-content span {
+    color: #999999;
+    font-size: 10px;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+/* Tablet */
+
+@media (max-width: 1100px) {
+
+    .dashboard {
+        grid-template-columns: 210px minmax(0, 1fr);
+    }
+
+    .dashboard-right-panel {
+        display: none;
+    }
+
+    .dashboard-main {
+        padding: 30px;
+    }
+
+    .upcoming-booking-card {
+        grid-template-columns: 220px 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .dashboard {
+        display: block;
+    }
+
+    .dashboard-sidebar {
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .hotel-logo {
+        margin-bottom: 25px;
+    }
+
+    .dashboard-navigation {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 6px;
+    }
+
+    .dashboard-nav-link {
+        flex-shrink: 0;
+        padding: 10px 12px;
+    }
+
+    .dashboard-nav-link span {
+        display: none;
+    }
+
+    .dashboard-sidebar-footer {
+        display: none;
+    }
+
+    .dashboard-main {
+        padding: 25px 20px;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+    }
+
+    .dashboard-welcome h1 {
+        font-size: 23px;
+    }
+
+    .profile-name,
+    .profile-button > i {
+        display: none;
+    }
+
+    .dashboard-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .upcoming-booking-card {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-room-image {
+        height: 200px;
+    }
+
+    .booking-information {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-history-item {
+        grid-template-columns: 42px 1fr auto;
+    }
+
+    .booking-price {
+        grid-column: 2 / 3;
+    }
+}
