@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+:root{
+    --primary-color: #000000;
+    --secondary-color: #FF6B00;
+    --bg-color: #F8F8F8;
+    --card-color: #FFFFFF;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--primary-color);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+}
+body{
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main{
+    min-width: 550px;
+    background-color: var(--card-color);
+    padding: 25px 25px;
+    border-radius: 10px;
+}
+.form__title{
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+.form__row{
+    display: flex;    
+    gap: 10px;
+}
+.form__row, .e-mail-field{
+    margin-bottom: 20px;
+
+}
+.field{
+    display: flex;
+    flex-direction: column;
+}
+.field, .radio-field{
+    flex-grow: 1;
+}
+input:not(input[type="radio"]),select, .radio-field{
+   padding: 10px;
+   border-radius: 10px;
+   /* margin-bottom: 15px; */
+   border: 1px solid var(--primary-color);
+}
+select, ::picker(select){
+    appearance: base-select;
+}
+select{
+    background-color: transparent;
+}
+::picker(select){
+    position: absolute;
+    position-area: bottom;
+    margin-top: 5px;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 10px;
+}
+::picker-icon{
+    display: inline-block;
+    font: var(--fa-font-solid);
+    font-weight: 900;
+    content: "\f0d7";
+    transform: rotateX(180deg);
+}
+select:open::picker-icon{
+    transform: rotate(360deg);
+}
+option{
+    border-radius: 10px;
+    transition: background-color 0.2s ease-in;
+}
+option::checkmark{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    font: var(--fa-font-solid); 
+    font-weight: 400;
+    content:"\f058";
+    color: var(--primary-color);
+    margin-left: 5px;
+}
+option:hover{
+    background-color: var(--secondary-color);
+    color: var(--card-color);
+}
+label:not(label[for="user-account"], label[for="staff-account"]), legend{
+   margin-bottom: 5px;
+   font-size: 14px;
+}
+fieldset{
+    border: none;
+}
+.radio{
+    display: flex;
+    flex-direction: column;
+}
+.radi{
+    display: flex;
+    gap: 10px;
+}
+.radio-field{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+input[type="radio"]{
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+}
+input[type="radio"]:checked{
+    border: none;
+}
+input[type="radio"]:checked::after{
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+
+}
+.radio-field:has(input[type="radio"]:checked){
+    border-color: var(--secondary-color);
+}
+.submit-btn{
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--card-color);
+}
+i{
+    background:
+  linear-gradient(217deg, var(--secondary-color), transparent 70.71%),
+  linear-gradient(127deg, var(--card-color), transparent 70.71%),
+  linear-gradient(336deg, var(--primary-color), transparent 70.71%);
+  background-clip: text;
+  color: transparent;
+  margin-right: 5px;
+}
+a{
+    text-decoration: none;
+    color: var(--secondary-color);
+    display: inline-block;
+    margin-left: 5px;
+}
+.alt{
+    text-align: center;
+}
+.alt__title{
+    margin: 15px 0;
+}
+.alt__group{
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+}
+.alt__btn{
+    flex-grow: 1;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 10px;
+   border: 1px solid var(--primary-color);
+   background-color: transparent;
+
+}
+button{
+    cursor: pointer;
+    transition: all 0.2 ease-in-out;
+}
+button:active{
+    transform: translateY(2px);
+}
+.account{
+    margin: 15px 0;
+}
+.-hide{
+    display: none;
+}
+.-show{
+    display: block;
+    font-size: 13px;
+    color: red;
+}
+[data-page = "login"]{
+    input{
+        display: block;
+    }
+    .main{
+        min-width: 450px;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .form__title{
+        margin-bottom: 10px;
+    }
+    .form__title > i{
+        width: 26px;
+        height: 26px;
+        font-size: 25px;
+    }
+}
