@@ -6,6 +6,9 @@
 
     <title>User Dashboard | Hotel Swan</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+
     <!-- Font Awesome -->
     <link
         rel="stylesheet"
@@ -27,38 +30,38 @@
     <!-- Hotel Logo -->
     <div class="hotel-logo">
         <i class="fa-solid fa-hotel"></i>
-        <span>HOTEL SWAN</span>
+        <span>HOTEL.com</span>
     </div>
 
     <!-- Dashboard Navigation -->
     <nav class="dashboard-navigation">
 
-        <a href="#" class="dashboard-nav-link active">
+        <a href="dashboard.php" class="dashboard-nav-link active">
             <i class="fa-solid fa-house"></i>
             <span>Dashboard</span>
         </a>
 
-        <a href="#" class="dashboard-nav-link">
+        <a href="bookings.php" class="dashboard-nav-link">
             <i class="fa-solid fa-calendar-check"></i>
             <span>My Bookings</span>
         </a>
 
-        <a href="#" class="dashboard-nav-link">
+        <a href="rooms.php" class="dashboard-nav-link">
             <i class="fa-solid fa-bed"></i>
             <span>Browse Rooms</span>
         </a>
 
-        <a href="#" class="dashboard-nav-link">
+        <a href="booking-history.php" class="dashboard-nav-link">
             <i class="fa-solid fa-clock-rotate-left"></i>
             <span>Booking History</span>
         </a>
 
-        <a href="#" class="dashboard-nav-link">
+        <a href="profile.php" class="dashboard-nav-link">
             <i class="fa-solid fa-user"></i>
             <span>My Profile</span>
         </a>
 
-        <a href="#" class="dashboard-nav-link">
+        <a href="settings.php" class="dashboard-nav-link">
             <i class="fa-solid fa-gear"></i>
             <span>Settings</span>
         </a>
@@ -67,7 +70,7 @@
 
     <!-- Logout -->
     <div class="dashboard-sidebar-footer">
-        <a href="#" class="dashboard-nav-link logout-link">
+        <a href="logout.php" class="dashboard-nav-link logout-link">
             <i class="fa-solid fa-right-from-bracket"></i>
             <span>Logout</span>
         </a>
@@ -75,12 +78,22 @@
 
 </aside>
 
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
 
 <!-- Main Dashboard Content -->
 <main class="dashboard-main">
 
     <!-- Dashboard Header -->
     <header class="dashboard-header">
+
+    <button
+    type="button"
+    class="mobile-menu-button"
+    id="mobile-menu-button"
+    aria-label="Open navigation menu"
+>
+    <i class="fa-solid fa-bars"></i>
+</button>
 
         <div class="dashboard-welcome">
             <p class="dashboard-greeting">Good morning,</p>
@@ -198,7 +211,7 @@
 
                 <p class="booking-location">
                     <i class="fa-solid fa-location-dot"></i>
-                    Hotel Swan
+                    Hotel.com
                 </p>
 
                 <div class="booking-information">
@@ -384,7 +397,7 @@
 
             <p class="room-preview-location">
                 <i class="fa-solid fa-location-dot"></i>
-                Hotel Swan
+                Hotel.com
             </p>
 
             <div class="room-preview-footer">
