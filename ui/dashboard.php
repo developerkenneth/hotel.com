@@ -121,7 +121,7 @@
                 id="profile-button"
             >
                 <img
-                    src="https://i.pravatar.cc/100?img=33"
+                    src="images/profiles/default-profile.jpg"
                     alt="William Dawson"
                     class="profile-image"
                 >
@@ -196,7 +196,7 @@
 
             <div class="booking-room-image">
                 <img
-                    src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80"
+                    src="images/rooms/deluxe-king.jpg"
                     alt="Deluxe hotel room"
                 >
             </div>
@@ -358,7 +358,7 @@
         <div class="profile-card-content">
 
             <img
-                src="https://i.pravatar.cc/150?img=33"
+                src="images/profiles/default-profile.jpg"
                 alt="William Dawson"
                 class="profile-card-image"
             >
@@ -379,7 +379,7 @@
 
         <div class="room-preview-image">
             <img
-                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80"
+                src="images/rooms/luxury2.jpg"
                 alt="Luxury hotel room"
             >
 

@@ -221,7 +221,7 @@
                 <div class="full-booking-image">
 
                     <img
-                        src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80"
+                        src="images/rooms/deluxe-king.jpg"
                         alt="Deluxe King Room"
                     >
 
@@ -347,7 +347,7 @@
                 <div class="full-booking-image">
 
                     <img
-                        src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+                        src="images/rooms/executive.jpg"
                         alt="Executive Suite"
                     >
 

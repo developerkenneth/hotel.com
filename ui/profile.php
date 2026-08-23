@@ -124,7 +124,7 @@
                 <div class="profile-page-user">
 
                     <img
-                        src="https://i.pravatar.cc/150?img=33"
+                        src="images/profiles/default-profile.jpg"
                         alt="William Dawson"
                         class="profile-page-image"
                     >

@@ -250,7 +250,7 @@
                     <div class="history-room-image">
 
                         <img
-                            src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80"
+                            src="images/rooms/executive.jpg"
                             alt="Executive Suite"
                         >
 
@@ -343,7 +343,7 @@
                     <div class="history-room-image">
 
                         <img
-                            src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=600&q=80"
+                            src="images/rooms/classic-room.jpg"
                             alt="Classic Room"
                         >
 
@@ -436,7 +436,7 @@
                     <div class="history-room-image">
 
                         <img
-                            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80"
+                            src="images/rooms/deluxe-king.jpg"
                             alt="Deluxe King Room"
                         >
 
@@ -529,8 +529,8 @@
                     <div class="history-room-image">
 
                         <img
-                            src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80"
-                            alt="Deluxe Room"
+                            src="images/rooms/luxury2.jpg"
+                            alt="Luxury King Room"
                         >
 
                     </div>
@@ -543,11 +543,11 @@
                             <div>
 
                                 <span class="history-room-type">
-                                    Deluxe Room
+                                    Luxury Room
                                 </span>
 
                                 <h3>
-                                    Deluxe Double Room
+                                    Luxury King Room
                                 </h3>
 
                             </div>
@@ -622,7 +622,7 @@
                     <div class="history-room-image">
 
                         <img
-                            src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=600&q=80"
+                            src="images/rooms/premium.jpg"
                             alt="Premium Suite"
                         >
 
