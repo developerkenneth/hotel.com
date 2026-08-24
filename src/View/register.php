@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <!-- <script
+      src="https://kit.fontawesome.com/171ef83349.js"
+      crossorigin="anonymous"
+    ></script> -->
+    <link rel="stylesheet" href="<?php assets("css/style.css"); ?>" />
+    <link
+        rel=" stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+
+<body>
+    <main class="main">
+        <div class="container">
+            <form action="#" method="#" class="form" id="form" novalidate>
+                <h1 class="form__title">Sign Up Here</h1>
+                <div class="form__row">
+                    <div class="field">
+                        <label for="first-name">First Name</label>
+                        <input type="text" name="firstname" id="first-name" required />
+                        <p class="field__error -hide">This field is required</p>
+                    </div>
+                    <div class="field">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" name="lastname" id="last-name" required />
+                        <p class="field__error -hide">This field is required</p>
+                    </div>
+                </div>
+                <div class="field e-mail-field">
+                    <label for="e-mail">E-mail</label>
+                    <input type="email" name="email" id="e-mail" required />
+                    <p class="field__error -hide">This field is required</p>
+                </div>
+                <div class="form__row">
+                    <div class="field">
+                        <label for="phone">Phone NO.</label>
+                        <input type="number" name="phone" id="phone" required />
+                        <p class="field__error -hide">This field is required</p>
+                    </div>
+                    <div class="field">
+                        <label for="gender">Gender</label>
+                        <select name="gender" id="gender" required>
+                            <option value="select">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="none">Prefer not to say</option>
+                        </select>
+                        <p class="field__error -hide">This field is required</p>
+                    </div>
+                </div>
+                <fieldset class="form__row radio">
+                    <legend>Account Type</legend>
+                    <div class="radi">
+                        <div class="radio-field">
+                            <input
+                                type="radio"
+                                name="account-type"
+                                id="user-account"
+                                value="user"
+                                required />
+                            <label for="user-account">User</label>
+                        </div>
+                        <div class="radio-field">
+                            <input
+                                type="radio"
+                                name="account-type"
+                                id="staff-account"
+                                value="staff" />
+                            <label for="staff-account">Staff</label>
+                        </div>
+                    </div>
+
+                    <p class="field__error -hide">This field is required</p>
+                </fieldset>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+            <div class="alt">
+                <p class="alt__title">― Or Sign up with ―</p>
+                <div class="alt__group">
+                    <button type="button" class="alt__btn" id="google">
+                        <i class="fa-brands fa-google"></i>Google
+                    </button>
+                    <button type="button" class="alt__btn" id="apple">
+                        <i class="fa-brands fa-apple"></i>Apple
+                    </button>
+                    <button type="button" class="alt__btn" id="facebook">
+                        <i class="fa-brands fa-facebook"></i>Facebook
+                    </button>
+                </div>
+            </div>
+            <p class="account">
+                Don't have an account?<a href="../index.html">Log In</a>
+            </p>
+        </div>
+    </main>
+    <script src="<?php assets("js/script.js") ?>"></script>
+</body>
+
+</html>
