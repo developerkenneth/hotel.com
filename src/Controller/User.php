@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\Controller;
 use App\Helpers\Response;
+use App\Helpers\Utilities;
 use App\Helpers\Validation;
 use App\Helpers\View;
 use App\Models\Model;
@@ -75,7 +76,58 @@ class User extends Controller
             $errors[] = "password does not match";
         }
 
+        // EMAIL ALREADY EXIST
         $result =  Model::find(['email' => $datas['email']], 'users');
-        Response::json($result, 200);
+        if (count($result) >= 1) {
+            $errors[] = "email already exist. please try another email ";
+        }
+
+        if (!empty($errors)) {
+            Response::json([
+                'message' => 'failed validation',
+                'errors' => $errors,
+                'success' => false
+            ]);
+            exit;
+        }
+
+
+        // create new user
+        // clean users input
+        array_walk($datas, function ($string) {
+            Utilities::sanitize($string);
+        });
+
+        $datas['password'] = Utilities::hashPassword($datas['password']);
+        // unsetting confirm be creating user
+        unset($datas['confirm_password']);
+
+        try {
+
+
+            $result =  Model::create($datas);
+            if ($result) {
+                Response::json([
+                    'message' => 'validation successful',
+                    'user' => $datas,
+                    'success' => true
+                ], 201);
+                exit;
+            }
+
+            Response::json([
+                'message' => 'ooops! something went wrong please try again',
+                'user' => null,
+                'success' => false
+            ], 500);
+            exit;
+        } catch (\PDOException $error) {
+            Response::json([
+                'message' => $error->getMessage(),
+                'user' => null,
+                'success' => false
+            ], 500);
+            exit;
+        }
     }
 }

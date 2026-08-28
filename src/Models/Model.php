@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Utilities;
 use App\Models\Db;
 
 class Model extends Db
@@ -18,7 +19,7 @@ class Model extends Db
         //     Helper::sanitize($value);
         // });
 
-        // $col = "";
+        $col = "";
 
 
         foreach ($parameters as $key => $val) {
@@ -26,16 +27,37 @@ class Model extends Db
         }
 
         $sql = "SELECT * FROM `{$table}` WHERE $col = :$col LIMIT 1";
-        return $sql;
-        $stmt = self::connect()->prepare();
-        $stmt->execute($data);
+
+        $stmt = self::connect()->prepare($sql);
+        $stmt->execute($parameters);
         $result = $stmt->fetch();
         if ($result) {
             return $result;
         }
-        return (object)[];
+        return [];
     }
 
+
+    public static  function create($datas)
+    {
+
+        $cols = "";
+        $placeholders = "";
+
+        foreach ($datas as $key => $value) {
+            $cols .= "$key,";
+            $placeholders .= ":$key,";
+        }
+
+        $cols =   substr($cols, 0, strlen($cols) - 1);
+        $placeholders =   substr($placeholders, 0, strlen($placeholders) - 1);
+
+        $sql = "INSERT INTO `users` ($cols) VALUES ($placeholders)";
+
+        // run prepare
+        $stmt = self::connect()->prepare($sql);
+        return $stmt->execute($datas);
+    }
 
 
     // public function __destruct()
