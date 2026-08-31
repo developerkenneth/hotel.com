@@ -57,7 +57,7 @@ class User extends Controller
                 'message' => 'failed validation',
                 'errors' => $errors,
                 'success' => false
-            ]);
+            ], 400);
             exit;
         }
 
@@ -87,7 +87,7 @@ class User extends Controller
                 'message' => 'failed validation',
                 'errors' => $errors,
                 'success' => false
-            ]);
+            ], 400);
             exit;
         }
 
@@ -108,7 +108,7 @@ class User extends Controller
             $result =  Model::create($datas);
             if ($result) {
                 Response::json([
-                    'message' => 'validation successful',
+                    'message' => 'created successful',
                     'user' => $datas,
                     'success' => true
                 ], 201);

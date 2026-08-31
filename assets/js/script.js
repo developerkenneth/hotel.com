@@ -5,9 +5,11 @@ const lastName = document.getElementById("last-name");
 const eMail = document.getElementById("e-mail");
 const phone = document.getElementById("phone");
 const gender = document.getElementById("gender");
+const confirmPassword = document.getElementById("confirm-password");
 const accountStaff = document.getElementById("staff-account");
 const accountUser = document.getElementById("user-account");
 const errorMssg = document.getElementsByClassName("field__error");
+const submitBtn = document.querySelector("#submit-btn");
 /* array */
 const inputs = [
   firstName,
@@ -18,12 +20,58 @@ const inputs = [
   accountStaff,
   accountUser,
 ];
-console.log(inputs);
+
+
+
+
+
+// const handleFetcch = async () => {
+//   const body = {
+//     age: 24,
+//     height: "8,9",
+//     name: "john"
+//   };
+//   const response = await fetch("https://dummyjson.com/test", {
+//     method: "PATCH",
+//     body: JSON.stringify(body),
+//     headers: {
+//       "Content-Type": "application/json",
+//     }
+
+//   });
+//   console.log(response.ok, response.status);
+//   const data = await response.json();
+//   console.log(data);
+// }
+
+// handleFetcch();
+
+const handleRegistration = async (data) => {
+  const url = "auth/register";
+  submitBtn.disabled = true;
+  submitBtn.classList.add("disabled");
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+  } catch (error) {
+
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("disabled");
+
+  }
+
+}
 /* MAIN CODE */
 let formIsValid = true;
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log(e);
   if (firstName.validity.valueMissing) {
     formIsValid = false;
     errorMssg[0].classList.replace("-hide", "-show");
@@ -36,6 +84,8 @@ form.addEventListener("submit", (e) => {
     formIsValid = false;
     errorMssg[2].classList.replace("-hide", "-show");
   }
+
+
   if (phone.validity.valueMissing) {
     formIsValid = false;
     errorMssg[3].classList.replace("-hide", "-show");
@@ -48,8 +98,26 @@ form.addEventListener("submit", (e) => {
     formIsValid = false;
     errorMssg[5].classList.replace("-hide", "-show");
   }
-  if (formIsValid){
-    form.reset();
+
+  if (password.validity.valueMissing) {
+    formIsValid = false;
+    errorMssg[6].classList.replace("-hide", "-show");
+  }
+
+  if (confirmPassword.validity.valueMissing) {
+    formIsValid = false;
+    errorMssg[7].classList.replace("-hide", "-show");
+  }
+
+  if (confirmPassword.value !== password.value) {
+    formIsValid = false;
+    errorMssg[8].classList.replace("-hide", "-show");
+  }
+
+  if (formIsValid) {
+    // send a post request back to our registration api
+
+    handleRegistration();
   }
 });
 for (let i = 0; i <= 6; i++) {
@@ -59,7 +127,7 @@ for (let i = 0; i <= 6; i++) {
       formIsValid = true;
     });
   }
-  if (i == 5 || i == 6){
+  if (i == 5 || i == 6) {
     inputs[i].addEventListener("input", () => {
       errorMssg[5].classList.replace("-show", "-hide");
       formIsValid = true;

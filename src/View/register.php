@@ -37,6 +37,8 @@
                     <input type="email" name="email" id="e-mail" required />
                     <p class="field__error -hide">This field is required</p>
                 </div>
+
+
                 <div class="form__row">
                     <div class="field">
                         <label for="phone">Phone NO.</label>
@@ -78,7 +80,21 @@
 
                     <p class="field__error -hide">This field is required</p>
                 </fieldset>
-                <button type="submit" class="submit-btn">Register</button>
+
+                <div class="form__row">
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" required />
+                        <p class="field__error -hide">This field is required</p>
+                    </div>
+                    <div class="field">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" name="confirm_password" id="confirm-password" required />
+                        <p class="field__error -hide">This field is required</p>
+                        <p class="field__error -hide">password does not match</p>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn ">Register</button>
             </form>
             <div class="alt">
                 <p class="alt__title">― Or Sign up with ―</p>
