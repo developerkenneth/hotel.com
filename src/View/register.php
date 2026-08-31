@@ -88,10 +88,14 @@
                         <p class="field__error -hide">This field is required</p>
                     </div>
                     <div class="field">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" name="confirm_password" id="confirm-password" required />
+                        <label for="">Confirm Password</label>
+                        <input
+                            type="password"
+                            name="confirm-password"
+                            id="confirm-password"
+                            required />
                         <p class="field__error -hide">This field is required</p>
-                        <p class="field__error -hide">password does not match</p>
+                        <p class="field__error -hide">The password doesn't match</p>
                     </div>
                 </div>
                 <button type="submit" class="submit-btn ">Register</button>

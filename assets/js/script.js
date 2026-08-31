@@ -5,11 +5,11 @@ const lastName = document.getElementById("last-name");
 const eMail = document.getElementById("e-mail");
 const phone = document.getElementById("phone");
 const gender = document.getElementById("gender");
-const confirmPassword = document.getElementById("confirm-password");
 const accountStaff = document.getElementById("staff-account");
 const accountUser = document.getElementById("user-account");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirm-password");
 const errorMssg = document.getElementsByClassName("field__error");
-const submitBtn = document.querySelector("#submit-btn");
 /* array */
 const inputs = [
   firstName,
@@ -19,11 +19,9 @@ const inputs = [
   gender,
   accountStaff,
   accountUser,
+  password,
+  confirmPassword,
 ];
-
-
-
-
 
 // const handleFetcch = async () => {
 //   const body = {
@@ -55,19 +53,16 @@ const handleRegistration = async (data) => {
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
   } catch (error) {
-
   } finally {
     submitBtn.disabled = false;
     submitBtn.classList.remove("disabled");
-
   }
-
-}
+};
 /* MAIN CODE */
 let formIsValid = true;
 form.addEventListener("submit", (e) => {
@@ -84,8 +79,6 @@ form.addEventListener("submit", (e) => {
     formIsValid = false;
     errorMssg[2].classList.replace("-hide", "-show");
   }
-
-
   if (phone.validity.valueMissing) {
     formIsValid = false;
     errorMssg[3].classList.replace("-hide", "-show");
@@ -98,18 +91,15 @@ form.addEventListener("submit", (e) => {
     formIsValid = false;
     errorMssg[5].classList.replace("-hide", "-show");
   }
-
   if (password.validity.valueMissing) {
     formIsValid = false;
     errorMssg[6].classList.replace("-hide", "-show");
   }
-
   if (confirmPassword.validity.valueMissing) {
     formIsValid = false;
     errorMssg[7].classList.replace("-hide", "-show");
   }
-
-  if (confirmPassword.value !== password.value) {
+  if (password.value !== confirmPassword.value) {
     formIsValid = false;
     errorMssg[8].classList.replace("-hide", "-show");
   }
@@ -130,6 +120,21 @@ for (let i = 0; i <= 6; i++) {
   if (i == 5 || i == 6) {
     inputs[i].addEventListener("input", () => {
       errorMssg[5].classList.replace("-show", "-hide");
+      formIsValid = true;
+    });
+  }
+  if (i == 7) {
+    inputs[i].addEventListener("input", () => {
+      errorMssg[6].classList.replace("-show", "-hide");
+      formIsValid = true;
+    });
+  }
+  if (i == 8) {
+    inputs[i].addEventListener("input", () => {
+      errorMssg[7].classList.replace("-show", "-hide");
+      if (password.value == confirmPassword.value) {
+        errorMssg[8].classList.replace("-show", "-hide");
+      }
       formIsValid = true;
     });
   }
