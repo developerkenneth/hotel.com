@@ -1,17 +1,13 @@
-/* style.css */
 :root {
-    /* Brand & Accent Colors */
     --primary-orange: #FF6B00;
     --primary-orange-hover: rgba(255, 107, 0, 0.15);
     
-    /* Background Colors */
     --bg-main: #FAF6EE;
     --bg-sidebar: #FF6B00;
     --bg-stat-card: #FAF6EE;
     --bg-nav-active: #522319;
     --bg-nav-hover: rgba(255, 107, 0, 0.15);
     
-    /* Text Colors */
     --text-primary: #2D150D;
     --text-dark: #1F0B06;
     --text-card-label: #4A3A35;
@@ -22,7 +18,6 @@
     --text-nav-active: #FFFFFF;
     --text-nav-hover: #FF6B00;
     
-    /* Border & Shadow Colors */
     --border-card: #E8DFD1;
     --border-card-accent: #522319;
     --shadow-card: rgba(0, 0, 0, 0.02);
@@ -46,7 +41,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar Styling */
 .sidebar {
     width: 260px;
     background-color: var(--bg-sidebar);
@@ -82,12 +76,6 @@ body {
     border-radius: 8px;
     font-size: 1.05rem;
     font-weight: 500;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.nav-link:hover {
-    background-color: var(--bg-nav-hover);
-    color: var(--text-nav-hover);
 }
 
 .nav-link.active {
@@ -104,7 +92,6 @@ body {
     color: var(--text-nav-hover);
 }
 
-/* Main Content Area */
 .main-content {
     flex: 1;
     padding: 60px 48px;
@@ -118,7 +105,6 @@ body {
     margin-bottom: 40px;
 }
 
-/* Stat Cards */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -149,7 +135,6 @@ body {
     color: var(--text-card-value);
 }
 
-/* Bookings Specific Styles */
 .table-container {
     background-color: #FFFFFF;
     border-radius: 12px;
@@ -221,9 +206,6 @@ body {
     background-position: right 14px center;
 }
 
-/* Add these new rules to the end of your existing style.css file */
-
-/* Rooms Table Specific Styles */
 .rooms-table {
     width: 100%;
     border-collapse: collapse;
@@ -293,7 +275,6 @@ body {
     color: var(--text-nav-active);
 }
 
-/* Add Room Form Styles */
 .add-room-section {
     margin-top: 50px;
 }
@@ -359,55 +340,10 @@ body {
     opacity: 0.9;
 }
 
-/* Mobile Toggle Styles */
 .mobile-header {
     display: none;
 }
 
-@media (max-width: 640px) {
-    .sidebar {
-        width: 100%;
-        padding: 16px 24px;
-        gap: 0;
-    }
-
-    /* Show header row on mobile */
-    .mobile-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    /* Hide standard sidebar desktop brand */
-    .sidebar > .brand {
-        display: none;
-    }
-
-    /* Hide menu by default on mobile */
-    .nav-menu {
-        display: none;
-        width: 100%;
-        padding-top: 20px;
-    }
-
-    /* Class added by JavaScript to show menu */
-    .nav-menu.show {
-        display: flex;
-    }
-
-    .menu-toggle-btn {
-    background: transparent;
-    border: none;
-    color: #FFFFFF; /* Ensures the icons show up sharp and visible */
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 4px 8px;
-    line-height: 1;
-}
-}
-
-/* Responsive Scaling */
 @media (max-width: 1200px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -421,7 +357,39 @@ body {
     
     .sidebar {
         width: 100%;
-        padding: 24px;
+        padding: 16px 24px;
+        gap: 0;
+    }
+
+    .mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .sidebar > .brand {
+        display: none;
+    }
+
+    .nav-menu {
+        display: none;
+        width: 100%;
+        padding-top: 20px;
+    }
+
+    .nav-menu.show {
+        display: flex;
+    }
+
+    .menu-toggle-btn {
+        background: transparent;
+        border: none;
+        color: #FFFFFF; 
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 4px 8px;
+        line-height: 1;
     }
 
     .stats-grid {
