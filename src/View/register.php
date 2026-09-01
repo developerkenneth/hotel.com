@@ -10,6 +10,8 @@
       crossorigin="anonymous"
     ></script> -->
     <link rel="stylesheet" href="<?php assets("css/style.css"); ?>" />
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css">
     <link
         rel=" stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
@@ -20,6 +22,11 @@
         <div class="container">
             <form action="#" method="#" class="form" id="form" novalidate>
                 <h1 class="form__title">Sign Up Here</h1>
+
+                <div class="error-container">
+
+                </div>
+
                 <div class="form__row">
                     <div class="field">
                         <label for="first-name">First Name</label>
@@ -98,6 +105,11 @@
                         <p class="field__error -hide">The password doesn't match</p>
                     </div>
                 </div>
+
+                <div class="form__row">
+                    <p>Show password </p> <input type="checkbox" id="show-password">
+                </div>
+
                 <button type="submit" class="submit-btn ">Register</button>
             </form>
             <div class="alt">
@@ -119,6 +131,7 @@
             </p>
         </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.js"></script>
     <script src="<?php assets("js/script.js") ?>"></script>
 </body>
 

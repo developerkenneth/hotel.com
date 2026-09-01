@@ -24,8 +24,14 @@
 // var_dump($result);
 
 
-$username = "<h1>Kenneth</h1>";
-$username = htmlentities($username);
-echo "hello, $username";
+// $username = "<h1>Kenneth</h1>";
+// $username = htmlentities($username);
+// echo "hello, $username";
 
-echo htmlspecialchars("&&copy");
+// echo htmlspecialchars("&&copy");
+
+session_start();
+
+$_SESSION['user'] = ['name' => 'kenneth', 'id' => 2];
+
+var_dump($_SESSION);
