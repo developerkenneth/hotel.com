@@ -95,13 +95,15 @@
     <i class="fa-solid fa-bars"></i>
 </button>
 
-        <div class="dashboard-welcome">
-            <p class="dashboard-greeting">Good morning,</p>
-            <h1>Welcome back, William!</h1>
-            <p class="dashboard-subtitle">
-                Here's what's happening with your bookings.
-            </p>
-        </div>
+       <div class="dashboard-welcome">
+    <p class="dashboard-greeting" id="greeting"></p>
+
+    <h1>Welcome back, William!</h1>
+
+    <p class="dashboard-subtitle">
+        Here's what's happening with your bookings.
+    </p>
+</div>
 
         <div class="dashboard-header-actions">
 
