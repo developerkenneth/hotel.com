@@ -14,11 +14,21 @@
 <body>
     <main class="main">
         <div class="container">
-            <form action="#" method="#" class="form" novalid>
+
+
+            <form action="#" method="#" class="form" novalid id="login-form">
                 <h1 class="form__title">T<i class="fa-regular fa-hand-pointer"></i>p into LUXURY</h1>
                 <p class="form__subtitle">Hey there, enter your details to log in to your account</p>
-                <input type="email" name="email" id="e-mail" placeholder="Enter email address" required />
+
+                <div class="error-container">
+                    <ul class="errors">
+
+                    </ul>
+                </div>
+
+                <input type="email" name="email" id="email" placeholder="Enter email address" required />
                 <input type="password" name="password" id="password" placeholder="password" required />
+                <input type="hidden" value="<?= $csrf_token; ?>" name="csrf_token" id="csrf-token" />
                 <p class="recover-password"><a href="./public/recover.html">forgot password?</a></p>
                 <button type="submit" class="submit-btn">Submit</button>
             </form>
@@ -35,7 +45,9 @@
             </p>
         </div>
     </main>
-    <script src="<?php assets("js/script.js"); ?>"></script>
+
+    <script src="<?php assets("js/login.js"); ?>"></script>
+
 </body>
 
 </html>

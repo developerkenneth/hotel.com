@@ -19,7 +19,6 @@ class Authentication
             if (Utilities::verifyHashpassword($password, $userHashedPassword)) {
                 // verified user logins 
                 //set login session
-                session_start();
                 $_SESSION['user'] = $user;
                 $_SESSION['user_id'] = $user['id'];
                 return true;

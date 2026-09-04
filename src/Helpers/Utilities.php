@@ -25,4 +25,11 @@ class Utilities
     {
         return htmlspecialchars(htmlentities(trim($input)));
     }
+
+
+    // generates random characters
+    public static function CSRF_token()
+    {
+        return bin2hex(random_bytes(32));
+    }
 }

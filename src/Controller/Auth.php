@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Controller\Controller;
 use App\Helpers\Response;
+use App\Helpers\Sessions;
 use App\Helpers\Validation;
 use App\Helpers\View;
 use App\Middleware\Authentication;
+
 
 class Auth extends Controller
 {
@@ -20,14 +22,35 @@ class Auth extends Controller
 
     public function login()
     {
+
         $rawData = file_get_contents("php://input");
         $data = json_decode($rawData, true);
 
+
+        // handles the errors that we get
         $errors = [];
+
+
+        if (!isset($data['csrf_token'])) {
+            Response::json([
+                'message' => 'unauthorized request',
+                'success' => false
+            ], 401);
+            exit;
+        }
+
+        if (!Sessions::CheckCsrf($data['csrf_token'])) {
+            Response::json([
+                'message' => 'unauthorized request',
+                'success' => false
+            ], 401);
+            exit;
+        }
 
         if (empty($data)) {
             $errors[] = "password and email is required";
         }
+
         if (isset($data['email']) && empty(trim($data['email']))) {
             $errors[] = "email is required";
         }
@@ -65,7 +88,7 @@ class Auth extends Controller
 
         if (Authentication::processLogin($email, $password)) {
             Response::json([
-                'message' => 'validation has been concluded succefully',
+                'message' => 'User has been logged in successfully',
                 'success' => true
             ], 200);
             exit;

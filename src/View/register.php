@@ -110,6 +110,7 @@
                     <p>Show password </p> <input type="checkbox" id="show-password">
                 </div>
 
+                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                 <button type="submit" class="submit-btn ">Register</button>
             </form>
             <div class="alt">
