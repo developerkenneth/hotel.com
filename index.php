@@ -13,11 +13,9 @@ $router->mount("/auth", function () use ($router) {
 });
 
 
-
-
-
-
-
+$router->mount('/user', function () use ($router) {
+    require_once('./routes/user.php');
+});
 
 $router->set404(function () {
     echo "404";

@@ -14,7 +14,14 @@ const handlePost = async (post) => {
 
     const data = await response.json();
     if (data.success === true) {
+        errorUL.innerHTML = "";
         window.location = "/hotel.com/user/dashboard";
+    } else {
+        const serverErrors = data?.errors;
+        serverErrors.forEach(error => {
+            errorUL.innerHTML += error;
+        });
+
     }
 }
 loginForm.addEventListener("submit", (event) => {

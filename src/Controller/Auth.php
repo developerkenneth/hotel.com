@@ -32,17 +32,23 @@ class Auth extends Controller
 
 
         if (!isset($data['csrf_token'])) {
+            $errors[] = "unauthorized request";
+
             Response::json([
                 'message' => 'unauthorized request',
-                'success' => false
+                'success' => false,
+                'errors' => $errors
             ], 401);
             exit;
         }
 
         if (!Sessions::CheckCsrf($data['csrf_token'])) {
+
+            $errors[] = "unauthorized request";
             Response::json([
                 'message' => 'unauthorized request',
-                'success' => false
+                'success' => false,
+                'errors' => $errors
             ], 401);
             exit;
         }
@@ -93,6 +99,9 @@ class Auth extends Controller
             ], 200);
             exit;
         } else {
+
+            $errors[] = 'invalid credentials';
+
             Response::json([
                 'message' => 'invalid credentials',
                 'errors' => $errors

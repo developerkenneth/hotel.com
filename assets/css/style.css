@@ -224,3 +224,7 @@ button:active {
 .disabled {
   opacity: 0.5;
 }
+
+.errors {
+  color: red;
+}

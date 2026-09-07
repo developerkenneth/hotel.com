@@ -29,4 +29,17 @@ class Authentication
 
         return false;
     }
+
+    public static function user()
+    {
+        return $_SESSION['user'];
+    }
+
+    public static function isLoggedIn()
+    {
+        if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+            return true;
+        }
+        return false;
+    }
 }

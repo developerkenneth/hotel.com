@@ -7,6 +7,7 @@ use App\Helpers\Response;
 use App\Helpers\Utilities;
 use App\Helpers\Validation;
 use App\Helpers\View;
+use App\Middleware\Authentication;
 use App\Models\Model;
 
 class User extends Controller
@@ -129,5 +130,15 @@ class User extends Controller
             ], 500);
             exit;
         }
+    }
+
+    public function dashboard()
+    {
+        View::handleView('user-views/dashboard.php');
+    }
+
+    public function showSettings()
+    {
+        View::handleView('user-views/settings.php');
     }
 }

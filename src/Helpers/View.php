@@ -21,7 +21,20 @@ class View extends Helper
             $_SESSION['csrf_token'] = Utilities::CSRF_token();
             $csrf_token = $_SESSION['csrf_token'];
         }
+
         $filePath = (new self)->root_dir . "/src/View/{$fileName}";
+        if (file_exists($filePath)) {
+            require_once (new self)->root_dir . "/Core/utilities.php";
+            include_once("$filePath");
+        }
+        return;
+    }
+
+
+    public static function handleComponents($fileName)
+    {
+
+        $filePath = (new self)->root_dir . "/src/View/components/$fileName";
         if (file_exists($filePath)) {
             require_once (new self)->root_dir . "/Core/utilities.php";
             include_once("$filePath");
