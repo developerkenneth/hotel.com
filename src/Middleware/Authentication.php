@@ -3,6 +3,7 @@
 namespace App\Middleware;
 
 use App\Helpers\Utilities;
+use App\Helpers\View;
 use App\Models\Model;
 
 class Authentication

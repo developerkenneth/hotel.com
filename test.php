@@ -31,9 +31,10 @@
 // echo htmlspecialchars("&&copy");
 
 session_start();
+session_destroy();
 
-$_SESSION['user'] = ['name' => 'kenneth', 'id' => 2];
+// $_SESSION['user'] = ['name' => 'kenneth', 'id' => 2];
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
-echo bin2hex(random_bytes(32));
+// echo bin2hex(random_bytes(32));

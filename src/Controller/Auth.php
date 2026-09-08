@@ -109,4 +109,16 @@ class Auth extends Controller
             exit;
         }
     }
+
+    public function unauthorizeRequest()
+    {
+        Sessions::start();
+
+        if (!Authentication::isLoggedIn()) {
+            View::handleView('unauthorize.php');
+            exit();
+        } else {
+            return;
+        }
+    }
 }

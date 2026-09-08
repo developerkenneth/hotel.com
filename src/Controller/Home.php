@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Helpers\View;
+
 class Home
 {
 
-    public function greeting()
+    public function showHomePage()
     {
-
-        echo "hello world";
+        View::handleView('guests/home.php');
+        exit;
     }
 }

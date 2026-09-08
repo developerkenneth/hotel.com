@@ -8,6 +8,11 @@ $router = new Router();
 
 $router->setNamespace("App\Controller");
 
+$router->get('/', 'Home@showHomePage');
+$router->mount('/rooms', function () use ($router) {
+    require_once './routes/rooms.php';
+});
+
 $router->mount("/auth", function () use ($router) {
     require_once("./routes/auth.php");
 });
