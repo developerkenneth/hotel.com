@@ -84,35 +84,35 @@
             <!-- Add a Room Type Form -->
             <section class="add-room-section">
                 <h2 class="section-title">Add a room type</h2>
-                <form class="room-form">
+                <form class="room-form" action="" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="room-name">Name</label>
-                        <input type="text" id="room-name" class="form-input">
+                        <input type="text" id="room-name" name="room_name" class="form-input">
                     </div>
 
                     <div class="form-group">
                         <label for="room-description">Description</label>
-                        <textarea id="room-description" class="form-input form-textarea" rows="4"></textarea>
+                        <textarea id="room-description" name="room_description" class="form-input form-textarea" rows="4"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="room-price">Price (₦)</label>
-                        <input type="number" id="room-price" class="form-input">
+                        <input type="number" id="room-price" name="room_price" class="form-input">
                     </div>
 
                     <div class="form-group">
                         <label for="room-capacity">Capacity</label>
-                        <input type="number" id="room-capacity" class="form-input" value="2">
+                        <input type="number" id="room-capacity" name="room_capacity" class="form-input" value="2">
                     </div>
 
                     <div class="form-group">
                         <label for="room-units">Units</label>
-                        <input type="number" id="room-units" class="form-input" value="1">
+                        <input type="number" id="room-units" name="room_units" class="form-input" value="1">
                     </div>
 
                     <div class="form-group">
-                        <label for="room-image">Image URL</label>
-                        <input type="text" id="room-image" class="form-input">
+                        <label for="room-image">Add Image</label>
+                        <input type="file" id="room-image" name="room_image" class="form-input" accept="image/*">
                     </div>
 
                     <button type="submit" class="btn-submit">Add room</button>

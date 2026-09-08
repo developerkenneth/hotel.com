@@ -21,7 +21,20 @@
             <h1 class="page-title">Messages</h1>
             
             <div class="messages-container">
-                
+                <div class="messages-layout">
+                    <!-- Left Sidebar Pane -->
+                    <div class="conversations-sidebar">
+                        <i class="fa-regular fa-comments empty-icon"></i>
+                        <p class="empty-text">No conversation yet</p>
+                    </div>
+
+                    <!-- Main Chat Pane -->
+                    <div class="chat-area">
+                        <i class="fa-regular fa-comments empty-icon"></i>
+                        <h3 class="empty-title">Your Messages</h3>
+                        <p class="empty-text">Select a conversation to start chatting</p>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
