@@ -7,7 +7,7 @@
 body {
     font-family: Arial, sans-serif;
     background: #f5f7f6;
-    color: #012e1d;
+    color: #000;
 }
 
 .booking-page {
@@ -34,6 +34,7 @@ body {
     font-weight: 700;
     letter-spacing: 3px;
     margin-bottom: 15px;
+    color: #f68b1e
 }
 
 .booking-info h1 {
@@ -62,8 +63,8 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: #012e1d;
-    color: white;
+    background: #000;
+    color: #f68b1e;
     font-size: 14px;
     flex-shrink: 0;
 }
@@ -107,7 +108,7 @@ body {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: #012e1d;
+    border-color: #000;
 }
 
 .form-group textarea {
@@ -151,7 +152,7 @@ body {
     margin-top: 20px;
     border: none;
     border-radius: 7px;
-    background: #012e1d;
+    background: #000;
     color: white;
     font-size: 15px;
     font-weight: 600;
@@ -167,7 +168,7 @@ body {
 }
 
 .book-btn:hover {
-    background: #02472e;
+    background: #f68b1e;
 }
 
 @media (max-width: 900px) {
