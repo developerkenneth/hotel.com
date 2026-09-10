@@ -11,9 +11,7 @@ class View extends Helper
     public static function handleView($fileName)
     {
 
-
         Sessions::start();
-
         $csrf_token = "";
         if (isset($_SESSION['csrf_token']) && !empty($_SESSION['csrf_token'])) {
             $csrf_token = $_SESSION['csrf_token'];

@@ -1,6 +1,6 @@
 {
-  "name": "kenneth/hotel-management",
-  "description": "hotel management project",
+  "name": "dera/hotel-management",
+  "description": "hotel management website",
   "type": "project",
   "autoload": {
     "psr-4": {
