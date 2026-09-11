@@ -24,6 +24,8 @@
 
     <main>
 
+
+        <?php var_dump($data); ?>
         <section class="page-header">
 
             <h2>Available Rooms</h2>
