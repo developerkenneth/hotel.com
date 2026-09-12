@@ -8,7 +8,7 @@ use App\Helpers\Sessions;
 class View extends Helper
 {
 
-    public static function handleView($fileName)
+    public static function handleView($fileName, $data = null)
     {
 
         Sessions::start();

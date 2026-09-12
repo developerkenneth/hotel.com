@@ -38,7 +38,7 @@ class Model extends Db
     }
 
 
-    public static  function create($datas)
+    public static  function create($datas, $table)
     {
 
         $cols = "";
@@ -51,12 +51,22 @@ class Model extends Db
 
         $cols =   substr($cols, 0, strlen($cols) - 1);
         $placeholders =   substr($placeholders, 0, strlen($placeholders) - 1);
-
-        $sql = "INSERT INTO `users` ($cols) VALUES ($placeholders)";
-
+        $sql = "INSERT INTO `$table` ($cols) VALUES ($placeholders)";
         // run prepare
         $stmt = self::connect()->prepare($sql);
-        return $stmt->execute($datas);
+        $stmt->execute($datas);
+        return;
+    }
+
+    public function getAll($table)
+    {
+        $sql = "SELECT * FROM $table";
+        $stmt = $this->connect()->query($sql);
+        $result = $stmt->fetchAll();
+        if ($result) {
+            return $result;
+        }
+        return [];
     }
 
 
