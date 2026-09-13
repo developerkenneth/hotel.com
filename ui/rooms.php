@@ -22,67 +22,6 @@
 
 <body>
 
-<div class="dashboard">
-
-    <!-- =========================
-         SIDEBAR
-    ========================== -->
-
-    <aside class="dashboard-sidebar">
-
-        <div class="hotel-logo">
-            <i class="fa-solid fa-hotel"></i>
-            <span>HOTEL.com</span>
-        </div>
-
-        <nav class="dashboard-navigation">
-
-            <a href="dashboard.php" class="dashboard-nav-link">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a href="bookings.php" class="dashboard-nav-link">
-                <i class="fa-solid fa-calendar-check"></i>
-                <span>My Bookings</span>
-            </a>
-
-            <a href="rooms.php" class="dashboard-nav-link active">
-                <i class="fa-solid fa-bed"></i>
-                <span>Browse Rooms</span>
-            </a>
-
-            <a href="booking-history.php" class="dashboard-nav-link">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span>Booking History</span>
-            </a>
-
-            <a href="profile.php" class="dashboard-nav-link">
-                <i class="fa-solid fa-user"></i>
-                <span>My Profile</span>
-            </a>
-
-            <a href="settings.php" class="dashboard-nav-link">
-                <i class="fa-solid fa-gear"></i>
-                <span>Settings</span>
-            </a>
-
-        </nav>
-
-        <div class="dashboard-sidebar-footer">
-
-            <a href="logout.php" class="dashboard-nav-link logout-link">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Logout</span>
-            </a>
-
-        </div>
-
-    </aside>
-
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-
     <!-- =========================
          MAIN CONTENT
     ========================== -->
@@ -743,9 +682,6 @@
         </section>
 
     </main>
-
-</div>
-
 
 <script src="js/dashboard.js"></script>
 
