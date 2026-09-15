@@ -31,7 +31,7 @@ class RoomsController
 
 
     // handles the creating or inserting of rooms
-    public function create()
+    public function store()
     {
         $rawData = file_get_contents('php://input');
         $data = json_decode($rawData, true);

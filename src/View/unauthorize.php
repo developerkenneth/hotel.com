@@ -13,7 +13,7 @@
     <p>You are not allowed to access this page.</p>
 
     <!-- change the url to the home page later on -->
-    <a href="/hotel.com/auth/login">go back to home</a>
+    <a href="/hotel.com/">go back to home</a>
 </body>
 
 </html>
