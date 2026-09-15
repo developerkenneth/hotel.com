@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
-    <link rel="stylesheet" href="bookings.css">
+    <link rel="stylesheet" href="<?php assets('css/book.css') ?>">
 
     <title>Hotel Management</title>
 </head>
@@ -231,7 +231,7 @@
 
     </section>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <script src="booking.js"></script>
+    <script src="<?php assets('js/book.js') ?>"></script>
 </body>
 
 </html>
