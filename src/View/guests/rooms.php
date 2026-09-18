@@ -5,63 +5,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Available Rooms</title>
-    <link rel="stylesheet" href="<?php assets('css/show-rooms.css') ?>">
+    <title>Browse Rooms | Hotel.com</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="<?php assets('css/dashboard.css'); ?>">
 </head>
 
 <body>
 
-    <!-- ================= HEADER ================= -->
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
 
-    <header>
-        <h1>🏨HOTEL.COM</h1>
+    <main class="dashboard-main">
 
-        <p>Available Rooms</p>
-    </header>
+        <!-- Header -->
+
+        <header class="dashboard-header">
+
+            <button
+                type="button"
+                class="mobile-menu-button"
+                id="mobile-menu-button"
+                aria-label="Open navigation menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="dashboard-welcome">
+
+                <p class="dashboard-greeting">
+                    Hotel Accommodation
+                </p>
+
+                <h1>
+                    Browse Rooms
+                </h1>
+
+                <p class="dashboard-subtitle">
+                    Find the perfect room for your next stay.
+                </p>
+
+            </div>
+
+        </header>
 
 
-    <!-- ================= MAIN CONTENT ================= -->
+        <!-- =========================
+             SEARCH / FILTER
+        ========================== -->
 
-    <main>
+        <section class="room-search-card">
+
+            <div class="room-search-heading">
+
+                <div>
+                    <p class="section-label">
+                        Find your stay
+                    </p>
+
+                    <h2>
+                        Search Rooms
+                    </h2>
+                </div>
+
+            </div>
 
 
-        <?php var_dump($data); ?>
-        <section class="page-header">
+            <div class="room-search-form">
 
-            <h2>Available Rooms</h2>
+                <div class="room-search-field">
 
-            <p>
-                Choose a comfortable room for your stay.
-            </p>
+                    <label for="room-type">
+                        Room Type
+                    </label>
+
+                    <select id="room-type">
+
+                        <option value="all">
+                            All Rooms
+                        </option>
+
+                        <option value="classic">
+                            Classic Room
+                        </option>
+
+                        <option value="deluxe">
+                            Deluxe Room
+                        </option>
+
+                        <option value="executive">
+                            Executive Suite
+                        </option>
+
+                        <option value="luxury">
+                            Luxury King Room
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="room-search-field">
+
+                    <label for="guests">
+                        Guests
+                    </label>
+
+                    <select id="guests">
+
+                        <option>
+                            1 Guest
+                        </option>
+
+                        <option>
+                            2 Guests
+                        </option>
+
+                        <option>
+                            3 Guests
+                        </option>
+
+                        <option>
+                            4 Guests
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="room-search-field">
+
+                    <label for="check-in">
+                        Check-in
+                    </label>
+
+                    <input
+                        type="date"
+                        id="check-in">
+
+                </div>
+
+
+                <div class="room-search-field">
+
+                    <label for="check-out">
+                        Check-out
+                    </label>
+
+                    <input
+                        type="date"
+                        id="check-out">
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="room-search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Search
+                </button>
+
+            </div>
 
         </section>
 
 
-        <!-- ================= ROOMS ================= -->
+        <!-- =========================
+             ROOM LIST
+        ========================== -->
 
-        <section class="rooms-container" id="rooms-container">
+        <section class="dashboard-section">
 
-            <!-- Rooms will be displayed here by JavaScript -->
+            <div class="loader">
+                <div>
+                    <div class="spinner">
+
+                    </div>
+                    <p>Loading...</p>
+                </div>
+
+            </div>
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        Available accommodation
+                    </p>
+
+                    <h2>
+                        Available Rooms
+                    </h2>
+
+                </div>
+
+                <span class="room-count">
+                    6 Rooms
+                </span>
+
+            </div>
+
+
+            <div class="rooms-grid">
+
+
+            </div>
 
         </section>
 
     </main>
 
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <p>
-            &copy; 2026 HOTEL.COM. All Rights Reserved.
-        </p>
-
-    </footer>
+    <script src="<?php assets('js/getRooms.js'); ?>"></script>
 
 
-    <!-- ================= JAVASCRIPT ================= -->
-
-    <script src='<?php assets('js/show-rooms.js') ?>'></script>
 
 </body>
 

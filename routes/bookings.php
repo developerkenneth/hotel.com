@@ -1,7 +1,6 @@
 <?php
 
-$router->get('/book', 'BookingController@create');
-
+$router->get('/book/(\d+)', 'BookingController@create');
 
 // api routes
 

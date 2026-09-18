@@ -4,15 +4,22 @@ namespace App\Controller;
 
 use App\Helpers\Response;
 use App\Helpers\View;
+use App\Models\Model;
 
 class BookingController extends Controller
 {
 
 
     // shows us the bookibng form
-    public function create()
+    public function create($id)
     {
-        View::handleView('guests/book.php');
+        $room = Model::find(['id' => $id], 'rooms');
+        if (!empty($room)) {
+            View::handleView('guests/book.php', ['room' => $room]);
+            return;
+        }
+        View::handleView('404.php');
+        return;
     }
 
     // handle store booking request

@@ -1,3 +1,5 @@
+<?php $room = $data['room']; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +13,6 @@
 </head>
 
 <body>
-
     <section class="booking-page">
 
         <div class="booking-container">
@@ -26,20 +27,23 @@
                     Select your preferred room and complete your booking.
                 </p>
 
-                <div class="info-box">
-                    <span>✓</span>
-                    <p>Comfortable and well-furnished rooms</p>
-                </div>
 
-                <div class="info-box">
-                    <span>✓</span>
-                    <p>24/7 hotel services</p>
-                </div>
+                <!-- amenities -->
 
-                <div class="info-box">
-                    <span>✓</span>
-                    <p>Easy and secure booking</p>
-                </div>
+                <?php
+
+                $amenities = json_decode($room['amenities']);
+                if (is_array($amenities)):
+                    foreach ($amenities as $amenity):
+
+                ?>
+                        <div class="info-box">
+                            <span>✓</span>
+                            <p><?= $amenity ?></p>
+                        </div>
+
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
             </div>
 
@@ -59,16 +63,8 @@
                                 Select room type
                             </option>
 
-                            <option value="standard" data-price="30000">
-                                Standard Room — ₦30,000/night
-                            </option>
-
-                            <option value="deluxe" data-price="50000">
-                                Deluxe Room — ₦50,000/night
-                            </option>
-
-                            <option value="suite" data-price="80000">
-                                Executive Suite — ₦80,000/night
+                            <option value="<?= $room['room_type'] ?>" data-price="<?= $room['price'] ?>">
+                                <?= $room['room_type'] ?> — ₦<?= $room['price'] ?>/night
                             </option>
 
                         </select>
@@ -77,70 +73,6 @@
 
                     </div>
 
-                    <div class="form-group">
-
-                        <label for="room">
-                            Available Room
-                        </label>
-
-                        <select id="room" name="room">
-
-                            <option value="">
-                                Select available room
-                            </option>
-
-                            <option value="101">
-                                Room 101
-                            </option>
-
-                            <option value="101">
-                                Room 104
-                            </option>
-
-                            <option value="101">
-                                Room 109
-                            </option>
-
-                            <option value="101">
-                                Room 201
-                            </option>
-
-                            <option value="101">
-                                Room 102
-                            </option>
-
-
-                            <option value="201">
-                                Room 205
-                            </option>
-
-                            <option value="202">
-                                Room 302
-                            </option>
-
-                            <option value="101">
-                                Room 304
-                            </option>
-
-
-                            <option value="101">
-                                Room 402
-                            </option>
-
-                            <option value="101">
-                                Room 501
-                            </option>
-
-                            <option value="101">
-                                Room 602
-                            </option>
-
-
-                        </select>
-                        <small id="roomError" class="error-message"></small>
-
-
-                    </div>
                     <div class="date-row">
 
                         <div class="form-group">
@@ -184,6 +116,7 @@
                             id="guests"
                             name="guests"
                             min="1"
+                            max="<?= $room['capacity'] ?>"
                             placeholder="Enter number of guests">
                         <small id="guestsError" class="error-message"></small>
 
