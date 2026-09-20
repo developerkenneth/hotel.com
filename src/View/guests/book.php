@@ -35,7 +35,6 @@
                     <span>✓</span>
                     <p>24/7 hotel services</p>
                 </div>
-
                 <div class="info-box">
                     <span>✓</span>
                     <p>Easy and secure booking</p>

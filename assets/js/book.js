@@ -110,9 +110,9 @@ document
 
         notyf.success("Booking submitted successfully!");
 
-        setTimeout(function () {
-            window.location.href = "payment.php";
-        }, 5000);
+        // setTimeout(function () {
+        //     window.location.href = "payment.php";
+        // }, 5000);
     });
 
 roomType.addEventListener("change", function () {

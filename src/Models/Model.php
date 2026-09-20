@@ -68,7 +68,7 @@ class Model extends Db
         }
         return [];
     }
-
+    
 
     // public function __destruct()
     // {

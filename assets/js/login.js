@@ -58,4 +58,4 @@ loginForm.addEventListener("submit", (event) => {
 
     }
 
-});
+})
