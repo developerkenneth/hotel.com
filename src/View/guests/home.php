@@ -49,7 +49,7 @@
                 experiences, and exclusive amenities designed
                 for the modern traveler.</p>
             <div class="hero-buttons">
-                <a href="booking.php" class="btn primary-btn">
+                <a href="<?= getUrl('/rooms') ?>" class="btn primary-btn">
                     Book Your Stay</a>
                 <a href="<?= getUrl('/rooms') ?>" class="btn secondary-btn">
                     Explore Rooms</a>

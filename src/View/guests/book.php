@@ -18,9 +18,9 @@
         <div class="booking-container">
             <div class="booking-info">
 
-                <p class="small-title">RESERVE YOUR ROOM</p>
+                <p class="small-title">RESERVE ROOM <?= $room['room_number'] ?> FOR YOUR SELF</p>
 
-                <h1>Book Your Stay</h1>
+                <h1>Book Room <?= $room['room_number'] ?></h1>
 
                 <p class="description">
                     Experience comfort and luxury during your stay.
@@ -152,6 +152,7 @@
 
                     </div>
 
+                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                     <button type="submit" class="book-btn">
                         Book Now
                     </button>
