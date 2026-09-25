@@ -1,4 +1,5 @@
 <?php
+require_once "./vendor/autoload.php";
 
 // try {
 //     $dsn = "mysql:host=localhost;dbname=hotel_management;";
@@ -30,11 +31,20 @@
 
 // echo htmlspecialchars("&&copy");
 
-session_start();
-session_destroy();
+// session_start();
+// session_destroy();
 
 // $_SESSION['user'] = ['name' => 'kenneth', 'id' => 2];
 
 // var_dump($_SESSION);
 
 // echo bin2hex(random_bytes(32));
+
+
+// testing guzzle
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get('http://localhost/hotel.com/rooms/api');
+
+echo $response->getHeaderLine('content-type');
+echo $response->getBody();

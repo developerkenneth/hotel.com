@@ -2,21 +2,23 @@
 
 namespace App\Helpers;
 
-class Utilities
+require_once(__DIR__ . "/../../load_env.php");
+class Utilities extends Helper
 {
+
 
     public static function hashPassword($passwordString)
     {
 
         // salt
-        $salt = "7b1d1185b835814de783483f686e9825";
+        $salt = $_ENV['SALT'];
         $salted = "$salt+$passwordString";
         return password_hash($salted, PASSWORD_BCRYPT);
     }
 
     public static function verifyHashpassword($passwordString, $hashPassword)
     {
-        $salt = "7b1d1185b835814de783483f686e9825";
+        $salt = $_ENV['SALT'];
         $salted = "$salt+$passwordString";
         return password_verify($salted, $hashPassword);
     }
