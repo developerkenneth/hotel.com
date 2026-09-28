@@ -21,6 +21,7 @@ class View extends Helper
         }
 
         $filePath = (new self)->root_dir . "/src/View/{$fileName}";
+        $root_dir = (new self)->root_dir;
         if (file_exists($filePath)) {
             require_once (new self)->root_dir . "/Core/utilities.php";
             include_once("$filePath");

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+require_once(__DIR__ . "/../../load_env.php");
+
 use App\Helpers\Response;
 use App\Helpers\Utilities;
 use App\Helpers\View;
@@ -103,8 +105,6 @@ class BookingController extends Controller
             $errors[] = "you must check in from today";
         }
 
-
-
         if (!empty($errors)) {
             Response::json([
                 'message' => 'an error ocured',
@@ -114,5 +114,23 @@ class BookingController extends Controller
 
             exit;
         }
+
+        $dataToPaystack = [
+            'email' => 'customer@example.com',
+            'amount' => 100 * $amount
+        ];
+
+
+        // // send initialization request to paystack
+        // $client = new \GuzzleHttp\Client();
+        // $response = $client->post("https://api.paystack.co/transaction/initialize", [
+        //     'json' => $dataToPaystack,
+        //     'headers' => [
+        //         'Authorization' => "Bearer {$_ENV['PAYSTACK_API_KEY']}",
+        //         'Content-Type' => "application/json"
+        //     ]
+        // ]);
+
+        Response::json($data, 200);
     }
 }

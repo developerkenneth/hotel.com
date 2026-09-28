@@ -4,12 +4,39 @@ const checkOut = document.getElementById("checkOut");
 const roomPrice = document.getElementById("roomPrice");
 const nightsDisplay = document.getElementById("nights");
 const totalAmount = document.getElementById("totalAmount");
+const roomId = document.querySelector("#room-id").value;
+const csrfToken = document.querySelector("#csrf-token").value;
+
 const notyf = new Notyf();
 
 function formatMoney(amount) {
     return "₦" + amount.toLocaleString("en-NG");
 }
 
+
+async function handleBoonking(data) {
+    const body = JSON.stringify(data);
+    try {
+        const url = "/hotel.com/bookings/api/book";
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: body
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error code gotten: ${response.status}`);
+        }
+
+
+        const data = await response.json();
+        console.log(data);
+    } catch (err) {
+        console.error(err);
+    }
+}
 function calculateBooking() {
     const selectedRoom =
         roomType.options[roomType.selectedIndex];
@@ -44,6 +71,8 @@ function calculateBooking() {
 
     nightsDisplay.textContent = nights;
     totalAmount.textContent = formatMoney(total);
+
+    return total;
 }
 
 roomType.addEventListener("change", calculateBooking);
@@ -57,7 +86,7 @@ document
         event.preventDefault();
 
         document.getElementById("roomTypeError").textContent = "";
-        document.getElementById("roomError").textContent = "";
+        // document.getElementById("roomError").textContent = "";
         document.getElementById("checkInError").textContent = "";
         document.getElementById("checkOutError").textContent = "";
         document.getElementById("guestsError").textContent = "";
@@ -70,11 +99,11 @@ document
             hasError = true;
         }
 
-        if (!document.getElementById("room").value) {
-            document.getElementById("roomError").textContent =
-                "Please select an available room";
-            hasError = true;
-        }
+        // if (!document.getElementById("room").value) {
+        //     document.getElementById("roomError").textContent =
+        //         "Please select an available room";
+        //     hasError = true;
+        // }
 
         if (!checkIn.value) {
             document.getElementById("checkInError").textContent =
@@ -108,11 +137,25 @@ document
             return;
         }
 
-        notyf.success("Booking submitted successfully!");
+        const guest = document.getElementById("guests").value;
+        const amount = calculateBooking();
+        const bookindDetails = {
+            checkin: checkIn.value,
+            checkout: checkOut.value,
+            guest: guest,
+            room_id: roomId,
+            csrf_token: csrfToken,
+            amount: amount
+        }
 
-        setTimeout(function () {
-            window.location.href = "payment.php";
-        }, 5000);
+
+
+
+        handleBoonking(bookindDetails);
+
+
+
+
     });
 
 roomType.addEventListener("change", function () {
@@ -121,11 +164,11 @@ roomType.addEventListener("change", function () {
     }
 });
 
-document.getElementById("room").addEventListener("change", function () {
-    if (this.value) {
-        document.getElementById("roomError").textContent = "";
-    }
-});
+// document.getElementById("room").addEventListener("change", function () {
+//     if (this.value) {
+//         document.getElementById("roomError").textContent = "";
+//     }
+// });
 
 checkIn.addEventListener("change", function () {
     if (checkIn.value) {
