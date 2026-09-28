@@ -6,6 +6,7 @@ require_once(__DIR__ . "/../../load_env.php");
 
 use App\Helpers\Response;
 use App\Helpers\Utilities;
+use App\Helpers\Validation;
 use App\Helpers\View;
 use App\Models\Model;
 
@@ -33,7 +34,7 @@ class BookingController extends Controller
         $rawData = file_get_contents('php://input');
         $data = json_decode($rawData, true);
 
-        $requireds = ['checkin', 'checkout', 'amount', 'guest', 'room_id'];
+        $requireds = ['checkin', 'checkout', 'amount', 'guest', 'room_id', 'email', 'name'];
 
         // check if the required fields are inside the data sent
 
@@ -76,6 +77,7 @@ class BookingController extends Controller
         $checkout = $data['checkout'];
         $amount = $data['amount'];
         $guest = $data['guest'];
+        $additionalNote = isset($data['additional_note']) && !empty($data['additional_note']) ? $data['additional_note'] : 'no additional note';
 
         // check if the room does exist in our database 
         $room = Model::find(['id' => $roomId], "rooms");
@@ -101,6 +103,14 @@ class BookingController extends Controller
             $errors[] = "checkin date cannot be greater than checkout";
         }
 
+        // validate email
+        if (!Validation::isEmail($data['email'])) {
+            $errors[] = 'invalid email address';
+        }
+        if (strlen($data['name']) < 3) {
+            $errors['name cannot  be less than 3 letters'];
+        }
+
         if (Utilities::isLessThanToday($checkinTimestamp)) {
             $errors[] = "you must check in from today";
         }
@@ -115,10 +125,10 @@ class BookingController extends Controller
             exit;
         }
 
-        $dataToPaystack = [
-            'email' => 'customer@example.com',
-            'amount' => 100 * $amount
-        ];
+        // $dataToPaystack = [
+        //     'email' => 'customer@example.com',
+        //     'amount' => 100 * $amount
+        // ];
 
 
         // // send initialization request to paystack
@@ -131,6 +141,43 @@ class BookingController extends Controller
         //     ]
         // ]);
 
-        Response::json($data, 200);
+
+        // create new booking 
+
+        $bookingDetails = [
+            'checkin' => $checkin,
+            'checkout' => $checkout,
+            'amount' => $amount,
+            'payment' => $amount,
+            'guest' => $guest,
+            'room_id' => $roomId,
+            'additional_note' => $additionalNote,
+            'transaction_id' => $data['paystack']['reference'],
+            'customers_email' => $data['email'],
+            'customers_name' => $data['name'],
+            'status' => 'confirmed'
+
+        ];
+
+        Model::create($bookingDetails, 'bookings');
+        Response::json([
+            'success' => true,
+            'message' => 'booking completed'
+        ], 201);
+    }
+
+    public function showReceipt($transaction)
+    {
+        $booking = Model::find(['transaction_id' => $transaction], 'bookings');
+
+
+        if (empty($booking)) {
+            View::handleView('404.php');
+            return;
+        }
+
+        $room = Model::find(['id' => $booking['room_id']], 'rooms');
+        View::handleView('guests/receipt.php', $data = ['booking' => $booking, 'room' => $room]);
+        return;
     }
 }
