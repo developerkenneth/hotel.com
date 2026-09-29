@@ -122,6 +122,38 @@
                         <small id="guestsError" class="error-message"></small>
 
                     </div>
+
+                    <div class="form-group">
+
+                        <label for="guests">
+                            Your email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="hotel@example.com">
+                        <small id="emailError" class="error-message"></small>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="guests">
+                            Your Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            required
+                            id="name"
+                            name="name"
+                            placeholder="John Doe">
+                        <small id="nameError" class="error-message"></small>
+
+                    </div>
+
                     <div class="form-group">
 
                         <label for="note">
@@ -172,14 +204,33 @@
     <script>
         const roomType = document.getElementById("roomType");
         const checkIn = document.getElementById("checkIn");
+        const email = document.getElementById("email");
+        const name = document.getElementById("name");
         const checkOut = document.getElementById("checkOut");
         const roomPrice = document.getElementById("roomPrice");
         const nightsDisplay = document.getElementById("nights");
         const totalAmount = document.getElementById("totalAmount");
         const roomId = document.querySelector("#room-id").value;
         const csrfToken = document.querySelector("#csrf-token").value;
+        const note = document.querySelector("#note").value;
 
         const notyf = new Notyf();
+
+        async function handleBooking(bookingDetails, url, transaction) {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(bookingDetails)
+            });
+            const data = await response.json();
+            notyf.success("booking completed. you will be redirected to get your reservation ticket page in 3 seconds");
+            setTimeout(() => {
+                window.location = `/hotel.com/bookings/receipt/${transaction}`;
+            }, 3000)
+
+        }
 
         function formatMoney(amount) {
             return "₦" + amount.toLocaleString("en-NG");
@@ -294,7 +345,10 @@
                     guest: guest,
                     room_id: roomId,
                     csrf_token: csrfToken,
-                    amount: amount
+                    amount: amount,
+                    additional_note: note,
+                    name: name.value,
+                    email: email.value
                 }
 
                 const popup = new PaystackPop();
@@ -306,16 +360,8 @@
                     currency: "NGN",
                     onSuccess: async (transaction) => {
                         bookingDetails.paystack = transaction;
-                        const response = await fetch("http://localhost/hotel.com/bookings/api/book", {
-                            headers: {
-                                'content-type': 'application/json'
-                            },
-                            method: "POST",
-                            body: JSON.stringify(bookingDetails)
-                        })
-
-                        const data = await response.json();
-
+                        const url = "http://localhost/hotel.com/bookings/api/book";
+                        handleBooking(bookingDetails, url, transaction.reference);
                     },
                     onCancel: (transaction) => {
                         console.log("transaction cancelled")
