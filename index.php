@@ -3,7 +3,6 @@
 use App\Helpers\View;
 use Bramus\Router\Router;
 
-
 require __DIR__ . '/vendor/autoload.php';
 $router = new Router();
 
