@@ -58,9 +58,39 @@ class Model extends Db
         return;
     }
 
-    public function getAll($table)
+    public function getAll($table, $parameters = null, $limit = null)
     {
+
+        $sql = "";
+
+        if ($parameters != null) {
+            $whereClause = "";
+
+            foreach ($parameters as $col => $val) {
+                $whereClause .= "`$col` = '$val'";
+            }
+            $sql = "SELECT * FROM $table WHERE $whereClause";
+
+            if ($limit) {
+                $sql = "$sql LIMIT  $limit";
+            }
+
+            $stmt = $this->connect()->query($sql);
+            $result = $stmt->fetchAll();
+            if ($result) {
+                return $result;
+            }
+            return [];
+        }
+
+
+
         $sql = "SELECT * FROM $table";
+
+        if ($limit) {
+            $sql = "$sql LIMIT $limit";
+        }
+
         $stmt = $this->connect()->query($sql);
         $result = $stmt->fetchAll();
         if ($result) {
