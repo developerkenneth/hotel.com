@@ -9,12 +9,21 @@ if (Authentication::isLoggedIn() === false) {
     header("location:" . ROOT_URL . "/auth/login");
     exit;
 }
+
 $user = Authentication::user();
+
+$pendingBookings = count($data['pending_bookings']);
+$activeBookings = count($data['active_bookings']);
+$completedStays = count($data['completed_stay']);
+$latestBookings = $data['latest'];
+
+
 ?>
 
 <?php
 $pageTitle = "Dashboard";
 View::handleComponents('users/head.php');
+
 ?>
 
 <div class="dashboard">
@@ -89,7 +98,7 @@ View::handleComponents('users/head.php');
 
                 <div class="summary-content">
                     <span class="summary-label">Active Bookings</span>
-                    <strong class="summary-value">2</strong>
+                    <strong class="summary-value"><?= $activeBookings ?></strong>
                 </div>
             </article>
 
@@ -101,7 +110,7 @@ View::handleComponents('users/head.php');
 
                 <div class="summary-content">
                     <span class="summary-label">Completed Stays</span>
-                    <strong class="summary-value">5</strong>
+                    <strong class="summary-value"><?= $completedStays ?></strong>
                 </div>
             </article>
 
@@ -113,7 +122,7 @@ View::handleComponents('users/head.php');
 
                 <div class="summary-content">
                     <span class="summary-label">Pending Bookings</span>
-                    <strong class="summary-value">1</strong>
+                    <strong class="summary-value"><?= $pendingBookings; ?></strong>
                 </div>
             </article>
 
@@ -196,7 +205,7 @@ View::handleComponents('users/head.php');
                     <h2>Recent Bookings</h2>
                 </div>
 
-                <a href="#" class="section-action">
+                <a href="<?= ROOT_URL ?>/booking-history" class="section-action">
                     View history
                 </a>
             </div>
@@ -204,71 +213,39 @@ View::handleComponents('users/head.php');
 
             <div class="recent-bookings">
 
-                <article class="booking-history-item">
+                <?php
+                if (!empty($latestBookings)):
+                    foreach ($latestBookings as $lastestBooking):
+                ?>
+                        <article class="booking-history-item">
 
-                    <div class="booking-history-icon">
-                        <i class="fa-solid fa-bed"></i>
-                    </div>
+                            <div class="booking-history-icon">
+                                <i class="fa-solid fa-bed"></i>
+                            </div>
 
-                    <div class="booking-history-details">
-                        <h3>Executive Suite</h3>
-                        <p>15 Jul 2026 — 18 Jul 2026</p>
-                    </div>
+                            <div class="booking-history-details">
+                                <h3><?= $lastestBooking['customers_name'] ?></h3>
+                                <p><?= $lastestBooking['checkin'] ?> — <?= $lastestBooking['checkout'] ?></p>
+                            </div>
 
-                    <span class="status-badge completed-status">
-                        Completed
-                    </span>
-
-                    <strong class="booking-price">
-                        ₦450,000
-                    </strong>
-
-                </article>
-
-
-                <article class="booking-history-item">
-
-                    <div class="booking-history-icon">
-                        <i class="fa-solid fa-bed"></i>
-                    </div>
-
-                    <div class="booking-history-details">
-                        <h3>Classic Room</h3>
-                        <p>02 Jun 2026 — 04 Jun 2026</p>
-                    </div>
-
-                    <span class="status-badge completed-status">
-                        Completed
-                    </span>
-
-                    <strong class="booking-price">
-                        ₦180,000
-                    </strong>
-
-                </article>
-
-
-                <article class="booking-history-item">
-
-                    <div class="booking-history-icon">
-                        <i class="fa-solid fa-bed"></i>
-                    </div>
-
-                    <div class="booking-history-details">
-                        <h3>Deluxe King Room</h3>
-                        <p>25 May 2026 — 28 May 2026</p>
-                    </div>
-
-                    <span class="status-badge pending-status">
+                            <?= $lastestBooking['status'] === "check_out" ? '<span class="status-badge completed-status">Completed</span>' : '<span class="status-badge pending-status">
                         Pending
-                    </span>
+                    </span>';  ?>
 
-                    <strong class="booking-price">
-                        ₦300,000
-                    </strong>
+                            <strong class="booking-price">
+                                ₦<?= number_format($lastestBooking['payment']) ?>
+                            </strong>
 
-                </article>
+                        </article>
 
+                    <?php endforeach; ?>
+
+                    <!-- end else if -->
+
+                <?php else : ?>
+
+                    <p>NO recent bookings</p>
+                <?php endif; ?>
             </div>
 
         </section>
@@ -284,7 +261,7 @@ View::handleComponents('users/head.php');
             <div class="profile-card-header">
                 <div>
                     <p class="profile-card-label">My Account</p>
-                    <h2>Profile</h2>
+                    <h2>Staff Profile</h2>
                 </div>
 
                 <button
@@ -299,62 +276,20 @@ View::handleComponents('users/head.php');
             <div class="profile-card-content">
 
                 <img
-                    src="images/profiles/default-profile.jpg"
+                    src="<?php assets('svg/profile-pic.svg'); ?>"
                     alt="William Dawson"
                     class="profile-card-image">
 
-                <h3>William Dawson</h3>
+                <h3><?= $user['first_name'] . " " . $user['last_name'] ?></h3>
 
                 <p class="profile-email">
-                    william@example.com
+                    <?= $user['email'] ?>
                 </p>
 
             </div>
 
         </section>
 
-
-        <!-- Hotel Room Preview -->
-        <section class="room-preview-card">
-
-            <div class="room-preview-image">
-                <img
-                    src="images/rooms/luxury2.jpg"
-                    alt="Luxury hotel room">
-
-                <span class="room-feature-badge">
-                    <i class="fa-solid fa-star"></i>
-                    4.8
-                </span>
-            </div>
-
-            <div class="room-preview-content">
-
-                <p class="room-preview-label">Featured Room</p>
-
-                <h2>Luxury King Room</h2>
-
-                <p class="room-preview-location">
-                    <i class="fa-solid fa-location-dot"></i>
-                    Hotel.com
-                </p>
-
-                <div class="room-preview-footer">
-
-                    <div class="room-price">
-                        <strong>₦150,000</strong>
-                        <span>/ night</span>
-                    </div>
-
-                    <a href="#" class="room-book-button">
-                        Book Now
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
 
 
         <!-- Notifications -->

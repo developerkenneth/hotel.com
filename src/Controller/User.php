@@ -109,7 +109,7 @@ class User extends Controller
         try {
 
 
-            $result =  Model::create($datas, "users");
+            $result =  Model::create($datas, 'users');
             if ($result) {
                 Response::json([
                     'message' => 'created successful',
@@ -137,7 +137,28 @@ class User extends Controller
 
     public function dashboard()
     {
-        View::handleView('user-views/dashboard.php');
+        $model = new Model();
+        $pendingBookings = $model->getAll('bookings', ['status' => 'confirmed']);
+        $activeBookings = $model->getAll('bookings', ['status' => 'check_in']);
+        $completed = $model->getAll('bookings', ['status' => 'check_out']);
+        $latestBookings = $model->getAll('bookings', null, 3);
+
+        View::handleView('user-views/dashboard.php', [
+            'pending_bookings' => $pendingBookings,
+            'active_bookings' => $activeBookings,
+            'completed_stay' => $completed,
+            'latest' => $latestBookings
+        ]);
+    }
+
+    // show bookings
+    public function bookingHistory()
+    {
+        $model = new Model();
+        // first 10
+        $bookings = $model->getAll('bookings', null, 10);
+
+        View::handleView('user-views/bookings.php', ['bookings' => $bookings]);
     }
 
     public function showSettings()
