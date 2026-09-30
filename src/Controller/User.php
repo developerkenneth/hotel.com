@@ -108,9 +108,8 @@ class User extends Controller
 
         try {
 
-        
 
-            $result =  Model::create($datas, 'users');
+            $result =  Model::create($datas, "users");
             if ($result) {
                 Response::json([
                     'message' => 'created successful',
