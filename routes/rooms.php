@@ -6,3 +6,4 @@ $router->get('/api', 'RoomsController@apiIndex');
 
 // to create a new room
 $router->post('/api', 'RoomsController@create');
+ 
