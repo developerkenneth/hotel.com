@@ -114,7 +114,7 @@ class BookingController extends Controller
         if (Utilities::isLessThanToday($checkinTimestamp)) {
             $errors[] = "you must check in from today";
         }
-
+        
         if (!empty($errors)) {
             Response::json([
                 'message' => 'an error ocured',
