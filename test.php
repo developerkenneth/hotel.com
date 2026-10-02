@@ -48,3 +48,4 @@ $response = $client->get('http://localhost/hotel.com/rooms/api');
 
 echo $response->getHeaderLine('content-type');
 echo $response->getBody();
+
