@@ -133,6 +133,16 @@ class User extends Controller
         }
     }
 
+
+    // create a show settings controller shows the view of the update form -Chisom & Chibuike
+    public function showUpdateProfileForm() {}
+
+    // update api function  -Chisom & Chibuike
+    public function updateUser() {
+        
+    }
+
+
     public function dashboard()
     {
         $model = new Model();
