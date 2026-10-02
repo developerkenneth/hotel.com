@@ -1,4 +1,6 @@
 <?php
+require_once "./load_env.php";
+
 
 return
     [
@@ -21,9 +23,9 @@ return
             'development' => [
                 'adapter' => 'mysql',
                 'host' => 'localhost',
-                'name' => 'hotel_management',
-                'user' => 'root',
-                'pass' => '',
+                'name' => $_ENV['DB_NAME'],
+                'user' => $_ENV['DB_USER'],
+                'pass' => $_ENV['DB_PASSWORD'],
                 'port' => '3306',
                 'charset' => 'utf8',
             ],

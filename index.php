@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\View;
 use Bramus\Router\Router;
 
 
@@ -22,8 +23,12 @@ $router->mount('/user', function () use ($router) {
     require_once('./routes/user.php');
 });
 
+$router->mount('/bookings', function () use ($router) {
+    require_once('./routes/bookings.php');
+});
+
 $router->set404(function () {
-    echo "404";
+    View::handleView('404.php');
 });
 
 $router->run();

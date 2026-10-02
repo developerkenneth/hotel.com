@@ -6,7 +6,7 @@ use App\Helpers\Response;
 use App\Helpers\View;
 use App\Models\Model;
 
-class RoomsController
+class RoomsController extends Controller
 {
 
     //shows all the rooms available as a view
@@ -31,7 +31,7 @@ class RoomsController
 
 
     // handles the creating or inserting of rooms
-    public function create()
+    public function store()
     {
         $rawData = file_get_contents('php://input');
         $data = json_decode($rawData, true);

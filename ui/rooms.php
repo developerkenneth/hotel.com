@@ -9,13 +9,11 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32;1,100..900&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
-    >
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
@@ -36,8 +34,7 @@
                 type="button"
                 class="mobile-menu-button"
                 id="mobile-menu-button"
-                aria-label="Open navigation menu"
-            >
+                aria-label="Open navigation menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
 
@@ -153,8 +150,7 @@
 
                     <input
                         type="date"
-                        id="check-in"
-                    >
+                        id="check-in">
 
                 </div>
 
@@ -167,16 +163,14 @@
 
                     <input
                         type="date"
-                        id="check-out"
-                    >
+                        id="check-out">
 
                 </div>
 
 
                 <button
                     type="button"
-                    class="room-search-button"
-                >
+                    class="room-search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     Search
                 </button>
@@ -215,17 +209,14 @@
 
             <div class="rooms-grid">
 
-
                 <!-- ROOM 1 -->
-
                 <article class="room-card">
 
                     <div class="room-card-image">
 
                         <img
                             src="images/rooms/classic-room.jpg"
-                            alt="Classic Room"
-                        >
+                            alt="Classic Room">
 
                         <span class="room-rating">
                             <i class="fa-solid fa-star"></i>
@@ -281,393 +272,7 @@
 
                             <a
                                 href="bookings.php"
-                                class="room-book-button"
-                            >
-                                Book Now
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ROOM 2 -->
-
-                <article class="room-card">
-
-                    <div class="room-card-image">
-
-                        <img
-                            src="images/rooms/deluxe-king.jpg"
-                            alt="Deluxe King Room"
-                        >
-
-                        <span class="room-rating">
-                            <i class="fa-solid fa-star"></i>
-                            4.8
-                        </span>
-
-                    </div>
-
-
-                    <div class="room-card-content">
-
-                        <span class="room-type">
-                            Deluxe Room
-                        </span>
-
-                        <h3>
-                            Deluxe King Room
-                        </h3>
-
-                        <p class="room-description">
-                            Spacious accommodation with premium furnishings and modern amenities.
-                        </p>
-
-
-                        <div class="room-features">
-
-                            <span>
-                                <i class="fa-solid fa-user"></i>
-                                2 Guests
-                            </span>
-
-                            <span>
-                                <i class="fa-solid fa-bed"></i>
-                                King Bed
-                            </span>
-
-                        </div>
-
-
-                        <div class="room-card-footer">
-
-                            <div class="room-price">
-
-                                <strong>
-                                    ₦150,000
-                                </strong>
-
-                                <span>
-                                    / night
-                                </span>
-
-                            </div>
-
-                            <a
-                                href="bookings.php"
-                                class="room-book-button"
-                            >
-                                Book Now
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ROOM 3 -->
-
-                <article class="room-card">
-
-                    <div class="room-card-image">
-
-                        <img
-                            src="images/rooms/executive.jpg"
-                            alt="Executive Suite"
-                        >
-
-                        <span class="room-rating">
-                            <i class="fa-solid fa-star"></i>
-                            4.9
-                        </span>
-
-                    </div>
-
-
-                    <div class="room-card-content">
-
-                        <span class="room-type">
-                            Executive Suite
-                        </span>
-
-                        <h3>
-                            Executive Suite
-                        </h3>
-
-                        <p class="room-description">
-                            Elegant suite featuring a spacious living area and premium amenities.
-                        </p>
-
-
-                        <div class="room-features">
-
-                            <span>
-                                <i class="fa-solid fa-user"></i>
-                                3 Guests
-                            </span>
-
-                            <span>
-                                <i class="fa-solid fa-bed"></i>
-                                King Bed
-                            </span>
-
-                        </div>
-
-
-                        <div class="room-card-footer">
-
-                            <div class="room-price">
-
-                                <strong>
-                                    ₦180,000
-                                </strong>
-
-                                <span>
-                                    / night
-                                </span>
-
-                            </div>
-
-                            <a
-                                href="bookings.php"
-                                class="room-book-button"
-                            >
-                                Book Now
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ROOM 4 -->
-
-                <article class="room-card">
-
-                    <div class="room-card-image">
-
-                        <img
-                            src="images/rooms/luxury2.jpg"
-                            alt="Luxury King Room"
-                        >
-
-                        <span class="room-rating">
-                            <i class="fa-solid fa-star"></i>
-                            4.8
-                        </span>
-
-                    </div>
-
-
-                    <div class="room-card-content">
-
-                        <span class="room-type">
-                            Luxury Room
-                        </span>
-
-                        <h3>
-                            Luxury King Room
-                        </h3>
-
-                        <p class="room-description">
-                            Experience premium comfort with stylish interiors and exceptional service.
-                        </p>
-
-
-                        <div class="room-features">
-
-                            <span>
-                                <i class="fa-solid fa-user"></i>
-                                2 Guests
-                            </span>
-
-                            <span>
-                                <i class="fa-solid fa-bed"></i>
-                                King Bed
-                            </span>
-
-                        </div>
-
-
-                        <div class="room-card-footer">
-
-                            <div class="room-price">
-
-                                <strong>
-                                    ₦150,000
-                                </strong>
-
-                                <span>
-                                    / night
-                                </span>
-
-                            </div>
-
-                            <a
-                                href="bookings.php"
-                                class="room-book-button"
-                            >
-                                Book Now
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ROOM 5 -->
-
-                <article class="room-card">
-
-                    <div class="room-card-image">
-
-                        <img
-                            src="images/rooms/premium.jpg"
-                            alt="Premium Suite"
-                        >
-
-                        <span class="room-rating">
-                            <i class="fa-solid fa-star"></i>
-                            4.9
-                        </span>
-
-                    </div>
-
-
-                    <div class="room-card-content">
-
-                        <span class="room-type">
-                            Premium Suite
-                        </span>
-
-                        <h3>
-                            Premium Business Suite
-                        </h3>
-
-                        <p class="room-description">
-                            A refined suite with extra space, elegant furnishings and work facilities.
-                        </p>
-
-
-                        <div class="room-features">
-
-                            <span>
-                                <i class="fa-solid fa-user"></i>
-                                3 Guests
-                            </span>
-
-                            <span>
-                                <i class="fa-solid fa-bed"></i>
-                                King Bed
-                            </span>
-
-                        </div>
-
-
-                        <div class="room-card-footer">
-
-                            <div class="room-price">
-
-                                <strong>
-                                    ₦200,000
-                                </strong>
-
-                                <span>
-                                    / night
-                                </span>
-
-                            </div>
-
-                            <a
-                                href="bookings.php"
-                                class="room-book-button"
-                            >
-                                Book Now
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ROOM 6 -->
-
-                <article class="room-card">
-
-                    <div class="room-card-image">
-
-                        <img
-                            src="images/rooms/family-room.jpg"
-                            alt="Family Room"
-                        >
-
-                        <span class="room-rating">
-                            <i class="fa-solid fa-star"></i>
-                            4.6
-                        </span>
-
-                    </div>
-
-
-                    <div class="room-card-content">
-
-                        <span class="room-type">
-                            Family Room
-                        </span>
-
-                        <h3>
-                            Family Comfort Room
-                        </h3>
-
-                        <p class="room-description">
-                            A spacious room ideal for families looking for comfort and convenience.
-                        </p>
-
-
-                        <div class="room-features">
-
-                            <span>
-                                <i class="fa-solid fa-user"></i>
-                                4 Guests
-                            </span>
-
-                            <span>
-                                <i class="fa-solid fa-bed"></i>
-                                2 Beds
-                            </span>
-
-                        </div>
-
-
-                        <div class="room-card-footer">
-
-                            <div class="room-price">
-
-                                <strong>
-                                    ₦220,000
-                                </strong>
-
-                                <span>
-                                    / night
-                                </span>
-
-                            </div>
-
-                            <a
-                                href="bookings.php"
-                                class="room-book-button"
-                            >
+                                class="room-book-button">
                                 Book Now
                             </a>
 
@@ -683,7 +288,7 @@
 
     </main>
 
-<script src="js/dashboard.js"></script>
+    <script src="js/dashboard.js"></script>
 
 </body>
 

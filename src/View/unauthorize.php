@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 - Page Not Found</title>
+    <title>401 - Unauthorized Request</title>
     <style>
         *,
         *::before,
@@ -113,11 +113,10 @@
 
 <body>
     <main class="not-found">
-        <div class="not-found__code">404</div>
-        <h1 class="not-found__title">Page not found</h1>
+        <div class="not-found__code">401</div>
+        <h1 class="not-found__title">Unauthorized Request</h1>
         <p class="not-found__description">
-            Sorry, the page you are looking for doesn't exist or has been moved.
-            Check the URL or navigate back home.
+            Sorry, you are restricted from viewing this page.
         </p>
         <div class="not-found__actions">
             <a href="<?= getUrl('/') ?>" class="not-found__button not-found__button--primary">Back to Home</a>
