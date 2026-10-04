@@ -58,6 +58,8 @@ class Model extends Db
         return;
     }
 
+
+
     public function getAll($table, $parameters = null, $limit = null)
     {
 

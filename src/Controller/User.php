@@ -134,12 +134,47 @@ class User extends Controller
     }
 
 
-    // create a show settings controller shows the view of the update form -Chisom & Chibuike
-    public function showUpdateProfileForm() {}
+    // create a show settings controller shows the view of the update form - Chisom & Chibuike
+    public function showUpdateProfileForm() 
+    {
+        View::handleView('user-views/settings.php');
+    }
 
-    // update api function  -Chisom & Chibuike
-    public function updateUser() {
-        
+    // update api function - Chisom & Chibuike
+    public function updateUser() 
+    {
+        $rawData = file_get_contents("php://input");
+        $datas = json_decode($rawData, true);
+        $errors = [];
+
+        $required_fields = ['first_name', 'last_name', 'email'];
+
+        foreach ($required_fields as $field) {
+            if (!isset($datas[$field]) || empty(trim($datas[$field]))) {
+                $errors[] = "$field is required and cannot be empty";
+            }
+        }
+
+        if (isset($datas['email']) && !empty(trim($datas['email']))) {
+            if (!Validation::isEmail($datas['email'])) {
+                $errors[] = "Invalid email format";
+            }
+        }
+
+        if (!empty($errors)) {
+            Response::json([
+                'message' => 'Failed validation',
+                'errors' => $errors,
+                'success' => false
+            ], 400);
+            exit;
+        }
+
+        Response::json([
+            'message' => 'Validation passed successfully',
+            'data' => $datas,
+            'success' => true
+        ], 200);
     }
 
 
