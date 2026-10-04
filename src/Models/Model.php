@@ -100,6 +100,25 @@ class Model extends Db
     }
 
 
+    public function getallPagination($limit, $offset, $table)
+    {
+        $sql = "SELECT COUNT(*) FROM $table";
+        $stmt = $this->connect()->query($sql);
+        $totalCount  = $stmt->fetchColumn();
+
+
+        // fetched the data from the database 
+        $sql = "SELECT * FROM $table LIMIT $limit OFFSET $offset";
+        $stmt = $this->connect()->query($sql);
+        $result = $stmt->fetchAll();
+
+        return [
+            'total_count' => $totalCount,
+            'bookings' => $result
+        ];
+    }
+
+
     // public function __destruct()
     // {
 

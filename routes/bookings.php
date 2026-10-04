@@ -6,3 +6,4 @@ $router->get('/receipt/(\w+)', 'BookingController@showReceipt');
 
 // store a booking
 $router->post('/api/book', 'BookingController@store');
+$router->get('/api', 'BookingController@indexApi');
