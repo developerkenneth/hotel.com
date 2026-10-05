@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\Controller;
 use App\Helpers\Response;
+use App\Helpers\Sessions;
 use App\Helpers\Utilities;
 use App\Helpers\Validation;
 use App\Helpers\View;
@@ -135,13 +136,13 @@ class User extends Controller
 
 
     // create a show settings controller shows the view of the update form - Chisom & Chibuike
-    public function showUpdateProfileForm() 
+    public function showUpdateProfileForm()
     {
         View::handleView('user-views/settings.php');
     }
 
     // update api function - Chisom & Chibuike
-    public function updateUser() 
+    public function updateUser()
     {
         $rawData = file_get_contents("php://input");
         $datas = json_decode($rawData, true);
@@ -170,9 +171,26 @@ class User extends Controller
             exit;
         }
 
+
+        // checking if the newly updated email belongs to the user
+
+        $userWithEmail = Model::find([
+            'email' => $datas['email']
+        ], 'users');
+
+        Sessions::start();
+        $user = (new Authentication)->user();
+
+
+        if (!empty($userWithEmail)) {
+            if ($userWithEmail['id'] !== $user['id']) {
+                $errors[] = "email is already taken. please try another email";
+            }
+        }
+
         Response::json([
             'message' => 'Validation passed successfully',
-            'data' => $datas,
+            'data' => Model::update("users", $datas, $user['id']),
             'success' => true
         ], 200);
     }
@@ -207,5 +225,55 @@ class User extends Controller
     public function showSettings()
     {
         View::handleView('user-views/settings.php');
+    }
+
+
+    // updatePassword
+
+    public static function passwordUpdate()
+    {
+
+        $errors = [];
+        $rawData = file_get_contents("php://input");
+        $datas = json_decode($rawData, true);
+
+        // validate if password or confirm_password is empty before updating password --- chidera
+        // also validate that the current password matches the users current password
+        // password (new password) === confirm_password
+
+        // update the password
+
+        $newPassword = $datas['new_password'];
+        $confirmPassword = $datas['confirm_password'];
+
+        if ($newPassword !== $confirmPassword) {
+            $errors[] = "password failed confirmation. please ensure that the password matches the confirm password";
+        }
+
+        if (!empty($errors)) {
+            Response::json([
+                'message' => 'failed validation',
+                'errors' => $errors,
+                'success' => false
+            ], 400);
+            exit;
+        }
+
+        // hash the password
+        $passworHashed = Utilities::hashPassword($newPassword);
+        try {
+            if (Model::update("users", ['password' => $passworHashed], 1)) {
+                Response::json([
+                    'message' => 'password has been updated successfully',
+                    'success' => true
+                ], 201);
+            }
+        } catch (\PDOException $error) {
+            Response::json([
+                'message' => 'failed to update password',
+                'errors' => [$error->getMessage()],
+                'success' => true
+            ], 500);
+        }
     }
 }

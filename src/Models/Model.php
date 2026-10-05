@@ -120,6 +120,26 @@ class Model extends Db
         ];
     }
 
+    /**
+     * @param array $data, pass in the data that you want to update in an array
+     * @param string $table table that you want to update
+     * @return bool true or false if the update is successfull
+     */
+    public static function update($tableName, $data, $id)
+    {
+
+        $colString = "";
+        foreach ($data as $col => $value) {
+            $colString .= "`$col` = :$col,";
+        }
+
+        $colStringLength = strlen($colString);
+        $colString = substr($colString, 0, $colStringLength - 1);
+        $sql = "UPDATE $tableName SET $colString  WHERE  id = $id  ";
+        $stmt = self::connect()->prepare($sql);
+        return $stmt->execute($data);
+    }
+
 
     // public function __destruct()
     // {
