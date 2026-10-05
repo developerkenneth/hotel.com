@@ -99,13 +99,6 @@ async function handleFetch() {
                                  View Details
                             </button>
                                 
-                            <button
-                                  type="button"
-                                   class="history-edit-button"
-                                  data-booking-id="${booking.id}">
-                                   Edit
-                            </button>
-
                         </div>
 
                     </div>
@@ -114,26 +107,13 @@ async function handleFetch() {
         `
     })
 
-    // Edit button styling
-const editButtons = document.querySelectorAll(".history-edit-button");
-
-editButtons.forEach((button) => {
-
-    button.style.display = "inline-block";
-    button.style.padding = "8px 12px";
-    button.style.margin = "0 5px";
-    button.style.border = "none";
-    button.style.borderRadius = "5px";
-    button.style.color = "#fff";
-    button.style.backgroundColor = "#FF6B00";
-    button.style.cursor = "pointer";
-
-});
-
     const limit = parseInt(data.limit);
     const totalBookings = parseInt(data.data.total_count);
 
     const totalPages = Math.ceil(totalBookings / limit);
+
+    const previousPage = page > 1 ? page - 1 : 1;
+    const nextPage = page < totalPages ? Number(page) + 1 : totalPages;
 
     const pages = document.querySelector(".pages");
 
@@ -145,205 +125,21 @@ editButtons.forEach((button) => {
     //     `;
     // }
 
+const pageLinks = pages.querySelectorAll("a");
+const previousLink = pages.querySelector(".pagination-prev");
+const nextLink = pages.querySelector(".pagination-next");
 
-    const pageLinks = pages.querySelectorAll("a");
+previousLink.href = `?page=${previousPage}`;
+nextLink.href = `?page=${nextPage}`;
 
 pageLinks.forEach((link) => {
-    link.style.display = "inline-block";
-    link.style.padding = "8px 12px";
-    link.style.margin = "0 5px";
-    link.style.textDecoration = "none";
-    link.style.borderRadius = "5px";
-    link.style.color = "#000";
-    link.style.backgroundColor = "#fff";
-    link.style.border = "1px solid #FF6B00";
-
-    if (link.href.includes(`page=${page}`)) {
-        link.style.backgroundColor = "#FF6B00";
-        link.style.color = "#fff";
+    if (
+        !link.classList.contains("pagination-prev") &&
+        !link.classList.contains("pagination-next") &&
+        link.getAttribute("href") === `?page=${page}`
+    ) {
+        link.classList.add("active");
     }
 });
-
 }
-
 handleFetch();
-
-
-
-// Edit booking status
-document.addEventListener("click", function (event) {
-
-    if (event.target.classList.contains("history-edit-button")) {
-
-        const bookingId = event.target.dataset.bookingId;
-
-        // Create modal
-        const modal = document.createElement("div");
-
-        modal.className = "booking-status-modal";
-
-        modal.innerHTML = `
-            <div class="booking-status-modal-content">
-
-                <h3>Edit Booking Status</h3>
-
-                <label for="booking-status">
-                    Booking Status
-                </label>
-
-                <select id="booking-status">
-
-                    <option value="pending">
-                        Pending
-                    </option>
-
-                    <option value="confirmed">
-                        Confirmed
-                    </option>
-
-                    <option value="checked_in">
-                        Checked In
-                    </option>
-
-                    <option value="checked_out">
-                        Checked Out
-                    </option>
-
-                </select>
-
-                <div class="booking-status-modal-buttons">
-
-                    <button
-                        type="button"
-                        class="booking-status-cancel">
-                        Cancel
-                    </button>
-
-                    <button
-                        type="button"
-                        class="booking-status-save">
-                        Save
-                    </button>
-
-                </div>
-
-            </div>
-        `;
-
-        // Modal styling
-        modal.style.position = "fixed";
-        modal.style.top = "0";
-        modal.style.left = "0";
-        modal.style.width = "100%";
-        modal.style.height = "100%";
-        modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-        modal.style.display = "flex";
-        modal.style.justifyContent = "center";
-        modal.style.alignItems = "center";
-        modal.style.zIndex = "9999";
-
-        const modalContent = modal.querySelector(
-            ".booking-status-modal-content"
-        );
-
-        modalContent.style.backgroundColor = "#fff";
-        modalContent.style.padding = "25px";
-        modalContent.style.borderRadius = "8px";
-        modalContent.style.width = "350px";
-
-        const select = modal.querySelector("#booking-status");
-
-        select.style.width = "100%";
-        select.style.padding = "10px";
-        select.style.marginTop = "8px";
-        select.style.marginBottom = "20px";
-
-        const cancelButton = modal.querySelector(
-            ".booking-status-cancel"
-        );
-
-        const saveButton = modal.querySelector(
-            ".booking-status-save"
-        );
-
-        cancelButton.style.padding = "8px 15px";
-        cancelButton.style.marginRight = "10px";
-        cancelButton.style.cursor = "pointer";
-
-        saveButton.style.padding = "8px 15px";
-        saveButton.style.backgroundColor = "#FF6B00";
-        saveButton.style.color = "#fff";
-        saveButton.style.border = "none";
-        saveButton.style.borderRadius = "5px";
-        saveButton.style.cursor = "pointer";
-
-        document.body.appendChild(modal);
-
-
-        // Cancel button
-        cancelButton.addEventListener("click", function () {
-            modal.remove();
-        });
-
-
-        // Save button
-        saveButton.addEventListener("click", function () {
-
-            const status = select.value;
-
-            updateBookingStatus(bookingId, status);
-
-            modal.remove();
-
-        });
-
-    }
-
-});
-
-
-// Update booking status
-async function updateBookingStatus(bookingId, status) {
-
-    try {
-
-        const response = await fetch(
-            `http://localhost/hotel.com/bookings/api/${bookingId}`,
-            {
-                method: "PUT",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    status: status
-                })
-            }
-        );
-
-        const data = await response.json();
-
-        console.log(data);
-
-        if (response.ok) {
-
-            alert("Booking status updated successfully");
-
-            location.reload();
-
-        } else {
-
-            alert("Failed to update booking status");
-
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("Something went wrong");
-
-    }
-
-}
