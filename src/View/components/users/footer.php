@@ -1,4 +1,4 @@
-    <script src="js/dashboard.js"></script>
+    <script src="<?php assets('js/dashboard.js') ?>"></script>
     </body>
 
     </html>
