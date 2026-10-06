@@ -307,4 +307,11 @@ class User extends Controller
             ], 500);
         }
     }
+
+    public function showBookings()
+    {
+        View::handleView("user-views/bookings.php");
+    }
+
+
 }

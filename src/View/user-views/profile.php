@@ -1,13 +1,8 @@
 <?php
 
 use App\Middleware\Authentication;
-use App\Helpers\View;
-use App\Helpers\Utilities;
 
-// $user = Authentication::user();
-// echo "<pre>";
-// print_r($user);
-// echo "</pre>";
+$user = Authentication::user();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +37,48 @@ use App\Helpers\Utilities;
                 <span>HOTEL.com</span>
             </div>
 
-          <?php View::handleComponents('user/navigation.php'); ?>  
+            <nav class="dashboard-navigation">
+
+                <a href="/hotel.com/user/dashboard" class="dashboard-nav-link">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="bookings.php" class="dashboard-nav-link">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>My Bookings</span>
+                </a>
+
+                <a href="rooms.php" class="dashboard-nav-link">
+                    <i class="fa-solid fa-bed"></i>
+                    <span>Browse Rooms</span>
+                </a>
+
+                <a href="/hotel.com/user/booking-history" class="dashboard-nav-link">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Booking History</span>
+                </a>
+
+                <a href="/hotel.com/profile" class="dashboard-nav-link active">
+                    <i class="fa-solid fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="/hotel.com/user/settings" class="dashboard-nav-link">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+            <div class="dashboard-sidebar-footer">
+
+                <a href="logout.php" class="dashboard-nav-link logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </div>
 
         </aside>
 
@@ -392,7 +428,7 @@ use App\Helpers\Utilities;
     </div>
 
 
-    <script src="<?php assets("js/dashboard.js") ?>"></script>
+    <script src="<?php assets("js/dashboard.css") ?>"></script>
 
 </body>
 
