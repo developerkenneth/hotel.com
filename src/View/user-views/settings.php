@@ -278,7 +278,8 @@ View::handleComponents('users/head.php');
 
                 <button
                     type="button"
-                    class="settings-outline-button">
+                    class="settings-outline-button" id="change-password-button">
+
                     Change Password
                 </button>
 
@@ -322,6 +323,100 @@ View::handleComponents('users/head.php');
                 <i class="fa-solid fa-check"></i>
                 Save Changes
             </button>
+
+        </div>
+
+
+        <!-- FOR CHANGE PASSWORD MODAL -->
+
+        <div class="password-modal" id="password-modal">
+
+            <div class="password-modal-content">
+
+                <button
+                    type="button"
+                    class="password-modal-close"
+                    id="password-modal-close"
+                    aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="password-modal-heading">
+
+                    <div class="password-modal-icon">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+
+                    <div>
+                        <h2>Change Password</h2>
+
+                        <p>
+                            Update your password to keep your account secure.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <form id="change-password-form">
+
+                    <div class="password-field">
+
+                        <label for="current-password">
+                            Current Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="current-password"
+                            name="current_password"
+                            placeholder="Enter your current password"
+                            required>
+
+                    </div>
+
+
+                    <div class="password-field">
+
+                        <label for="new-password">
+                            New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="new-password"
+                            name="new_password"
+                            placeholder="Enter your new password"
+                            required>
+
+                    </div>
+
+
+                    <div class="password-field">
+
+                        <label for="confirm-password">
+                            Confirm Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirm-password"
+                            name="confirm_password"
+                            placeholder="Confirm your new password"
+                            required>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="password-change-button">
+                        Change Password
+                    </button>
+
+                </form>
+
+            </div>
 
         </div>
     </main>

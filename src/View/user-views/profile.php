@@ -98,7 +98,7 @@ use App\Helpers\Utilities;
                         <div>
 
                             <h2>
-                                <?= $user["first_name"] . $user["last-name"] ?>
+                                <?= $user["first_name"] . " " . $user["last_name"] ?>
                             </h2>
 
                             <p>
@@ -156,7 +156,7 @@ use App\Helpers\Utilities;
                         </span>
 
                         <strong>
-                            <?= $user["first_name"] . $user["last-name"] ?>
+                            <?= $user["first_name"] . " " . $user["last_name"] ?>
 
                         </strong>
 

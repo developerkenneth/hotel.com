@@ -180,23 +180,23 @@ if (Authentication::isLoggedIn() === false) {
 
             <!-- pages -->
             <!-- where links should be -->
-        <div class="pages">
+            <div class="pages">
 
-            <a href="?page=1" class="pagination-prev">
-            <i class="fa-solid fa-chevron-left"></i>
-            Previous
-            </a>
+                <!-- <a href="?page=1" class="pagination-prev">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    Previous
+                </a>
 
-            <a href="?page=1">1</a>
-            <a href="?page=2">2</a>
-            <a href="?page=3">3</a>
+                <a href="?page=1">1</a>
+                <a href="?page=2">2</a>
+                <a href="?page=3">3</a>
 
-            <a href="?page=2" class="pagination-next">
-             Next
-            <i class="fa-solid fa-chevron-right"></i>
-            </a>
+                <a href="?page=2" class="pagination-next">
+                    Next
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a> -->
 
-        </div>
+            </div>
 
         </section>
 

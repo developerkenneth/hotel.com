@@ -1579,7 +1579,7 @@ img {
   transition: all 0.2s ease;
 }
 
- .pages a:hover {
+.pages a:hover {
   background-color: var(--secondary-color);
   color: var(--surface-color);
   border-color: var(--secondary-color);
@@ -1634,25 +1634,22 @@ img {
   }
 
   .pages {
-  gap: 6px;
-  margin-top: 20px;
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .pages a {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .pages .pagination-prev,
+  .pages .pagination-next {
+    padding: 0 10px;
+  }
 }
-
-.pages a {
-  min-width: 34px;
-  height: 34px;
-  padding: 0 10px;
-  font-size: 12px;
-}
-
-.pages .pagination-prev,
-.pages .pagination-next {
-  padding: 0 10px;
-}
-
-}
-
-
 
 /* ================================
    PROFILE PAGE

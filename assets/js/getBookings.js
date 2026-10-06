@@ -1,7 +1,7 @@
 // run a fetch
 const params = new URLSearchParams(window.location.search);
 const page = params.get('page') ?? 1;
-
+let currentPage = parseInt(page);
 
 /**
  * 
@@ -12,9 +12,10 @@ const page = params.get('page') ?? 1;
 
 
 async function handleFetch() {
-    const response = await fetch(`http://localhost/hotel.com/bookings/api?page=${page}&limit=10`);
+    const response = await fetch(`http://localhost/hotel.com/bookings/api?page=${page}&limit=1`);
     const data = await response.json();
     const history = document.querySelector('.history-list');
+
 
     data.data.bookings.forEach((booking) => {
 
@@ -213,34 +214,53 @@ editBookingCancel.addEventListener("click", () => {
 
     const totalPages = Math.ceil(totalBookings / limit);
 
-    const previousPage = page > 1 ? page - 1 : 1;
-    const nextPage = page < totalPages ? Number(page) + 1 : totalPages;
+    // const previousPage = page > 1 ? page - 1 : 1;
+    // const nextPage = page < totalPages ? Number(page) + 1 : totalPages;
 
     const pages = document.querySelector(".pages");
 
-    // for (let i = 1; i <= totalPages; i++) {
 
-    //     // style the links here
-    //     pages.innerHTML += `
-    //     <a href="?page=${i}">${i}</a>
-    //     `;
-    // }
 
-const pageLinks = pages.querySelectorAll("a");
-const previousLink = pages.querySelector(".pagination-prev");
-const nextLink = pages.querySelector(".pagination-next");
 
-previousLink.href = `?page=${previousPage}`;
-nextLink.href = `?page=${nextPage}`;
+    // previous page 
+    const prev = currentPage > 1 ? currentPage - 1 : null;
 
-pageLinks.forEach((link) => {
-    if (
-        !link.classList.contains("pagination-prev") &&
-        !link.classList.contains("pagination-next") &&
-        link.getAttribute("href") === `?page=${page}`
-    ) {
-        link.classList.add("active");
+    if (prev) {
+        pages.innerHTML = `<a class=" pagination-prev" href="?page=${prev}">previous page</a>`;
     }
-});
+
+    for (let i = 1; i <= totalPages; i++) {
+
+        if (currentPage === i) {
+            pages.innerHTML += `<a class=" active" href="?page=${i}">${i}</a>`;
+        } else {
+            pages.innerHTML += `<a  href="?page=${i}">${i}</a>`;
+
+        }
+
+
+    }
+
+    // next page 
+    if (currentPage < totalPages) {
+        pages.innerHTML += `<a class="pagination-next" href="?page=${currentPage + 1}">next page</a>`
+    }
+
+    // const pageLinks = pages.querySelectorAll("a");
+    // const previousLink = pages.querySelector(".pagination-prev");
+    // const nextLink = pages.querySelector(".pagination-next");
+
+    // previousLink.href = `?page=${previousPage}`;
+    // nextLink.href = `?page=${nextPage}`;
+
+    // pageLinks.forEach((link) => {
+    //     if (
+    //         !link.classList.contains("pagination-prev") &&
+    //         !link.classList.contains("pagination-next") &&
+    //         link.getAttribute("href") === `?page=${page}`
+    //     ) {
+    //         link.classList.add("active");
+    //     }
+    // });
 }
 handleFetch();
