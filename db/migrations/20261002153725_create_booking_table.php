@@ -20,7 +20,7 @@ final class CreatebookingTable extends AbstractMigration
     public function change(): void
     {
         $table = $this->table('bookings');
-        $table->addColumn('guests', 'string', ['limit'=> 255])
+        $table->addColumn('guest', 'string', ['limit'=> 255])
         ->addColumn('room_id', 'integer', ['limit' => 11])
         ->addColumn('checkin', 'datetime')
         ->addColumn('checkout', 'datetime')
