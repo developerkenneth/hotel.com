@@ -55,7 +55,7 @@ class Model extends Db
         // run prepare
         $stmt = self::connect()->prepare($sql);
         $stmt->execute($datas);
-        return;
+        return ($datas);
     }
 
     public function getAll($table, $parameters = null, $limit = null)
