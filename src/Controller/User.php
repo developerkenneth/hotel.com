@@ -250,18 +250,19 @@ class User extends Controller
 
         // validate if password fields are empty
         if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
-         $errors[] = "password fields cannot be empty";
+            $errors[] = "password fields cannot be empty";
         }
 
-         // validate if current password matches user's current password
+        // validate if current password matches user's current password
         if (!empty($currentPassword) && !empty($user['password'])) {
-        if (!Utilities::verifyHashpassword($currentPassword, $user['password'])) {
-         $errors[] = "current password is incorrect"; }
+            if (!Utilities::verifyHashpassword($currentPassword, $user['password'])) {
+                $errors[] = "current password is incorrect";
+            }
         }
 
-       // validate if new password matches confirm password
-       if ($newPassword !== $confirmPassword) {
-      $errors[] = "password failed confirmation. please ensure that the password matches the confirm password";
+        // validate if new password matches confirm password
+        if ($newPassword !== $confirmPassword) {
+            $errors[] = "password failed confirmation. please ensure that the password matches the confirm password";
         }
 
 
@@ -288,8 +289,9 @@ class User extends Controller
 
         // hash the password
         $passworHashed = Utilities::hashPassword($newPassword);
+        $currentUser = Authentication::user();
         try {
-            if (Model::update("users", ['password' => $passworHashed], 1)) {
+            if (Model::update("users", ['password' => $passworHashed], $currentUser['id'])) {
                 Response::json([
                     'message' => 'password has been updated successfully',
                     'success' => true

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Controller\Controller;
+use App\Helpers\Helper;
 use App\Helpers\Response;
 use App\Helpers\Sessions;
+use App\Helpers\Utilities;
 use App\Helpers\Validation;
 use App\Helpers\View;
 use App\Middleware\Authentication;
@@ -120,5 +122,15 @@ class Auth extends Controller
         } else {
             return;
         }
+    }
+
+
+    public function logout()
+    {
+        Sessions::start();
+        // destroy all sessions
+        session_destroy();
+        header('location:/hotel.com/auth/login');
+        exit;
     }
 }
