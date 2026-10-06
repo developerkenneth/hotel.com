@@ -17,10 +17,24 @@ async function handleFetch() {
     const history = document.querySelector('.history-list');
 
     data.data.bookings.forEach((booking) => {
+
+        // map booking status to display labels
+        const statusLabels = {
+           pending: "Pending",
+           confirmed: "Confirmed",
+           checked_in: "Checked In",
+           checked_out: "Checked Out",
+            cancelled: "Cancelled"
+         };
+
+        const statusLabel = statusLabels[booking.status] ?? booking.status;
+
         history.innerHTML += `
         <article
-                    class="history-card"
-                    data-status="completed">
+                 
+                  class="history-card"
+                  data-booking-id="${booking.id}"
+                   data-status="${booking.status}">
 
                     <div class="history-room-image">
 
@@ -47,10 +61,10 @@ async function handleFetch() {
 
                             </div>
 
-                            <span class="status-badge completed-status">
-                                Completed
-                            </span>
-
+                             
+                            <span class="status-badge ${booking.status}-status booking-status">
+                            ${statusLabel}
+                             </span>
                         </div>
 
 
@@ -94,19 +108,106 @@ async function handleFetch() {
                             </div>
 
                             <button
-                                type="button"
+                               type="button"
                                 class="history-view-button">
-                                 View Details
+                                View Details
+                            </button>
+
+                            <button
+                                type="button"
+                                class="history-edit-button"
+                                data-booking-id="${booking.id}">
+                                 Edit
                             </button>
                                 
                         </div>
 
                     </div>
 
-                </article>
+                </>
         `
     })
+        // Edit button functionality
+    const editButtons = document.querySelectorAll(".history-edit-button");
 
+const editBookingModal = document.querySelector("#editBookingModal");
+const editBookingModalClose = document.querySelector("#editBookingModalClose");
+const editBookingCancel = document.querySelector("#editBookingCancel");
+const editBookingSave = document.querySelector("#editBookingSave");
+
+editBookingSave.addEventListener("click", async () => {
+
+    const bookingId = editBookingModal.dataset.bookingId;
+    const status = document.querySelector("#bookingStatus").value;
+
+    const response = await fetch(`http://localhost/hotel.com/api/book/${bookingId}`, {
+    method: "PATCH",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        status: status
+    })
+});
+    const data = await response.json();
+
+    if (data.success) {
+    console.log(data.message);
+
+    const bookingCard = document.querySelector(
+    `.history-card[data-booking-id="${bookingId}"]`
+    );
+
+    const bookingStatus = bookingCard.querySelector(".booking-status");
+
+    const statusLabels = {
+    pending: "Pending",
+    confirmed: "Confirmed",
+    checked_in: "Checked In",
+    checked_out: "Checked Out",
+    cancelled: "Cancelled"
+};
+
+bookingStatus.textContent = statusLabels[status];
+bookingStatus.classList.remove("completed-status");
+bookingStatus.classList.add(`${status}-status`);
+bookingCard.dataset.status = status;
+
+    editBookingModal.style.display = "none";
+} else {
+    console.log(data.message);
+}
+
+}); 
+
+editButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const bookingId = button.dataset.bookingId;
+
+        document.querySelector("#editBookingReference").textContent = `#${bookingId}`;
+
+         const bookingCard = document.querySelector(
+          `.history-card[data-booking-id="${bookingId}"]`
+        );
+          
+           const currentStatus = bookingCard.dataset.status;
+
+           document.querySelector("#bookingStatus").value = currentStatus;
+
+        editBookingModal.dataset.bookingId = bookingId;
+        editBookingModal.style.display = "flex";
+    });
+});
+
+editBookingModalClose.addEventListener("click", () => {
+    editBookingModal.style.display = "none";
+});
+
+editBookingCancel.addEventListener("click", () => {
+    editBookingModal.style.display = "none";
+});
+
+      //  pagination
     const limit = parseInt(data.limit);
     const totalBookings = parseInt(data.data.total_count);
 

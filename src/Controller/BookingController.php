@@ -203,4 +203,58 @@ class BookingController extends Controller
         );
         return;
     }
+
+    // update booking status
+    public function updatebookingApi($id)
+    {
+      $rawData = file_get_contents('php://input');
+      $data = json_decode($rawData, true);
+
+      $status = $data['status'] ?? null;
+      $allowedStatuses = [
+      'pending',
+      'confirmed',
+      'checked_in',
+      'checked_out',
+      'cancelled'
+      ];
+
+      if (!in_array($status, $allowedStatuses)) {
+      Response::json([
+        'success' => false,
+        'message' => 'Invalid booking status'
+       ], 400);
+        return;
+      }
+
+      if (empty($status)) {
+       Response::json([
+        'success' => false,
+        'message' => 'Booking status is required'
+       ], 400);
+       return;
+       }
+             // find the booking
+       $booking = Model::find(['id' => $id], 'bookings');
+       if (empty($booking)) {
+       Response::json([
+        'success' => false,
+        'message' => 'Booking not found'
+       ], 404);
+       return;
+       }
+
+       // update the booking status
+        Model::update(
+        'bookings',
+         ['status' => $status],
+          $id
+        );
+        //  Send a success response
+        Response::json([
+        'success' => true,
+         'message' => 'Booking status updated successfully'
+        ]);
+     }
+
 }

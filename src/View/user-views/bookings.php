@@ -200,6 +200,103 @@ if (Authentication::isLoggedIn() === false) {
 
         </section>
 
+        <!-- Edit Booking Modal -->
+<div class="edit-booking-modal" id="editBookingModal">
+
+    <div class="edit-booking-modal-content">
+
+        <div class="edit-booking-modal-header">
+
+            <div>
+                <h2>Edit Booking</h2>
+                <p>Update the status of this booking.</p>
+            </div>
+
+            <button
+                type="button"
+                class="edit-booking-modal-close"
+                id="editBookingModalClose"
+                aria-label="Close edit booking modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <div class="edit-booking-modal-body">
+
+            <div class="edit-booking-reference">
+
+                <span>Booking Reference</span>
+
+                <strong id="editBookingReference">
+                    #HSW-19842
+                </strong>
+
+            </div>
+
+
+            <div class="edit-booking-field">
+
+                <label for="bookingStatus">
+                    Booking Status
+                </label>
+
+                <select id="bookingStatus">
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="confirmed">
+                        Confirmed
+                    </option>
+
+                    <option value="checked_in">
+                        Checked In
+                    </option>
+
+                    <option value="checked_out">
+                        Checked Out
+                    </option>
+
+                    <option value="cancelled">
+                        Cancelled
+                    </option>
+
+                </select>
+
+                <small>
+                    Choose the current status of this guest's booking.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="edit-booking-modal-footer">
+
+            <button
+                type="button"
+                class="edit-booking-cancel"
+                id="editBookingCancel">
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                class="edit-booking-save"
+                id="editBookingSave">
+                Save Changes
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
     </main>
 
 </div>
