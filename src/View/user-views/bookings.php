@@ -3,7 +3,7 @@
 use App\Helpers\View;
 use App\Middleware\Authentication;
 
-$bookings = $data['bookings'];
+// $bookings = $data['bookings'];
 
 View::handleComponents('users/head.php');
 

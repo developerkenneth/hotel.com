@@ -138,10 +138,14 @@ const editBookingSave = document.querySelector("#editBookingSave");
 
 editBookingSave.addEventListener("click", async () => {
 
+    editBookingSave.textContent = "Saving...";
+    editBookingSave.disabled = true;
+
     const bookingId = editBookingModal.dataset.bookingId;
     const status = document.querySelector("#bookingStatus").value;
 
-    const response = await fetch(`http://localhost/hotel.com/api/book/${bookingId}`, {
+    
+      const response = await fetch(`http://localhost/hotel.com/bookings/api/book/${bookingId}`, {
     method: "PATCH",
     headers: {
         "Content-Type": "application/json"
@@ -149,11 +153,13 @@ editBookingSave.addEventListener("click", async () => {
     body: JSON.stringify({
         status: status
     })
-});
-    const data = await response.json();
+   });
+     const data = await response.json();
+
+     editBookingSave.textContent = "Save";
+     editBookingSave.disabled = false;
 
     if (data.success) {
-    console.log(data.message);
 
     const bookingCard = document.querySelector(
     `.history-card[data-booking-id="${bookingId}"]`
@@ -169,15 +175,19 @@ editBookingSave.addEventListener("click", async () => {
     cancelled: "Cancelled"
 };
 
-bookingStatus.textContent = statusLabels[status];
-bookingStatus.classList.remove("completed-status");
-bookingStatus.classList.add(`${status}-status`);
-bookingCard.dataset.status = status;
+   const oldStatus = bookingCard.dataset.status;
+
+    bookingStatus.textContent = statusLabels[status];
+
+    bookingStatus.classList.remove(`${oldStatus}-status`);
+    bookingStatus.classList.add(`${status}-status`);
+
+    bookingCard.dataset.status = status;
 
     editBookingModal.style.display = "none";
-} else {
+    } else {
     console.log(data.message);
-}
+   }
 
 }); 
 
@@ -194,6 +204,7 @@ editButtons.forEach((button) => {
            const currentStatus = bookingCard.dataset.status;
 
            document.querySelector("#bookingStatus").value = currentStatus;
+
 
         editBookingModal.dataset.bookingId = bookingId;
         editBookingModal.style.display = "flex";

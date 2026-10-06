@@ -207,6 +207,7 @@ class BookingController extends Controller
     // update booking status
     public function updatebookingApi($id)
     {
+        
       $rawData = file_get_contents('php://input');
       $data = json_decode($rawData, true);
 
