@@ -1,6 +1,9 @@
 <?php
 
+
 namespace App\Controller;
+
+require_once __DIR__ . '/Controller.php';
 
 use App\Controller\Controller;
 use App\Helpers\Response;
@@ -108,7 +111,6 @@ class User extends Controller
 
 
             $result =  Model::create($datas, 'users');
-
             if ($result) {
                 Response::json([
                     'message' => 'created successful',
@@ -241,14 +243,41 @@ class User extends Controller
         // also validate that the current password matches the users current password
         // password (new password) === confirm_password
 
-        // update the password
+        Sessions::start();
+        $user = (new Authentication)->user();
 
+        $currentPassword = $datas['current_password'];
         $newPassword = $datas['new_password'];
         $confirmPassword = $datas['confirm_password'];
 
-        if ($newPassword !== $confirmPassword) {
-            $errors[] = "password failed confirmation. please ensure that the password matches the confirm password";
+        // validate if password fields are empty
+        if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+         $errors[] = "password fields cannot be empty";
         }
+
+         // validate if current password matches user's current password
+        if (!empty($currentPassword) && !empty($user['password'])) {
+        if (!Utilities::verifyHashpassword($currentPassword, $user['password'])) {
+         $errors[] = "current password is incorrect"; }
+        }
+
+       // validate if new password matches confirm password
+       if ($newPassword !== $confirmPassword) {
+      $errors[] = "password failed confirmation. please ensure that the password matches the confirm password";
+        }
+
+
+
+
+
+        // update the password
+
+        // $newPassword = $datas['new_password'];
+        // $confirmPassword = $datas['confirm_password'];
+
+        // if ($newPassword !== $confirmPassword) {
+        //     $errors[] = "password failed confirmation. please ensure that the password matches the confirm password";
+        // }
 
         if (!empty($errors)) {
             Response::json([
