@@ -1510,6 +1510,51 @@ img {
   color: #c62828;
 }
 
+/* pagination styling */
+.pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.pages .pagination-prev,
+.pages .pagination-next {
+  padding: 0 14px;
+  gap: 7px;
+}
+
+.pages a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+ .pages a:hover {
+  background-color: var(--secondary-color);
+  color: var(--surface-color);
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.pages a.active {
+  background-color: var(--secondary-color);
+  color: var(--surface-color);
+  border-color: var(--secondary-color);
+  box-shadow: 0 4px 10px rgba(255, 107, 0, 0.2);
+}
 /* ================================
    BOOKING HISTORY RESPONSIVE
 ================================ */
@@ -1550,7 +1595,27 @@ img {
   .history-view-button {
     width: 100%;
   }
+
+  .pages {
+  gap: 6px;
+  margin-top: 20px;
 }
+
+.pages a {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.pages .pagination-prev,
+.pages .pagination-next {
+  padding: 0 10px;
+}
+
+}
+
+
 
 /* ================================
    PROFILE PAGE

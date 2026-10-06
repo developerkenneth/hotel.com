@@ -58,6 +58,8 @@ class Model extends Db
         return ($datas);
     }
 
+
+
     public function getAll($table, $parameters = null, $limit = null)
     {
 
@@ -97,6 +99,45 @@ class Model extends Db
             return $result;
         }
         return [];
+    }
+
+
+    public function getallPagination($limit, $offset, $table)
+    {
+        $sql = "SELECT COUNT(*) FROM $table";
+        $stmt = $this->connect()->query($sql);
+        $totalCount  = $stmt->fetchColumn();
+
+
+        // fetched the data from the database 
+        $sql = "SELECT * FROM $table LIMIT $limit OFFSET $offset";
+        $stmt = $this->connect()->query($sql);
+        $result = $stmt->fetchAll();
+
+        return [
+            'total_count' => $totalCount,
+            'bookings' => $result
+        ];
+    }
+
+    /**
+     * @param array $data, pass in the data that you want to update in an array
+     * @param string $table table that you want to update
+     * @return bool true or false if the update is successfull
+     */
+    public static function update($tableName, $data, $id)
+    {
+
+        $colString = "";
+        foreach ($data as $col => $value) {
+            $colString .= "`$col` = :$col,";
+        }
+
+        $colStringLength = strlen($colString);
+        $colString = substr($colString, 0, $colStringLength - 1);
+        $sql = "UPDATE $tableName SET $colString  WHERE  id = $id  ";
+        $stmt = self::connect()->prepare($sql);
+        return $stmt->execute($data);
     }
 
 

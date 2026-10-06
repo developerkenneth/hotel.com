@@ -114,7 +114,7 @@ class BookingController extends Controller
         if (Utilities::isLessThanToday($checkinTimestamp)) {
             $errors[] = "you must check in from today";
         }
-
+        
         if (!empty($errors)) {
             Response::json([
                 'message' => 'an error ocured',
@@ -178,6 +178,29 @@ class BookingController extends Controller
 
         $room = Model::find(['id' => $booking['room_id']], 'rooms');
         View::handleView('guests/receipt.php', $data = ['booking' => $booking, 'room' => $room]);
+        return;
+    }
+
+    public function indexApi()
+    {
+
+        $limit = $_GET['limit'];
+        $page = $_GET['page'];
+        $offset = ($page - 1) * $limit;
+
+
+        // get all bookings from data base
+        $model = new Model;
+        $bookings = $model->getallPagination($limit, $offset, 'bookings');
+
+        Response::json(
+            [
+                'offset' => $offset,
+                'page' => $page,
+                'limit' => $limit,
+                'data' => $bookings
+            ]
+        );
         return;
     }
 }

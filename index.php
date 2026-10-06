@@ -26,6 +26,9 @@ $router->mount('/bookings', function () use ($router) {
     require_once('./routes/bookings.php');
 });
 
+$router->mount("/profile", function () use ($router){
+    require_once('./routes/profile_route.php');
+});
 $router->set404(function () {
     View::handleView('404.php');
 });
