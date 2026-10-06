@@ -28,4 +28,3 @@ const greetingsElement = document.getElementById("greeting");
 if (greetingsElement) {
     greetingsElement.textContent = greeting;
 }
-
