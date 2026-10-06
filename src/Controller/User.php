@@ -1,6 +1,9 @@
 <?php
 
+
 namespace App\Controller;
+
+require_once __DIR__ . '/Controller.php';
 
 use App\Controller\Controller;
 use App\Helpers\Response;
@@ -108,7 +111,6 @@ class User extends Controller
 
 
             $result =  Model::create($datas, 'users');
-
             if ($result) {
                 Response::json([
                     'message' => 'created successful',

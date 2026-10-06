@@ -14,7 +14,7 @@ class BookingController extends Controller
 {
 
 
-    // shows us the bookibng form
+    // shows us the booking form
     public function create($id)
     {
         $room = Model::find(['id' => $id], 'rooms');
