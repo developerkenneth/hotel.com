@@ -3,9 +3,6 @@
 use App\Middleware\Authentication;
 
 $user = Authentication::user();
-echo "<pre>";
-print_r($user);
-echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,7 +134,7 @@ echo "</pre>";
                         <div>
 
                             <h2>
-                                <?= $user["first_name"] . $user["last-name"] ?>
+                                <?= $user["first_name"] . " " . $user["last_name"] ?>
                             </h2>
 
                             <p>
@@ -195,7 +192,7 @@ echo "</pre>";
                         </span>
 
                         <strong>
-                            <?= $user["first_name"] . $user["last-name"] ?>
+                            <?= $user["first_name"] . " " . $user["last_name"] ?>
 
                         </strong>
 

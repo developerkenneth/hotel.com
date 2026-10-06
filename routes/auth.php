@@ -7,3 +7,4 @@ $router->post("/register", 'User@store');
 // login 
 $router->get("/login", "Auth@showLogin");
 $router->post("/login", "Auth@login");
+$router->get("/logout", "Auth@logout");

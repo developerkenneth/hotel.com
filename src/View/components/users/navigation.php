@@ -59,7 +59,7 @@ function getActivePage($currentPage, $pageName)
 
     <!-- Logout -->
     <div class="dashboard-sidebar-footer">
-        <a href="logout.php" class="dashboard-nav-link logout-link">
+        <a href="/hotel.com/auth/logout" class="dashboard-nav-link logout-link">
             <i class="fa-solid fa-right-from-bracket"></i>
             <span>Logout</span>
         </a>
