@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "dera/hotel-management",
   "description": "hotel management website",
   "type": "project",
@@ -19,4 +20,22 @@
     "vlucas/phpdotenv": "^5.7",
     "guzzlehttp/guzzle": "^8.2"
   }
+=======
+    "name": "chibuikem/hotel-management",
+    "description": "hotel management website",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Chibuikem\\HotelManagement\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "chibuikem"
+        }
+    ],
+    "require": {
+        "robmorgan/phinx": "^0.16.12"
+    }
+>>>>>>> 55bf8d553beb84547d1109a5fba79df7e15b5e82
 }
