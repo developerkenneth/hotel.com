@@ -141,6 +141,18 @@ class Model extends Db
         return $stmt->execute($data);
     }
 
+    /**
+     * @param string $table the table you want to delete from
+     * @param integer $id the id of the room you want to delete
+     */
+
+    public static function delete($table, $id)
+    {
+        $sql = "DELETE FROM {$table} WHERE id = :id";
+        $stmt = self::connect()->prepare($sql);
+        return $stmt->execute(['id' => $id]);
+    }
+
 
     // public function __destruct()
     // {

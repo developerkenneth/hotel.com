@@ -105,4 +105,25 @@ class RoomsController extends Controller
             exit;
         }
     }
+
+     /**
+     * @param integer $id id is the id of the table
+     */
+
+    public function deleteRoom($id)
+    {
+
+        $result = Model::delete('rooms', $id);
+        if ($result) {
+            Response::json([
+                'message' => "This room has been deleted successfully",
+                'success' => true
+            ]);
+        } else {
+            Response::json([
+                'message' => "The deletion of the room was unsuccessful",
+                'success' => false
+            ], 400);
+        }
+    }
 }
