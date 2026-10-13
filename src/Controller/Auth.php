@@ -112,11 +112,27 @@ class Auth extends Controller
         }
     }
 
+    public function adminRequest()
+    {
+        Sessions::start();
+
+        if (!Authentication::isLoggedIn() || Authentication::isAdmin() === false) {
+            http_response_code(401);
+            View::handleView('unauthorize.php');
+            exit();
+        } else {
+            return;
+        }
+    }
+
+
     public function unauthorizeRequest()
     {
         Sessions::start();
 
         if (!Authentication::isLoggedIn()) {
+            http_response_code(401);
+
             View::handleView('unauthorize.php');
             exit();
         } else {
