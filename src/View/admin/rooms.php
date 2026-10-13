@@ -107,14 +107,40 @@ use App\Helpers\View;
                     </div>
 
                     <div class="form-group">
+                        <label for="room-number">Room Number</label>
+                        <input type="number" id="room-number" name="room-number" class="form-input" value="1">
+                    </div>
+
+                    <div class="form-group">
                         <label for="floor">Floor</label>
                         <input type="number" id="floor" name="floor" class="form-input" value="1">
                     </div>
 
+
                     <div class="form-group">
+                        <label for="floor">Amenities</label>
+                        <input type="text" id="amenities" name="amenities" class="form-input">
+                        <span>Amenities should be seperated with a comma. example: bath tub, wifi, AC</span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="status">Room Status</label>
+                        <select name="status" id="status">
+                            <option value="available">Available</option>
+                            <option value="reserved">Reserved</option>
+                            <option value="cleaning">Cleaning</option>
+                            <option value="occupied">Occupied</option>
+                            <option value="maintenance">Maintenance</option>
+
+                        </select>
+                    </div>
+
+
+                    <!-- <div class="form-group">
                         <label for="room-image">Add Image</label>
                         <input type="file" id="room-image" name="room_image" class="form-input" accept="image/*">
-                    </div>
+                    </div> -->
 
                     <button type="submit" class="btn-submit">Add room</button>
                 </form>
