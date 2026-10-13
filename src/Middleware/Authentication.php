@@ -2,6 +2,7 @@
 
 namespace App\Middleware;
 
+use App\Helpers\Sessions;
 use App\Helpers\Utilities;
 use App\Helpers\View;
 use App\Models\Model;
@@ -34,6 +35,16 @@ class Authentication
     public static function user()
     {
         return $_SESSION['user'];
+    }
+
+    public static function isAdmin()
+    {
+        Sessions::start();
+        $user = $_SESSION['user'];
+        if ($user['user_type'] === 'admin') {
+            return true;
+        }
+        return false;
     }
 
     public static function isLoggedIn()
