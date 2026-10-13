@@ -122,7 +122,8 @@ class Model extends Db
 
     /**
      * @param array $data, pass in the data that you want to update in an array
-     * @param string $table table that you want to update
+     * @param string $tableName table that you want to update
+     * @param integer $id, pass in the Id of the data
      * @return bool true or false if the update is successfull
      */
     public static function update($tableName, $data, $id)

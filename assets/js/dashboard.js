@@ -55,7 +55,7 @@ if (changePasswordButton && passwordModal && passwordModalClose) {
         passwordModal.classList.remove("active");
     });
 
-}
+}                                                                       
 
 const changePasswordForm = document.querySelector("#change-password-form");
 
