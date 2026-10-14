@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   --primary-orange: #ff6b00;
   --primary-orange-hover: rgba(255, 107, 0, 0.15);
@@ -27,9 +29,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -100,7 +100,7 @@ body {
 }
 
 .page-title {
-  font-family: Georgia, serif;
+  font-family: "Roboto", sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--text-dark);
@@ -131,7 +131,7 @@ body {
 }
 
 .card-value {
-  font-family: Georgia, serif;
+  font-family: "Roboto", sans-serif;
   font-size: 2.25rem;
   font-weight: 700;
   color: var(--text-card-value);
@@ -141,7 +141,7 @@ body {
   background-color: #ffffff;
   border-radius: 12px;
   border: 1px solid var(--border-card);
-  overflow: hidden;
+
 }
 
 .bookings-table {
@@ -212,6 +212,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .rooms-table th {
@@ -274,6 +275,24 @@ body {
     color 0.2s ease;
 }
 
+.btn-edit {
+  background: transparent;
+  border: 1px solid var(--border-card-accent);
+  color: var(--text-card-value);
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: var(--bg-nav-active);
+  color: var(--text-nav-active);
+}
+
 .btn-delete:hover {
   background-color: var(--bg-nav-active);
   color: var(--text-nav-active);
@@ -284,7 +303,7 @@ body {
 }
 
 .section-title {
-  font-family: Georgia, serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--text-dark);
@@ -421,7 +440,7 @@ body {
     width: 100%;
   }
 
-  .sidebar > .brand {
+  .sidebar>.brand {
     display: none;
   }
 

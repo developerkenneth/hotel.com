@@ -25,73 +25,66 @@ use App\Controller\AdminController;
             <div class="table-container">
                 <table class="rooms-table">
                     <thead>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Units</th>
-                            <th>Open</th>
-                            <th></th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Units</th>
+                        <th>Open</th>
+                        <th></th>
                         </tr>
                     </thead>
+                    
                     <tbody>
-                        <tr>
-                            <td></h3>1</h3></td>
-                            <td class="room-name">Standard Room</td>
-                            <td>
-                                <input type="text" class="table-input" value="15000.00" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" class="table-input short-input" value="4">
-                            </td>
-                            <td>
-                                <input type="checkbox" class="custom-checkbox" checked>
-                            </td>
-                            <td>
-                                <button type="button" class="btn-delete">Edit</button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn-delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></h3>2</h3></td>
-                            <td class="room-name">Deluxe Room</td>
-                            <td>
-                                <input type="text" class="table-input" value="25000.00" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" class="table-input short-input" value="3">
-                            </td>
-                            <td>
-                                <input type="checkbox" class="custom-checkbox" checked>
-                            </td>
-                            <td>
-                                <button type="button" class="btn-delete">Edit</button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn-delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></h3>3</h3></td>
-                            <td class="room-name">Family Room</td>
-                            <td>
-                                <input type="text" class="table-input" value="40000.00" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" class="table-input short-input" value="2">
-                            </td>
-                            <td>
-                                <input type="checkbox" class="custom-checkbox" checked>
-                            </td>
-                            <td>
-                                <button type="button" class="btn-delete">Edit</button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn-delete">Delete</button>
-                            </td>
-                        </tr>
+                        <?php foreach ($rooms as $room): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($room['id']) ?></td>
+
+                                <td class="room-name">
+                                    <?= htmlspecialchars($room['room_type']) ?>
+                                </td>
+
+                                <td>
+                                    <input
+                                        type="number"
+                                        class="table-input"
+                                        value="<?= htmlspecialchars($room['price']) ?>"
+                                        step="0.01"
+                                        readonly>
+                                </td>
+
+                                <td>
+                                    <input
+                                        type="number"
+                                        class="table-input short-input"
+                                        value=""
+                                        readonly>
+                                </td>
+
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        class="custom-checkbox"
+                                        
+                                        >
+                                </td>
+
+                                <td>
+                                    <button type="button" class="btn-edit">Edit</button>
+                                </td>
+
+                                <td>
+                                    <button
+                                        type="button"
+                                        class="btn-delete"
+                                        data-id="<?= (int) $room['id'] ?>">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
+                
+
                 </table>
             </div>
 
