@@ -142,8 +142,8 @@ class Model extends Db
     }
 
     /**
-     * @param string $table the table you want to delete from
-     * @param integer $id the id of the room you want to delete
+     * @param string $table pass in the table you want to delete from
+     * @param integer $id pass in the id of the room you want to delete
      */
 
     public static function delete($table, $id)
