@@ -33,7 +33,7 @@ use App\Controller\AdminController;
                         <th></th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         <?php foreach ($rooms as $room): ?>
                             <tr>
@@ -56,16 +56,13 @@ use App\Controller\AdminController;
                                     <input
                                         type="number"
                                         class="table-input short-input"
-                                        value=""
-                                        readonly>
+                                        value="">
                                 </td>
 
                                 <td>
                                     <input
                                         type="checkbox"
-                                        class="custom-checkbox"
-                                        
-                                        >
+                                        class="custom-checkbox">
                                 </td>
 
                                 <td>
@@ -83,7 +80,7 @@ use App\Controller\AdminController;
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
-                
+
 
                 </table>
             </div>
