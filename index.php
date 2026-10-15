@@ -26,6 +26,10 @@ $router->mount('/bookings', function () use ($router) {
     require_once('./routes/bookings.php');
 });
 
+$router->mount('/admin', function () use ($router) {
+    require_once('./routes/admin.php');
+});
+
 $router->set404(function () {
     http_response_code(404);
     View::handleView('404.php');

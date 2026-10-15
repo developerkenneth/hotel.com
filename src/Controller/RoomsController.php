@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Helpers\Response;
 use App\Helpers\View;
+use App\Middleware\Authentication;
 use App\Models\Model;
 
 class RoomsController extends Controller
@@ -39,6 +40,19 @@ class RoomsController extends Controller
         $requiredFields = ['room_number', 'room_type', 'floor', 'price', 'capacity', 'description', 'amenities', 'status'];
 
 
+
+        // check is if admin
+
+        if (!Authentication::isAdmin()) {
+            Response::json([
+                'message' => 'unauthorized request',
+                'errors' => ['you are not allowed to access this page'],
+                'success' => false
+            ], 401);
+            exit;
+        }
+
+
         foreach ($requiredFields as $field) {
             if (!isset($data[$field])) {
                 $errors[] = "{$field} field is required";
@@ -70,7 +84,10 @@ class RoomsController extends Controller
         }
 
         try {
-            $data['amenities'] = json_encode($data['amenities']);
+
+            // turning amenities from string seperated by coma to array
+            $amenities = explode(",", $data['amenities']);
+            $amenities = json_encode($amenities);
             Model::create($data, 'rooms');
             Response::json([
                 'message' => 'rooms has been created successfully',
@@ -86,6 +103,27 @@ class RoomsController extends Controller
                 'success' => false
             ], 500);
             exit;
+        }
+    }
+
+     /**
+     * @param integer $id id is the id of the table
+     */
+
+    public function deleteRoom($id)
+    {
+
+        $result = Model::delete('rooms', $id);
+        if ($result) {
+            Response::json([
+                'message' => "This room has been deleted successfully",
+                'success' => true
+            ]);
+        } else {
+            Response::json([
+                'message' => "The deletion of the room was unsuccessful",
+                'success' => false
+            ], 400);
         }
     }
 }

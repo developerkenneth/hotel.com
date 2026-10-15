@@ -122,7 +122,8 @@ class Model extends Db
 
     /**
      * @param array $data, pass in the data that you want to update in an array
-     * @param string $table table that you want to update
+     * @param string $tableName table that you want to update
+     * @param integer $id, pass in the Id of the data
      * @return bool true or false if the update is successfull
      */
     public static function update($tableName, $data, $id)
@@ -138,6 +139,18 @@ class Model extends Db
         $sql = "UPDATE $tableName SET $colString  WHERE  id = $id  ";
         $stmt = self::connect()->prepare($sql);
         return $stmt->execute($data);
+    }
+
+    /**
+     * @param string $table pass in the table you want to delete from
+     * @param integer $id pass in the id of the room you want to delete
+     */
+
+    public static function delete($table, $id)
+    {
+        $sql = "DELETE FROM {$table} WHERE id = :id";
+        $stmt = self::connect()->prepare($sql);
+        return $stmt->execute(['id' => $id]);
     }
 
 

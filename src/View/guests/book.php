@@ -18,7 +18,9 @@
 
         <div class="booking-container">
             <div class="booking-info">
-
+                <div class="img">
+                    <img src="<?php assets('images/room3.jpg'); ?>" alt="room-image" class="images">
+                </div>
                 <p class="small-title">RESERVE ROOM <?= $room['room_number'] ?> FOR YOUR SELF</p>
 
                 <h1>Book Room <?= $room['room_number'] ?></h1>
