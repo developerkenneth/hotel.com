@@ -313,10 +313,14 @@ class User extends Controller
         View::handleView("user-views/bookings.php");
     }
 
-    public function browseRoon()
-    {
-        View::handleView("user")
-    }
+   public function browseRoom()
+{
+    $rooms = (new Model())->getAll('rooms');
+
+    View::handleView("user-views/browse-room.php", [
+        'rooms' => $rooms
+    ]);
+}
 
 
 }

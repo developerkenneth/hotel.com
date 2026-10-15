@@ -35,7 +35,7 @@ function getActivePage($currentPage, $pageName)
             <span>My Bookings</span>
         </a>
 
-        <a href="<?= getUrl('/user/rooms') ?>" class="dashboard-nav-link <?= getActivePage($currentPage, 'rooms') ?>">
+        <a href="<?= getUrl('/user/browse-room') ?>" class="dashboard-nav-link <?= getActivePage($currentPage, 'browse-room') ?>">
             <i class="fa-solid fa-bed"></i>
             <span>Browse Rooms</span>
         </a>
