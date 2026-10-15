@@ -313,5 +313,10 @@ class User extends Controller
         View::handleView("user-views/bookings.php");
     }
 
+    public function browseRoon()
+    {
+        View::handleView("user")
+    }
+
 
 }
