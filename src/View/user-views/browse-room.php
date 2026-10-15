@@ -1,5 +1,4 @@
-<!-- <?php $room = $data['room']; ?>
-<?php require_once "$root_dir/load_env.php"; ?> -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,290 +24,289 @@
 </head>
 
 <body>
+    <div class="dashboard">
+        <?php View::handleComponents('users/navigation.php'); ?>
 
-    <!-- =========================
+
+        <!-- =========================
          SIDEBAR
     ========================== -->
 
 
 
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
 
-    <!-- =========================
+        <!-- =========================
          MAIN CONTENT
     ========================== -->
 
-    <main class="dashboard-main">
+        <main class="dashboard-main">
 
-        <!-- Header -->
+            <!-- Header -->
 
-        <header class="dashboard-header">
-
-            <button
-                type="button"
-                class="mobile-menu-button"
-                id="mobile-menu-button"
-                aria-label="Open navigation menu">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <div class="dashboard-welcome">
-
-                <p class="dashboard-greeting">
-                    Hotel Accommodation
-                </p>
-
-                <h1>
-                    Browse Rooms
-                </h1>
-
-                <p class="dashboard-subtitle">
-                    Find the perfect room for your next stay.
-                </p>
-
-            </div>
-
-        </header>
-
-
-        <!-- =========================
-             SEARCH / FILTER
-        ========================== -->
-
-        <section class="room-search-card">
-
-            <div class="room-search-heading">
-
-                <div>
-                    <p class="section-label">
-                        Find your stay
-                    </p>
-
-                    <h2>
-                        Search Rooms
-                    </h2>
-                </div>
-
-            </div>
-
-
-            <div class="room-search-form">
-
-                <div class="room-search-field">
-
-                    <label for="room-type">
-                        Room Type
-                    </label>
-
-                    <select id="room-type">
-
-                        <option value="all">
-                            All Rooms
-                        </option>
-
-                        <option value="classic">
-                            Classic Room
-                        </option>
-
-                        <option value="deluxe">
-                            Deluxe Room
-                        </option>
-
-                        <option value="executive">
-                            Executive Suite
-                        </option>
-
-                        <option value="luxury">
-                            Luxury King Room
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="room-search-field">
-
-                    <label for="guests">
-                        Guests
-                    </label>
-
-                    <select id="guests">
-
-                        <option>
-                            1 Guest
-                        </option>
-
-                        <option>
-                            2 Guests
-                        </option>
-
-                        <option>
-                            3 Guests
-                        </option>
-
-                        <option>
-                            4 Guests
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="room-search-field">
-
-                    <label for="check-in">
-                        Check-in
-                    </label>
-
-                    <input
-                        type="date"
-                        id="check-in">
-
-                </div>
-
-
-                <div class="room-search-field">
-
-                    <label for="check-out">
-                        Check-out
-                    </label>
-
-                    <input
-                        type="date"
-                        id="check-out">
-
-                </div>
-
+            <header class="dashboard-header">
 
                 <button
                     type="button"
-                    class="room-search-button">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    Search
+                    class="mobile-menu-button"
+                    id="mobile-menu-button"
+                    aria-label="Open navigation menu">
+                    <i class="fa-solid fa-bars"></i>
                 </button>
 
-            </div>
+                <div class="dashboard-welcome">
 
-        </section>
-
-
-        <!-- =========================
-             ROOM LIST
-        ========================== -->
-
-        <section class="dashboard-section">
-
-            <div class="section-heading">
-
-                <div>
-
-                    <p class="section-label">
-                        Available accommodation
+                    <p class="dashboard-greeting">
+                        Hotel Accommodation
                     </p>
 
-                    <h2>
-                        Available Rooms
-                    </h2>
+                    <h1>
+                        Browse Rooms
+                    </h1>
+
+                    <p class="dashboard-subtitle">
+                        Find the perfect room for your next stay.
+                    </p>
 
                 </div>
 
-                <span class="room-count">
-                    6 Rooms
-                </span>
+            </header>
 
-            </div>
-        </section>
-        <div class="rooms-grid">
 
-            <?php foreach ($rooms as $room): ?>
+            <!-- =========================
+             SEARCH / FILTER
+        ========================== -->
 
-                <article class="room-card">
+            <section class="room-search-card">
 
-                    <div class="room-card-image">
+                <div class="room-search-heading">
 
-                        <img
-                            src="images/rooms/premium.jpg"
-                            alt="Premium Suite">
+                    <div>
+                        <p class="section-label">
+                            Find your stay
+                        </p>
 
-                        <span class="room-rating">
-                            <i class="fa-solid fa-star"></i>
-                            4.9
-                        </span>
+                        <h2>
+                            Search Rooms
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="room-search-form">
+
+                    <div class="room-search-field">
+
+                        <label for="room-type">
+                            Room Type
+                        </label>
+
+                        <select id="room-type">
+
+                            <option value="all">
+                                All Rooms
+                            </option>
+
+                            <option value="classic">
+                                Classic Room
+                            </option>
+
+                            <option value="deluxe">
+                                Deluxe Room
+                            </option>
+
+                            <option value="executive">
+                                Executive Suite
+                            </option>
+
+                            <option value="luxury">
+                                Luxury King Room
+                            </option>
+
+                        </select>
 
                     </div>
 
 
-                    <div class="room-card-content">
+                    <div class="room-search-field">
 
-                        <span class="room-type">
-                            <?= htmlspecialchars($room['room_type'] ?? '') ?>
+                        <label for="guests">
+                            Guests
+                        </label>
 
-                        </span>
+                        <select id="guests">
 
-                        <h3>
-                            Premium Business Suite
-                        </h3>
+                            <option>
+                                1 Guest
+                            </option>
 
-                        <p class="room-description">
-                            <?= htmlspecialchars($room['description'] ?? '') ?>
+                            <option>
+                                2 Guests
+                            </option>
 
+                            <option>
+                                3 Guests
+                            </option>
+
+                            <option>
+                                4 Guests
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="room-search-field">
+
+                        <label for="check-in">
+                            Check-in
+                        </label>
+
+                        <input
+                            type="date"
+                            id="check-in">
+
+                    </div>
+
+
+                    <div class="room-search-field">
+
+                        <label for="check-out">
+                            Check-out
+                        </label>
+
+                        <input
+                            type="date"
+                            id="check-out">
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="room-search-button">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Search
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+             ROOM LIST
+        ========================== -->
+
+            <section class="dashboard-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="section-label">
+                            Available accommodation
                         </p>
 
+                        <h2>
+                            Available Rooms
+                        </h2>
 
-                        <div class="room-features">
+                    </div>
 
-                            <span>
-                                <i class="fa-solid fa-user"></i>
-                                <?= htmlspecialchars($room['capacity'] ?? '') ?>
+                    <span class="room-count">
+                        6 Rooms
+                    </span>
 
+                </div>
+            </section>
+            <div class="rooms-grid">
+
+                <?php foreach ($rooms as $room): ?>
+
+                    <article class="room-card">
+
+                        <div class="room-card-image">
+
+                            <img
+                                src="images/rooms/premium.jpg"
+                                alt="Premium Suite">
+
+                            <span class="room-rating">
+                                <i class="fa-solid fa-star"></i>
+                                4.9
                             </span>
-
-                            <?php
-
-                            $amenities = json_decode($room['amenities']);
-                            if (is_array($amenities)):
-                                foreach ($amenities as $amenity):
-
-                            ?>
-
-                                    <span>
-                                        <i class="fa-solid fa-bed"></i>
-                                        <?= $amenity ?>
-                                    </span>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
 
                         </div>
 
 
-                        <div class="room-card-footer">
+                        <div class="room-card-content">
 
-                            <div class="room-price">
+                            <span class="room-type">
+                                <?= htmlspecialchars($room['room_type'] ?? '') ?>
 
-                                <strong>
-                                    <?= htmlspecialchars($room['price'] ?? '') ?>
-                                </strong>
+                            </span>
+
+                            <h3>
+                                Premium Business Suite
+                            </h3>
+
+                            <p class="room-description">
+                                <?= htmlspecialchars($room['description'] ?? '') ?>
+
+                            </p>
+
+
+                            <div class="room-features">
 
                                 <span>
-                                    / night
+                                    <i class="fa-solid fa-user"></i>
+                                    <?= htmlspecialchars($room['capacity'] ?? '') ?>
+
                                 </span>
+
+                                <span>
+                                    <i class="fa-solid fa-bed"></i>
+                                    <?= htmlspecialchars($room['amenities'] ?? '') ?>
+                                </span>
+
+                                 <span>
+                                    <i class="fa-solid fa-bed"></i>
+                                    <?= htmlspecialchars($room['status'] ?? '') ?>
+                                </span>
+
+                            </div>
+
+
+                            <div class="room-card-footer">
+
+                                <div class="room-price">
+
+                                    <strong>
+                                        <?= htmlspecialchars($room['price'] ?? '') ?>
+                                    </strong>
+
+                                    <span>
+                                        / night
+                                    </span>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
+                    </article>
 
-                </article>
+                <?php endforeach; ?>
 
-            <?php endforeach; ?>
-
-        </div>
-        </div>
+            </div>
+    </div>
     </main>
+    </div>
 </body>
 
 </html>
