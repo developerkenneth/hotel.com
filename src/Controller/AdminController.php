@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Controller\Controller;
+use App\Helpers\Response;
 use App\Helpers\View;
+use App\Models\Model;
 
 class AdminController extends Controller
 {
@@ -14,6 +16,8 @@ class AdminController extends Controller
     }
     public function rooms()
     {
-        View::handleView('admin/rooms.php');
+        $model = new Model();
+        $rooms = $model->getAll('rooms');
+        View::handleView('admin/rooms.php', ['rooms' => $rooms]);
     }
 }
