@@ -30,7 +30,7 @@
          SIDEBAR
     ========================== -->
 
-    
+
 
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -221,47 +221,92 @@
 
             </div>
         </section>
-       <div class="rooms-grid">
+        <div class="rooms-grid">
 
-    <?php foreach ($rooms as $room): ?>
+            <?php foreach ($rooms as $room): ?>
 
-        <article class="room-card">
+                <article class="room-card">
 
-            <div class="room-card-content">
+                    <div class="room-card-image">
 
-                <span class="room-type">
-                    <?= htmlspecialchars($room['room_type']) ?>
-                </span>
+                        <img
+                            src="images/rooms/premium.jpg"
+                            alt="Premium Suite">
 
-                <h3>
-                    <?= htmlspecialchars($room['capacity']) ?>
-                </h3>
+                        <span class="room-rating">
+                            <i class="fa-solid fa-star"></i>
+                            4.9
+                        </span>
 
-                <p class="room-description">
-                    <?= htmlspecialchars($room['description']) ?>
-                </p>
-
-                <div class="room-card-footer">
-
-                    <div class="room-price">
-                        <strong>
-                            <?= htmlspecialchars((string) $room['price']) ?>
-                        </strong>
-
-                        <span>/ night</span>
                     </div>
 
-                   
 
-                </div>
+                    <div class="room-card-content">
 
-            </div>
+                        <span class="room-type">
+                            <?= htmlspecialchars($room['room_type'] ?? '') ?>
 
-        </article>
+                        </span>
 
-    <?php endforeach; ?>
+                        <h3>
+                            Premium Business Suite
+                        </h3>
 
-</div>
+                        <p class="room-description">
+                            <?= htmlspecialchars($room['description'] ?? '') ?>
+
+                        </p>
+
+
+                        <div class="room-features">
+
+                            <span>
+                                <i class="fa-solid fa-user"></i>
+                                <?= htmlspecialchars($room['capacity'] ?? '') ?>
+
+                            </span>
+
+                            <?php
+
+                            $amenities = json_decode($room['amenities']);
+                            if (is_array($amenities)):
+                                foreach ($amenities as $amenity):
+
+                            ?>
+
+                                    <span>
+                                        <i class="fa-solid fa-bed"></i>
+                                        <?= $amenity ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                        </div>
+
+
+                        <div class="room-card-footer">
+
+                            <div class="room-price">
+
+                                <strong>
+                                    <?= htmlspecialchars($room['price'] ?? '') ?>
+                                </strong>
+
+                                <span>
+                                    / night
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            <?php endforeach; ?>
+
+        </div>
         </div>
     </main>
 </body>
