@@ -314,4 +314,13 @@ class User extends Controller
     }
 
 
+// Show Edit Profile page
+public function showEditProfile()
+{
+    View::handleView('user-views/edit_profile.php');
 }
+
+}
+
+
+
