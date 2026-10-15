@@ -146,7 +146,7 @@ class Model extends Db
      * @param integer $id pass in the id of the room you want to delete
      */
 
-    public static function delete($table, $id)
+    public static function delete($table, $id, $email)
     {
         $sql = "DELETE FROM {$table} WHERE id = :id";
         $stmt = self::connect()->prepare($sql);

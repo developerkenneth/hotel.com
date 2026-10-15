@@ -151,6 +151,7 @@ $user = Authentication::user();
                     </div>
 
                     <button
+                        
                         type="button"
                         class="profile-edit-page-button">
                         <i class="fa-solid fa-pen"></i>
