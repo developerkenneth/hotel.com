@@ -105,4 +105,69 @@ class RoomsController extends Controller
             exit;
         }
     }
+
+    //API to edit the room
+    public function modify()
+    {
+        $rawdata = file_get_contents("php://input");
+        $data = json_decode($rawdata, true);
+        $requiredFields = [
+            'id',
+            'room_number',
+            'room_type',
+            'floor',
+            'price',
+            'capacity',
+            'description',
+            'amenities',
+            'status'
+        ];
+        $errors = [];
+        foreach ($requiredFields as $key) {
+            if (!isset($date[$key]))
+                $errors[] = "{$key} is required";
+        }
+        if (!empty($errors)) {
+            Response::json([
+                'message' => 'Fill in the required fields',
+                'errors' => $errors,
+                'success' => false
+            ], 400);
+            exit;
+        }
+        $roomRow = Model::find(['id' => $data['id']], 'rooms');
+        if (empty($roomRow)) {
+            Response::json([
+                'success' => 'Failed',
+                'message' => 'Room Not Found'
+            ], 404);
+            exit;
+        }
+
+        try {
+            Model::update('rooms', [
+                'room_number' => $data['room_number'],
+                'room_type' => $data['room_type'],
+                'room_floor' => $data['floor'],
+                'room_price' => $data['price'],
+                'capacity' => $data['capacity'],
+                'description' => $data['description'],
+                'amenities' => $data['amenities'],
+                'status' => $data['status']
+            ], $data['id']);
+                Response::json([
+                    'message' => 'Room Edited Succesfully',
+                    'success' => true
+                ], 201);
+                exit;
+        } catch (\PDOException $error) {
+            $errors[] = $error->getMessage();
+            Response::json([
+                'message' => 'oops something went wrong on our server',
+                'errors' => $errors,
+                'success' => false
+            ], 500);
+            exit;
+        }
+    }
 }
