@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32;1,100..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link
         rel="stylesheet"
@@ -250,10 +250,6 @@
 
                             </span>
 
-                            <h3>
-                                Premium Business Suite
-                            </h3>
-
                             <p class="room-description">
                                 <?= htmlspecialchars($room['description'] ?? '') ?>
 
@@ -273,9 +269,9 @@
                                     <?= htmlspecialchars($room['amenities'] ?? '') ?>
                                 </span>
 
-                                 <span>
-                                    <i class="fa-solid fa-bed"></i>
-                                    <?= htmlspecialchars($room['status'] ?? '') ?>
+                                <span>
+                                    
+                                    <i class="bi bi-activity"></i> <?= htmlspecialchars($room['status'] ?? '') ?>
                                 </span>
 
                             </div>

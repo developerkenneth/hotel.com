@@ -3,6 +3,7 @@
 use App\Helpers\View;
 use App\Controller\AdminController;
 
+
 ?>
 <!-- header -->
 
@@ -65,9 +66,14 @@ use App\Controller\AdminController;
                                         class="custom-checkbox">
                                 </td>
 
+
                                 <td>
-                                    <button type="button" class="btn-edit">Edit</button>
+                                    <a href="/hotel.com/rooms/edit-room?id=<?= (int) $room['id'] ?>" class="btn-edit">
+                                        Edit
+                                    </a>
                                 </td>
+
+
 
                                 <td>
                                     <button
