@@ -117,7 +117,7 @@ use App\Controller\AdminController;
 
                     <div class="form-group">
                         <label for="room-number">Room Number</label>
-                        <input type="number" id="room-number" name="room-number" class="form-input" value="1">
+                        <input type="number" id="room-number" name="room_number" class="form-input" value="1">
                     </div>
 
                     <div class="form-group">
@@ -146,10 +146,10 @@ use App\Controller\AdminController;
                     </div>
 
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="room-image">Add Image</label>
-                        <input type="file" id="room-image" name="room_image" class="form-input" accept="image/*">
-                    </div> -->
+                        <input type="file" id="room-image" name="room_image" multiple class="form-input">
+                    </div>
 
                     <button type="submit" class="btn-submit">Add room</button>
                 </form>

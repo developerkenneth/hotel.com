@@ -34,12 +34,51 @@ class RoomsController extends Controller
     // handles the creating or inserting of rooms
     public function store()
     {
-        $rawData = file_get_contents('php://input');
-        $data = json_decode($rawData, true);
+        $data = $_POST;
         $errors = [];
         $requiredFields = ['room_number', 'room_type', 'floor', 'price', 'capacity', 'description', 'amenities', 'status'];
 
+        $fileName = null;
 
+        if ($_FILES['room_image']) {
+
+            // getting file details if file exist 
+            $file = $_FILES['room_image'];
+            $file_size = $file['size'];
+            $file_tmp_name = $file['tmp_name'];
+            $file_name = $file['name'];
+
+            $file_array = explode('.', $file_name);
+
+            // get the last .eg for extension
+            $file_ext = end($file_array);
+
+
+            // is file greater than 2mb
+            if ($file_size > 2000000) {
+                Response::json([
+                    'message' => 'an error occure. file too large',
+                    'errors' => ['file too large'],
+                    'success' => false
+                ]);
+                exit;
+            }
+
+
+
+            // generated random file name
+            $created_file_path = substr(md5(time()), 0, 10) . "." . $file_ext;
+
+            // parmanent file path
+            $new_file_path = "{$this->root_dir}/assets/images/rooms/$created_file_path";
+
+            if (move_uploaded_file($file_tmp_name, $new_file_path)) {
+
+                // got file name to store it in the database
+
+                $fileName  = $created_file_path;
+            }
+        }
 
         // check is if admin
 
@@ -88,6 +127,8 @@ class RoomsController extends Controller
             // turning amenities from string seperated by coma to array
             $amenities = explode(",", $data['amenities']);
             $amenities = json_encode($amenities);
+
+            $data['picture'] = $fileName;
             Model::create($data, 'rooms');
             Response::json([
                 'message' => 'rooms has been created successfully',
@@ -156,67 +197,66 @@ class RoomsController extends Controller
 
     //API to edit the room
     public function modify($id)
-{
-    $rawdata = file_get_contents("php://input");
-    $data = json_decode($rawdata, true);
-    $requiredFields = [
-        'room_number',
-        'room_type',
-        'floor',
-        'price',
-        'capacity',
-        'description',
-        'amenities',
-        'status'
-    ];
-    $errors = [];
+    {
+        $rawdata = file_get_contents("php://input");
+        $data = json_decode($rawdata, true);
+        $requiredFields = [
+            'room_number',
+            'room_type',
+            'floor',
+            'price',
+            'capacity',
+            'description',
+            'amenities',
+            'status'
+        ];
+        $errors = [];
 
-    foreach ($requiredFields as $key) {
-        if (!array_key_exists($key, $data)) {
-            $errors[] = "{$key} is required";
+        foreach ($requiredFields as $key) {
+            if (!array_key_exists($key, $data)) {
+                $errors[] = "{$key} is required";
+            }
+        }
+        if (!empty($errors)) {
+            Response::json([
+                'success' => false,
+                'message' => 'Fill in the required fields',
+                'errors' => $errors
+            ], 400);
+            exit;
+        }
+        $roomRow = Model::find(['id' => $id], 'rooms');
+        if (empty($roomRow)) {
+            Response::json([
+                'success' => false,
+                'message' => 'Room not found'
+            ], 404);
+            exit;
+        }
+        try {
+            Model::update('rooms', [
+                'room_number' => $data['room_number'],
+                'room_type' => $data['room_type'],
+                'floor' => $data['floor'],
+                'price' => $data['price'],
+                'capacity' => $data['capacity'],
+                'description' => $data['description'],
+                'amenities' => $data['amenities'],
+                'status' => $data['status']
+            ], $id);
+
+            Response::json([
+                'success' => true,
+                'message' => 'Room updated successfully'
+            ], 200);
+            exit;
+        } catch (\PDOException $error) {
+            Response::json([
+                'success' => false,
+                'message' => 'Database update failed',
+                'errors' => [$error->getMessage()]
+            ], 500);
+            exit;
         }
     }
-    if (!empty($errors)) {
-        Response::json([
-            'success' => false,
-            'message' => 'Fill in the required fields',
-            'errors' => $errors
-        ], 400);
-        exit;
-    }
-    $roomRow = Model::find(['id' => $id], 'rooms');
-    if (empty($roomRow)) {
-        Response::json([
-            'success' => false,
-            'message' => 'Room not found'
-        ], 404);
-        exit;
-    }
-    try {
-        Model::update('rooms', [
-            'room_number' => $data['room_number'],
-            'room_type' => $data['room_type'],
-            'floor' => $data['floor'],
-            'price' => $data['price'],
-            'capacity' => $data['capacity'],
-            'description' => $data['description'],
-            'amenities' => $data['amenities'],
-            'status' => $data['status']
-        ], $id);
-
-        Response::json([
-            'success' => true,
-            'message' => 'Room updated successfully'
-        ], 200);
-        exit;
-
-    } catch (\PDOException $error) {
-        Response::json([
-            'success' => false,
-            'message' => 'Database update failed',
-            'errors' => [$error->getMessage()]
-        ], 500);
-        exit;
-    }
-}
 }
