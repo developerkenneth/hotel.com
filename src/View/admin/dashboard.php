@@ -17,6 +17,7 @@ $checkedInToday = count($getAll->getAll('bookings', [
 //get rooms-occupied percentage
 $bookedRooms = count($getAll->getAll('bookings', null, 10));
 $totalRooms = count($getAll->getAll('rooms', null, 10));
+// Check if the denominator is greater than 0 before dividing
 $occupancyRate = ($totalRooms > 0) ? ($occupiedRooms / $totalRooms) * 100 : 0;
 
 View::handleComponents('admin/header.php');
@@ -53,7 +54,8 @@ View::handleComponents('admin/header.php');
 
                 <div class="stat-card">
                     <span class="card-label">Occupancy</span>
-                    <span class="card-value"><?= $occupancy . "%" ?></span>
+                   <?php echo $occupancy ?? 0; ?>%
+
                 </div>
             </div>
         </main>

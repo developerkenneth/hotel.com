@@ -3,42 +3,213 @@
 use App\Helpers\View;
 use App\Controller\AdminController;
 
-
-?>
-<!-- header -->
-
-<?php View::handleComponents('admin/header.php');
+// 1. Render Header Component (Includes DOCTYPE, head, and admin.css)
+View::handleComponents('admin/header.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Wrapper (Matches rooms.php) -->
+        <aside class="sidebar">
+            <div class="brand">
+                <h2 class="brand-title">Hotel.com</h2>
+            </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+            <?php View::handleComponents('admin/sidebar.php'); ?>
+        </aside>
+
+        <!-- Main Content Area (Matches rooms.php) -->
+        <main class="main-content">
+            <!-- Header Section -->
+            <div class="page-header">
+                <div class="header-title">
+                    <h1>User Management</h1>
+                    <p>Monitor platform users, access levels, and account statuses.</p>
+                </div>
+            </div>
+
+            <!-- Card & Table Container -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>User Info</th>
+                                <th>Current Role</th>
+                                <th>Change Role</th>
+                                <th>Contact Details</th>
+                                <th>Account Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Row 1 -->
+                            <tr id="row-1">
+                                <td>
+                                    <div class="user-info">
+                                        <div class="avatar">K</div>
+                                        <div class="user-details">
+                                            <div class="name">Kenneth</div>
+                                            <div class="id">ID: HOT-2848</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-admin" id="badge-role-1">ADMIN</span></td>
+                                <td>
+                                    <select class="role-change-select" onchange="updateUserRole(1, this.value)">
+                                        <option value="admin" selected>Admin</option>
+                                        <option value="buyer">Buyer</option>
+                                        <option value="staff">Staff</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="contact-info">
+                                        <div class="contact-item">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                            Kenneth1996@gmail.com
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge-status badge-active" id="status-badge-1">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                        </svg>
+                                        <span id="status-text-1">Active</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(1)">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                            </svg>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(1)">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 -->
+                            <tr id="row-2">
+                                <td>
+                                    <div class="user-info">
+                                        <div class="avatar">C</div>
+                                        <div class="user-details">
+                                            <div class="name">Chisom</div>
+                                            <div class="id">ID: HOT-6785</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-buyer" id="badge-role-2">BUYER</span></td>
+                                <td>
+                                    <select class="role-change-select" onchange="updateUserRole(2, this.value)">
+                                        <option value="admin">Admin</option>
+                                        <option value="buyer" selected>Buyer</option>
+                                        <option value="staff">Staff</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="contact-info">
+                                        <div class="contact-item">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                            chisom200@gmail.com
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge-status badge-active" id="status-badge-2">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                        </svg>
+                                        <span id="status-text-2">Active</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(2)">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                            </svg>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(2)">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr id="row-3">
+                                <td>
+                                    <div class="user-info">
+                                        <div class="avatar">T</div>
+                                        <div class="user-details">
+                                            <div class="name">Thiago</div>
+                                            <div class="id">ID: HOT-9012</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-staff" id="badge-role-3">STAFF</span></td>
+                                <td>
+                                    <select class="role-change-select" onchange="updateUserRole(3, this.value)">
+                                        <option value="admin">Admin</option>
+                                        <option value="buyer">Buyer</option>
+                                        <option value="staff" selected>Staff</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="contact-info">
+                                        <div class="contact-item">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                            thiago666@gmail.com
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge-status badge-active" id="status-badge-3">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                        </svg>
+                                        <span id="status-text-3">Active</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(3)">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                            </svg>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(3)">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scoped Custom CSS for User Management Component Elements -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: #f8f9fa;
-            color: #111827;
-            padding: 20px;
-        }
-
-        /* Responsive Tablet & Desktop Spacing */
-        @media (min-width: 768px) {
-            body {
-                padding: 30px 40px;
-            }
-        }
-
-        /* Top Header */
         .page-header {
             display: flex;
             flex-direction: column;
@@ -55,16 +226,10 @@ use App\Controller\AdminController;
         }
 
         .header-title h1 {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             color: #111827;
             margin-bottom: 4px;
-        }
-
-        @media (min-width: 768px) {
-            .header-title h1 {
-                font-size: 24px;
-            }
         }
 
         .header-title p {
@@ -72,7 +237,6 @@ use App\Controller\AdminController;
             color: #6b7280;
         }
 
-        /* Card Container */
         .card {
             background-color: #ffffff;
             border-radius: 16px;
@@ -81,18 +245,15 @@ use App\Controller\AdminController;
             overflow: hidden;
         }
 
-        /* Mobile Horizontal Scroll Wrapper */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Table */
         .user-table {
             width: 100%;
             min-width: 700px;
-            /* Ensures columns don't crush on small mobile screens */
             border-collapse: collapse;
             text-align: left;
         }
@@ -119,7 +280,6 @@ use App\Controller\AdminController;
             border-bottom: none;
         }
 
-        /* User Info Column */
         .user-info {
             display: flex;
             align-items: center;
@@ -153,7 +313,6 @@ use App\Controller\AdminController;
             margin-top: 2px;
         }
 
-        /* Role Badges */
         .badge-role {
             display: inline-block;
             padding: 4px 10px;
@@ -179,7 +338,6 @@ use App\Controller\AdminController;
             color: #065f46;
         }
 
-        /* Role Change Select Dropdown */
         .role-change-select {
             padding: 6px 10px;
             border-radius: 6px;
@@ -190,11 +348,6 @@ use App\Controller\AdminController;
             outline: none;
         }
 
-        .role-change-select:focus {
-            border-color: #0f766e;
-        }
-
-        /* Contact Details */
         .contact-info {
             color: #4b5563;
             font-size: 12px;
@@ -216,7 +369,6 @@ use App\Controller\AdminController;
             flex-shrink: 0;
         }
 
-        /* Account Status Badges */
         .badge-status {
             display: inline-flex;
             align-items: center;
@@ -225,7 +377,6 @@ use App\Controller\AdminController;
             border-radius: 6px;
             font-size: 11px;
             font-weight: 600;
-            transition: all 0.2s ease;
         }
 
         .badge-active {
@@ -243,7 +394,6 @@ use App\Controller\AdminController;
             height: 12px;
         }
 
-        /* Action Buttons */
         .actions-cell {
             display: flex;
             gap: 8px;
@@ -268,20 +418,10 @@ use App\Controller\AdminController;
             background-color: #fffbeb;
         }
 
-        .btn-lock:active,
-        .btn-lock:hover {
-            background-color: #fef3c7;
-        }
-
         .btn-delete {
             border-color: #fee2e2;
             color: #ef4444;
             background-color: #fef2f2;
-        }
-
-        .btn-delete:active,
-        .btn-delete:hover {
-            background-color: #fee2e2;
         }
 
         .btn-action svg {
@@ -290,199 +430,7 @@ use App\Controller\AdminController;
             stroke-width: 2;
         }
     </style>
-</head>
 
-<body>
-
-    <?php View::handleComponents('admin/sidebar.php'); ?>
-
-    <!-- Header Section -->
-    <div class="page-header">
-        <div class="header-title">
-            <h1>User Management</h1>
-            <p>Monitor platform users, access levels, and account statuses.</p>
-        </div>
-    </div>
-
-    <!-- Main Card Container -->
-    <div class="card">
-        <div class="table-responsive">
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>User Info</th>
-                        <th>Current Role</th>
-                        <th>Change Role</th>
-                        <th>Contact Details</th>
-                        <th>Account Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Row 1 -->
-                    <tr id="row-1">
-                        <td>
-                            <div class="user-info">
-                                <div class="avatar">K</div>
-                                <div class="user-details">
-                                    <div class="name">Kenneth</div>
-                                    <div class="id">ID: HOT-2848</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge-role badge-admin" id="badge-role-1">ADMIN</span></td>
-                        <td>
-                            <select class="role-change-select" onchange="updateUserRole(1, this.value)">
-                                <option value="admin" selected>Admin</option>
-                                <option value="buyer">Buyer</option>
-                                <option value="staff">Staff</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div class="contact-info">
-                                <div class="contact-item">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    Kenneth1996@gmail.com
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge-status badge-active" id="status-badge-1">
-                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                </svg>
-                                <span id="status-text-1">Active</span>
-                            </span>
-                        </td>
-                        <td>
-                            <div class="actions-cell">
-                                <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(1)">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                </button>
-                                <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(1)">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <!-- Row 2 -->
-                    <tr id="row-2">
-                        <td>
-                            <div class="user-info">
-                                <div class="avatar">C</div>
-                                <div class="user-details">
-                                    <div class="name">Chisom</div>
-                                    <div class="id">ID: HOT-6785</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge-role badge-buyer" id="badge-role-2">BUYER</span></td>
-                        <td>
-                            <select class="role-change-select" onchange="updateUserRole(2, this.value)">
-                                <option value="admin">Admin</option>
-                                <option value="buyer" selected>Buyer</option>
-                                <option value="staff">Staff</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div class="contact-info">
-                                <div class="contact-item">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    chisom200@gmail.com
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge-status badge-active" id="status-badge-2">
-                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                </svg>
-                                <span id="status-text-2">Active</span>
-                            </span>
-                        </td>
-                        <td>
-                            <div class="actions-cell">
-                                <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(2)">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                </button>
-                                <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(2)">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <!-- Row 3 -->
-                    <tr id="row-3">
-                        <td>
-                            <div class="user-info">
-                                <div class="avatar">T</div>
-                                <div class="user-details">
-                                    <div class="name">Thiago</div>
-                                    <div class="id">ID: HOT-9012</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge-role badge-staff" id="badge-role-3">STAFF</span></td>
-                        <td>
-                            <select class="role-change-select" onchange="updateUserRole(3, this.value)">
-                                <option value="admin">Admin</option>
-                                <option value="buyer">Buyer</option>
-                                <option value="staff" selected>Staff</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div class="contact-info">
-                                <div class="contact-item">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    thiago666@gmail.com
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge-status badge-active" id="status-badge-3">
-                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                </svg>
-                                <span id="status-text-3">Active</span>
-                            </span>
-                        </td>
-                        <td>
-                            <div class="actions-cell">
-                                <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(3)">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                </button>
-                                <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(3)">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- JavaScript Functions (or link your userManagement.js file here) -->
     <script>
         function updateUserRole(userId, newRole) {
             const badge = document.getElementById(`badge-role-${userId}`);
@@ -520,7 +468,5 @@ use App\Controller\AdminController;
             }
         }
     </script>
-
 </body>
-
 </html>

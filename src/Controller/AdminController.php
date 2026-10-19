@@ -20,4 +20,8 @@ class AdminController extends Controller
         $rooms = $model->getAll('rooms');
         View::handleView('admin/rooms.php', ['rooms' => $rooms]);
     }
+    public function management(){
+        View::handleView('admin/management.php');
+    }
+
 }
