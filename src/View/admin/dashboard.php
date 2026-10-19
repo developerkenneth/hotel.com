@@ -17,7 +17,8 @@ $checkedInToday = count($getAll->getAll('bookings', [
 //get rooms-occupied percentage
 $bookedRooms = count($getAll->getAll('bookings', null, 10));
 $totalRooms = count($getAll->getAll('rooms', null, 10));
-$occupancy = ($bookedRooms/$totalRooms) * 100;
+$occupancyRate = ($totalRooms > 0) ? ($occupiedRooms / $totalRooms) * 100 : 0;
+
 View::handleComponents('admin/header.php');
 ?>
 

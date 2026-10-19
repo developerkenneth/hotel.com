@@ -1,3 +1,15 @@
+<?php
+
+use App\Helpers\View;
+use App\Controller\AdminController;
+
+
+?>
+<!-- header -->
+
+<?php View::handleComponents('admin/header.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -282,6 +294,8 @@
 
 <body>
 
+    <?php View::handleComponents('admin/sidebar.php'); ?>
+
     <!-- Header Section -->
     <div class="page-header">
         <div class="header-title">
@@ -482,7 +496,8 @@
             } else if (newRole === 'staff') {
                 badge.classList.add('badge-staff');
             }
-        }        
+        }
+
         function toggleUserStatus(userId) {
             const badge = document.getElementById(`status-badge-${userId}`);
             const textSpan = document.getElementById(`status-text-${userId}`);

@@ -25,7 +25,7 @@ function getActivePage($currentPage, $pageName)
     <a href="<?= getUrl('/admin/dashboard') ?>" class="nav-link <?php echo getActivePage($currentPage, 'dashboard') ?>">Overview</a>
     <a href="<?= getUrl('/admin/bookings') ?>" class="nav-link <?php echo getActivePage($currentPage, 'bookings') ?>">Bookings</a>
     <a href="<?= getUrl('/admin/rooms') ?>" class="nav-link <?php echo getActivePage($currentPage, 'rooms') ?>">Rooms</a>
-    <a href="<?= getUrl('/admin/rooms') ?>" class="nav-link <?php echo getActivePage($currentPage, 'rooms') ?>">User Management</a>
+    <a href="<?= getUrl('/admin/management') ?>" class="nav-link <?php echo getActivePage($currentPage, 'management') ?>">User Management</a>
     <a href="<?= getUrl('/admin/messages') ?>" class="nav-link <?php echo getActivePage($currentPage, 'messages') ?>">Messages</a>
     <a href="<?= getUrl('/auth/logout') ?>" class="nav-link logout">Log out</a>
 </nav>
