@@ -7,20 +7,17 @@
 
     <title>Browse Rooms | Hotel.com</title>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="<?php
 
-                                    use App\Helpers\View;
+    use App\Helpers\View;
 
-                                    assets("css/dashboard.css") ?>">
+    assets("css/dashboard.css") ?>">
 </head>
 
 <body>
@@ -47,10 +44,7 @@
 
             <header class="dashboard-header">
 
-                <button
-                    type="button"
-                    class="mobile-menu-button"
-                    id="mobile-menu-button"
+                <button type="button" class="mobile-menu-button" id="mobile-menu-button"
                     aria-label="Open navigation menu">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -165,9 +159,7 @@
                             Check-in
                         </label>
 
-                        <input
-                            type="date"
-                            id="check-in">
+                        <input type="date" id="check-in">
 
                     </div>
 
@@ -178,16 +170,12 @@
                             Check-out
                         </label>
 
-                        <input
-                            type="date"
-                            id="check-out">
+                        <input type="date" id="check-out">
 
                     </div>
 
 
-                    <button
-                        type="button"
-                        class="room-search-button">
+                    <button type="button" class="room-search-button">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         Search
                     </button>
@@ -231,9 +219,10 @@
 
                         <div class="room-card-image">
 
-                            <img
-                                src="images/rooms/premium.jpg"
-                                alt="Premium Suite">
+                            <img src="<?= !empty($room['picture'])
+                                ? '/hotel.com/assets/images/rooms/' . htmlspecialchars($room['picture'], ENT_QUOTES, 'UTF-8')
+                                : '/hotel.com/assets/images/svg/computer-crash.svg' ?>"
+                                alt="<?= htmlspecialchars($room['room_type'] ?? 'Hotel room', ENT_QUOTES, 'UTF-8') ?>">
 
                             <span class="room-rating">
                                 <i class="fa-solid fa-star"></i>
@@ -270,7 +259,7 @@
                                 </span>
 
                                 <span>
-                                    
+
                                     <i class="bi bi-activity"></i> <?= htmlspecialchars($room['status'] ?? '') ?>
                                 </span>
 
@@ -290,6 +279,10 @@
                                     </span>
 
                                 </div>
+
+                                <a href="/hotel.com/bookings/book/<?= (int) $room['id'] ?>" class="room-book-button">
+                                    Book Now
+                                </a>
 
                             </div>
 
