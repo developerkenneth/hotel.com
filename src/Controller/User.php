@@ -82,7 +82,7 @@ class User extends Controller
         }
 
         // EMAIL ALREADY EXIST
-        $result =  Model::find(['email' => $datas['email']], 'users');
+        $result = Model::find(['email' => $datas['email']], 'users');
         if (count($result) >= 1) {
             $errors[] = "email already exist. please try another email ";
         }
@@ -110,7 +110,7 @@ class User extends Controller
         try {
 
 
-            $result =  Model::create($datas, 'users');
+            $result = Model::create($datas, 'users');
             if ($result) {
                 Response::json([
                     'message' => 'created successful',
@@ -313,23 +313,137 @@ class User extends Controller
         View::handleView("user-views/bookings.php");
     }
 
-   public function browseRoom()
-{
-    $rooms = (new Model())->getAll('rooms');
+    public function browseRoom()
+    {
+        $rooms = (new Model())->getAll('rooms');
 
-    View::handleView("user-views/browse-room.php", [
-        'rooms' => $rooms
-    ]);
+        View::handleView("user-views/browse-room.php", [
+            'rooms' => $rooms
+        ]);
+    }
+
+
+    // Show Edit Profile page
+    public function showEditProfile()
+    {
+        View::handleView('user-views/edit_profile.php');
+    }
+
+
+    // Update profile picture
+    public function updateProfilePicture()
+    {
+        // Check if a file was selected
+        if (!isset($_FILES['profile_image']) || $_FILES['profile_image']['error'] !== UPLOAD_ERR_OK) {
+            Response::json([
+                'message' => 'Please select a profile picture',
+                'success' => false
+            ], 400);
+
+            exit;
+        }
+
+        $file = $_FILES['profile_image'];
+
+        $file_size = $file['size'];
+        $file_tmp_name = $file['tmp_name'];
+        $file_name = $file['name'];
+
+        // Check if file is greater than 2MB
+        if ($file_size > 2000000) {
+            Response::json([
+                'message' => 'File too large',
+                'errors' => ['File size must not exceed 2MB'],
+                'success' => false
+            ], 400);
+
+            exit;
+        }
+
+        // Check if the file is a valid image
+        $image_info = getimagesize($file_tmp_name);
+
+        if ($image_info === false) {
+            Response::json([
+                'message' => 'Invalid image file',
+                'success' => false
+            ], 400);
+
+            exit;
+        }
+
+        // Allow only JPG, PNG and WEBP images
+        $allowed_types = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/webp' => 'webp'
+        ];
+
+        $image_type = $image_info['mime'];
+
+        if (!isset($allowed_types[$image_type])) {
+            Response::json([
+                'message' => 'Only JPG, PNG and WEBP images are allowed',
+                'success' => false
+            ], 400);
+
+            exit;
+        }
+
+        // Get the file extension
+        $file_ext = $allowed_types[$image_type];
+
+        // Generate random file name
+        $created_file_path = substr(md5(uniqid((string) mt_rand(), true)), 0, 10) . "." . $file_ext;
+
+        // Permanent file path
+        $new_file_path = "{$this->root_dir}/assets/images/profiles/$created_file_path";
+
+        // Get the logged-in user
+        Sessions::start();
+        $user = (new Authentication)->user();
+
+        if (!$user || !isset($user['id'])) {
+            Response::json([
+                'message' => 'Please log in to update your profile picture',
+                'success' => false
+            ], 401);
+
+            exit;
+        }
+
+        // Upload the image
+        if (move_uploaded_file($file_tmp_name, $new_file_path)) {
+
+            // Update the profile picture in the database
+            $updated = Model::update('users', [
+                'profile_picture' => $created_file_path
+            ], $user['id']);
+
+            if ($updated) {
+                Response::json([
+                    'message' => 'Profile picture updated successfully',
+                    'success' => true,
+                    'picture' => $created_file_path
+                ]);
+                exit;
+            }
+        }
+
+        Response::json([
+            'message' => 'Failed to upload profile picture. Please try again.',
+            'success' => false
+        ], 500);
+
+        exit;
+    }
+
+
 }
 
 
-// Show Edit Profile page
-public function showEditProfile()
-{
-    View::handleView('user-views/edit_profile.php');
-}
 
-}
+
 
 
 

@@ -2,8 +2,23 @@
 
 use App\Middleware\Authentication;
 use App\Helpers\View;
+use App\Models\Model;
 
 $user = Authentication::user();
+
+if ($user && isset($user['id'])) {
+    $latestUser = Model::find(['id' => $user['id']], 'users');
+
+    if (!empty($latestUser)) {
+        $user = $latestUser;
+    }
+}
+
+$profilePicture = $user['profile_picture'] ?? null;
+
+$profilePicturePath = $profilePicture
+    ? "/hotel.com/assets/images/profiles/" . $profilePicture
+    : "/hotel.com/images/profiles/default-profile.jpg";
 
 ?>
 
@@ -74,8 +89,8 @@ $user = Authentication::user();
 
                             <div class="profile-avatar-wrapper">
 
-                                <img src="/hotel.com/images/profiles/default-profile.jpg"
-                                    alt="<?= htmlspecialchars($user["first_name"] ?? "User") ?>"
+                                <img src="<?= htmlspecialchars($profilePicturePath) ?>"
+                                    alt="<?= htmlspecialchars($user['first_name'] ?? 'User') ?>"
                                     class="profile-page-image" id="profile-page-image">
 
                                 <label for="profile-image-upload" class="profile-camera-icon"
