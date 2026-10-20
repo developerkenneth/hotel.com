@@ -416,11 +416,20 @@ class User extends Controller
         if (move_uploaded_file($file_tmp_name, $new_file_path)) {
 
             // Update the profile picture in the database
+
+            $user = Authentication::user();
+            $old_profile_pic =  "{$this->root_dir}/assets/images/profiles/{$user['profile_picture']}";
             $updated = Model::update('users', [
                 'profile_picture' => $created_file_path
             ], $user['id']);
 
             if ($updated) {
+
+                // deleting old profile pictur file to save storage
+
+                if (file_exists($old_profile_pic)) {
+                    unlink($old_profile_pic);
+                }
                 Response::json([
                     'message' => 'Profile picture updated successfully',
                     'success' => true,
@@ -437,13 +446,4 @@ class User extends Controller
 
         exit;
     }
-
-
 }
-
-
-
-
-
-
-

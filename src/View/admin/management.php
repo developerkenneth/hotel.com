@@ -5,6 +5,7 @@ use App\Controller\AdminController;
 
 // 1. Render Header Component (Includes DOCTYPE, head, and admin.css)
 View::handleComponents('admin/header.php');
+$users = $data['users'];
 ?>
 
 <body>
@@ -43,164 +44,73 @@ View::handleComponents('admin/header.php');
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Row 1 -->
-                            <tr id="row-1">
-                                <td>
-                                    <div class="user-info">
-                                        <div class="avatar">K</div>
-                                        <div class="user-details">
-                                            <div class="name">Kenneth</div>
-                                            <div class="id">ID: HOT-2848</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="badge-role badge-admin" id="badge-role-1">ADMIN</span></td>
-                                <td>
-                                    <select class="role-change-select" onchange="updateUserRole(1, this.value)">
-                                        <option value="admin" selected>Admin</option>
-                                        <option value="buyer">Buyer</option>
-                                        <option value="staff">Staff</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <div class="contact-info">
-                                        <div class="contact-item">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
-                                            Kenneth1996@gmail.com
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge-status badge-active" id="status-badge-1">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                        </svg>
-                                        <span id="status-text-1">Active</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="actions-cell">
-                                        <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(1)">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                            </svg>
-                                        </button>
-                                        <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(1)">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
 
-                            <!-- Row 2 -->
-                            <tr id="row-2">
-                                <td>
-                                    <div class="user-info">
-                                        <div class="avatar">C</div>
-                                        <div class="user-details">
-                                            <div class="name">Chisom</div>
-                                            <div class="id">ID: HOT-6785</div>
+                            <?php foreach ($users as $user) : ?>
+                                <!-- Row 1 -->
+                                <tr id="row-1">
+                                    <td>
+                                        <div class="user-info">
+                                            <div class="avatar">K</div>
+                                            <div class="user-details">
+                                                <div class="name"><?= $user['first_name'] ?></div>
+                                                <div class="id">ID: HOT-<?= $user['id'] ?></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td><span class="badge-role badge-buyer" id="badge-role-2">BUYER</span></td>
-                                <td>
-                                    <select class="role-change-select" onchange="updateUserRole(2, this.value)">
-                                        <option value="admin">Admin</option>
-                                        <option value="buyer" selected>Buyer</option>
-                                        <option value="staff">Staff</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <div class="contact-info">
-                                        <div class="contact-item">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
-                                            chisom200@gmail.com
+                                    </td>
+                                    <td><span class="badge-role badge-admin" id="badge-role-1"><?= $user['user_type'] == "admin" ? "admin" : "staff" ?></span></td>
+                                    <td>
+                                        <select class="role-change-select" onchange="updateUserRole(1, this.value)">
+                                            <option value="admin" selected>Admin</option>
+                                            <option value="buyer">Buyer</option>
+                                            <option value="staff">Staff</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="contact-info">
+                                            <div class="contact-item">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                </svg>
+                                                <?= $user['email'] ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge-status badge-active" id="status-badge-2">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                        </svg>
-                                        <span id="status-text-2">Active</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="actions-cell">
-                                        <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(2)">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                            </svg>
-                                        </button>
-                                        <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(2)">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        <?php if ($user['account_status'] !== 'suspended') : ?>
+                                            <span class="badge-status badge-active" id="status-badge-1">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                                </svg>
+                                                <span id="status-text-1">Active</span>
+                                            </span>
+                                        <?php else : ?>
 
-                            <!-- Row 3 -->
-                            <tr id="row-3">
-                                <td>
-                                    <div class="user-info">
-                                        <div class="avatar">T</div>
-                                        <div class="user-details">
-                                            <div class="name">Thiago</div>
-                                            <div class="id">ID: HOT-9012</div>
+                                            <span class="badge-status badge-suspended" id="status-badge-1">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                                </svg>
+                                                <span id="status-text-1">Suspend</span>
+                                            </span>
+                                        <?php endif ?>
+                                    </td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(1)">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                </svg>
+                                            </button>
+                                            <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(1)">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td><span class="badge-role badge-staff" id="badge-role-3">STAFF</span></td>
-                                <td>
-                                    <select class="role-change-select" onchange="updateUserRole(3, this.value)">
-                                        <option value="admin">Admin</option>
-                                        <option value="buyer">Buyer</option>
-                                        <option value="staff" selected>Staff</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <div class="contact-info">
-                                        <div class="contact-item">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
-                                            thiago666@gmail.com
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge-status badge-active" id="status-badge-3">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                        </svg>
-                                        <span id="status-text-3">Active</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="actions-cell">
-                                        <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(3)">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                            </svg>
-                                        </button>
-                                        <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(3)">
-                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+
+                            <?php endforeach; ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -469,4 +379,5 @@ View::handleComponents('admin/header.php');
         }
     </script>
 </body>
+
 </html>

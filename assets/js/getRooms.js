@@ -13,7 +13,7 @@ const displayRooms = (rooms) => {
                     <div class="room-card-image">
 
                         <img
-                            src="images/rooms/classic-room.jpg"
+                            src="${room.picture ? '/hotel.com/assets/images/rooms/' + room.picture : '/hotel.com/assets/images/svg/computer-crash.svg'}"
                             alt="Classic Room">
 
                         <span class="room-rating">

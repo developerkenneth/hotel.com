@@ -19,7 +19,14 @@
         <div class="booking-container">
             <div class="booking-info">
                 <div class="img">
-                    <img src="<?php assets('images/room3.jpg'); ?>" alt="room-image" class="images">
+                    <?php
+                    if (!empty($room['picture'])) :
+                    ?>
+                        <img src="<?php assets("images/rooms/{$room['picture']}"); ?>" alt="room-image" class="images">
+                    <?php else : ?>
+                        <img src="<?php assets("images/room3.jpg"); ?>" alt="room-image" class="images">
+                    <?php endif; ?>
+
                 </div>
                 <p class="small-title">RESERVE ROOM <?= $room['room_number'] ?> FOR YOUR SELF</p>
 
