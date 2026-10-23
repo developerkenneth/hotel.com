@@ -17,6 +17,12 @@
     "robmorgan/phinx": "^0.16.12",
     "bramus/router": "^1.6",
     "vlucas/phpdotenv": "^5.7",
-    "guzzlehttp/guzzle": "^8.2"
+    "guzzlehttp/guzzle": "^8.2",
+    "railsware/mailtrap-php": "^3.16"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   }
 }

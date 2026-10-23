@@ -59,7 +59,7 @@ $users = $data['users'];
                                     </td>
                                     <td><span class="badge-role badge-admin" id="badge-role-1"><?= $user['user_type'] == "admin" ? "admin" : "staff" ?></span></td>
                                     <td>
-                                        <select class="role-change-select" onchange="updateUserRole(1, this.value)">
+                                        <select class="role-change-select" onchange="updateUserRole()">
                                             <option value="admin" selected>Admin</option>
                                             <option value="buyer">Buyer</option>
                                             <option value="staff">Staff</option>
@@ -76,7 +76,8 @@ $users = $data['users'];
                                         </div>
                                     </td>
                                     <td>
-                                        <?php if ($user['account_status'] !== 'suspended') : ?>
+
+                                        <?php if ($user['account_status'] != "suspended") : ?>
                                             <span class="badge-status badge-active" id="status-badge-1">
                                                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
@@ -95,11 +96,23 @@ $users = $data['users'];
                                     </td>
                                     <td>
                                         <div class="actions-cell">
-                                            <button class="btn-action btn-lock" title="Suspend / Activate User" onclick="toggleUserStatus(1)">
-                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                                </svg>
-                                            </button>
+
+                                            <?php if ($user['account_status'] !== 'suspended') : ?>
+                                                <button data-id="<?= $user['id'] ?>" class="btn-action btn-lock" title="Suspend / Activate User" onclick="suspend(this)">
+                                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                    </svg>
+                                                </button>
+
+                                            <?php else : ?>
+                                                <button data-id="<?= $user['id'] ?>" class="btn-action btn-lock badge-active" title="Suspend / Activate User" onclick="unsuspend(this)">
+                                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                                    </svg>
+                                                </button>
+
+                                            <?php endif; ?>
+
                                             <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(1)">
                                                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -341,43 +354,7 @@ $users = $data['users'];
         }
     </style>
 
-    <script>
-        function updateUserRole(userId, newRole) {
-            const badge = document.getElementById(`badge-role-${userId}`);
-            badge.className = 'badge-role';
-            badge.textContent = newRole.toUpperCase();
-
-            if (newRole === 'admin') {
-                badge.classList.add('badge-admin');
-            } else if (newRole === 'buyer') {
-                badge.classList.add('badge-buyer');
-            } else if (newRole === 'staff') {
-                badge.classList.add('badge-staff');
-            }
-        }
-
-        function toggleUserStatus(userId) {
-            const badge = document.getElementById(`status-badge-${userId}`);
-            const textSpan = document.getElementById(`status-text-${userId}`);
-
-            if (textSpan.textContent.trim() === 'Active') {
-                textSpan.textContent = 'Suspended';
-                badge.classList.remove('badge-active');
-                badge.classList.add('badge-suspended');
-            } else {
-                textSpan.textContent = 'Active';
-                badge.classList.remove('badge-suspended');
-                badge.classList.add('badge-active');
-            }
-        }
-
-        function deleteUser(userId) {
-            if (confirm("Are you sure you want to delete this user?")) {
-                const row = document.getElementById(`row-${userId}`);
-                row.remove();
-            }
-        }
-    </script>
+    <script src="<?php assets('js/regulate.js') ?>"></script>
 </body>
 
 </html>

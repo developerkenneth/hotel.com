@@ -43,9 +43,36 @@ require_once "./vendor/autoload.php";
 
 // testing guzzle
 
-$client = new \GuzzleHttp\Client();
-$response = $client->get('http://localhost/hotel.com/rooms/api');
+// $client = new \GuzzleHttp\Client();
+// $response = $client->get('http://localhost/hotel.com/rooms/api');
 
-echo $response->getHeaderLine('content-type');
-echo $response->getBody();
+// echo $response->getHeaderLine('content-type');
+// echo $response->getBody();
 
+
+// typical php function for mailing
+// mail('developerkenneth9696@gmail.com', 'forgot password', 'here is your new password');
+
+
+use Mailtrap\Helper\ResponseHelper;
+use Mailtrap\MailtrapClient;
+use Mailtrap\Mime\MailtrapEmail;
+use Symfony\Component\Mime\Address;
+
+require __DIR__ . '/vendor/autoload.php';
+
+$apiKey = '62e20e911c514a9fa1e14fb97fa15926';
+$mailtrap = MailtrapClient::initSendingEmails(
+    apiKey: $apiKey,
+);
+
+$email = (new MailtrapEmail())
+    ->from(new Address('hello@demomailtrap.co', 'Mailtrap Test'))
+    ->to(new Address("developerkenneth9696@gmail.com"))
+    ->subject('You are awesome!')
+    ->text('umu digital dreams smile')
+    ->category('Integration Test');
+
+$response = $mailtrap->send($email);
+
+var_dump(ResponseHelper::toArray($response));

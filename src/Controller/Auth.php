@@ -94,18 +94,29 @@ class Auth extends Controller
         }
 
 
-        if (Authentication::processLogin($email, $password)) {
+
+
+        if (Authentication::processLogin($email, $password) === true) {
             Response::json([
                 'message' => 'User has been logged in successfully',
                 'success' => true
             ], 200);
             exit;
-        } else {
+        } else if (Authentication::processLogin($email, $password) === false) {
 
             $errors[] = 'invalid credentials';
 
             Response::json([
                 'message' => 'invalid credentials',
+                'errors' => $errors
+            ], 422);
+            exit;
+        } else if (Authentication::processLogin($email, $password) === 'suspended') {
+
+            $errors[] = 'iyour account has been suspend, please contact admin to rectify';
+
+            Response::json([
+                'message' => 'your account has been suspend, please contact admin to rectify',
                 'errors' => $errors
             ], 422);
             exit;
@@ -135,9 +146,15 @@ class Auth extends Controller
 
             View::handleView('unauthorize.php');
             exit();
-        } else {
-            return;
         }
+
+        if (Authentication::isBlocked()) {
+            echo " blocked";
+            exit();
+        }
+
+
+        return;
     }
 
 
