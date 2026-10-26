@@ -21,6 +21,12 @@ class Auth extends Controller
         return;
     }
 
+    public function showRecover()
+    {
+        // show login form
+        View::handleView("recover.php");
+        return;
+    }
 
     public function login()
     {

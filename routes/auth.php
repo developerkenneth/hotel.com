@@ -8,3 +8,6 @@ $router->post("/register", 'User@store');
 $router->get("/login", "Auth@showLogin");
 $router->post("/login", "Auth@login");
 $router->get("/logout", "Auth@logout");
+
+//forgot password
+$router->get("/recover", "Auth@showRecover");
