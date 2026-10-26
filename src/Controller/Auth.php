@@ -10,7 +10,12 @@ use App\Helpers\Utilities;
 use App\Helpers\Validation;
 use App\Helpers\View;
 use App\Middleware\Authentication;
+use App\Models\Model;
 
+use Mailtrap\Helper\ResponseHelper;
+use Mailtrap\MailtrapClient;
+use Mailtrap\Mime\MailtrapEmail;
+use Symfony\Component\Mime\Address;
 
 class Auth extends Controller
 {
@@ -170,6 +175,74 @@ class Auth extends Controller
         // destroy all sessions
         session_destroy();
         header('location:/hotel.com/auth/login');
+        exit;
+    }
+
+
+    // password recovery
+    public function recover()
+    {
+        $rawData = file_get_contents('php://input');
+        $data = json_decode($rawData, true);
+        // validate email for backend  (onyeka)
+
+
+        // get user from email
+        $user = Model::find(['email' => $data['email']], 'users');
+
+        if (empty($user)) {
+            // UPDATE IN DATABASE
+            Response::json(
+                [
+                    'message' => 'if this email exist you will receive an email with your new password',
+                    'success' => true
+                ],
+                201
+            );
+
+            exit;
+        }
+
+        $currentTime = time();
+        // generate new password
+        $encoded = md5($currentTime);
+
+        $new_password = substr($encoded, 0, 7);
+        // hash new password    
+
+        $hashed = Utilities::hashPassword($new_password);
+
+
+
+        // UPDATE IN DATABASE
+
+        Model::update('users', ['password' => $hashed], $user['id']);
+        // send user an email with new password
+
+
+        $apiKey = '62e20e911c514a9fa1e14fb97fa15926';
+        $mailtrap = MailtrapClient::initSendingEmails(
+            apiKey: $apiKey,
+        );
+
+        $email = (new MailtrapEmail())
+            ->from(new Address('hello@demomailtrap.co', 'Mailtrap Test'))
+            ->to(new Address("{$data['email']}"))
+            ->subject('Password recovery')
+            ->text("here is ur new password : {$new_password}")
+            ->category('Integration Test');
+
+        $response = $mailtrap->send($email);
+
+
+        Response::json(
+            [
+                'message' => 'if this email exist you will receive an email with your new password',
+                'success' => $response
+            ],
+            201
+        );
+
         exit;
     }
 }

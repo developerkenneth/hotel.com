@@ -25,7 +25,7 @@
 <body>
     <main class="main">
         <div class="container">
-            <form action="#" method="#" class="form" novalidate >
+            <form action="#" method="#" class="form" novalidate>
                 <h1 class="form__title">Recover Password</h1>
                 <div class="field">
                     <label for="e-mail" class="field__label">Email:</label>
@@ -51,15 +51,25 @@
         const emailField = document.querySelector("#e-mail");
         const fieldError = document.querySelector(".field__error")
         const form = document.querySelector(".form");
-        console.log(emailField, fieldError, form)
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
             let formValid = true
             if (emailField.validity.typeMismatch || emailField.validity.valueMissing) {
                 fieldError.classList.replace("hide", "show");
             }
+
+            const response = await fetch('/hotel.com/auth/recover', {
+                method: "POST",
+                body: JSON.stringify({
+                    email: emailField.value
+                })
+            });
+
+            const data = await response.json();
+            console.log(data);
+
         })
-        emailField.addEventListener("input", ()=>{
+        emailField.addEventListener("input", () => {
             fieldError.classList.replace("show", "hide");
         });
     </script>

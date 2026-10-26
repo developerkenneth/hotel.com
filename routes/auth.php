@@ -11,3 +11,4 @@ $router->get("/logout", "Auth@logout");
 
 //forgot password
 $router->get("/recover", "Auth@showRecover");
+$router->post("/recover", "Auth@recover");
