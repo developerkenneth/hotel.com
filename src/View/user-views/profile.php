@@ -1,9 +1,27 @@
 <?php
 
 use App\Middleware\Authentication;
+use App\Helpers\View;
+use App\Models\Model;
 
 $user = Authentication::user();
+
+if ($user && isset($user['id'])) {
+    $latestUser = Model::find(['id' => $user['id']], 'users');
+
+    if (!empty($latestUser)) {
+        $user = $latestUser;
+    }
+}
+
+$profilePicture = $user['profile_picture'] ?? null;
+
+$profilePicturePath = $profilePicture
+    ? "/hotel.com/assets/images/profiles/" . $profilePicture
+    : "/hotel.com/images/profiles/default-profile.jpg";
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +31,10 @@ $user = Authentication::user();
 
     <title>My Profile | Hotel.com</title>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32;1,100..900&display=swap"
         rel="stylesheet">
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="<?php assets("css/dashboard.css") ?>">
 </head>
@@ -29,72 +44,17 @@ $user = Authentication::user();
     <div class="dashboard">
 
         <!-- SIDEBAR -->
-
-        <aside class="dashboard-sidebar">
-
-            <div class="hotel-logo">
-                <i class="fa-solid fa-hotel"></i>
-                <span>HOTEL.com</span>
-            </div>
-
-            <nav class="dashboard-navigation">
-
-                <a href="/hotel.com/user/dashboard" class="dashboard-nav-link">
-                    <i class="fa-solid fa-house"></i>
-                    <span>Dashboard</span>
-                </a>
-
-                <a href="bookings.php" class="dashboard-nav-link">
-                    <i class="fa-solid fa-calendar-check"></i>
-                    <span>My Bookings</span>
-                </a>
-
-                <a href="rooms.php" class="dashboard-nav-link">
-                    <i class="fa-solid fa-bed"></i>
-                    <span>Browse Rooms</span>
-                </a>
-
-                <a href="/hotel.com/user/booking-history" class="dashboard-nav-link">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span>Booking History</span>
-                </a>
-
-                <a href="/hotel.com/profile" class="dashboard-nav-link active">
-                    <i class="fa-solid fa-user"></i>
-                    <span>My Profile</span>
-                </a>
-
-                <a href="/hotel.com/user/settings" class="dashboard-nav-link">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>Settings</span>
-                </a>
-
-            </nav>
-
-            <div class="dashboard-sidebar-footer">
-
-                <a href="logout.php" class="dashboard-nav-link logout-link">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
-                </a>
-
-            </div>
-
-        </aside>
+        <?php View::handleComponents("users/navigation.php"); ?>
 
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-
         <!-- MAIN CONTENT -->
-
         <main class="dashboard-main">
 
+            <!-- PAGE HEADER -->
             <header class="dashboard-header">
 
-                <button
-                    type="button"
-                    class="mobile-menu-button"
-                    id="mobile-menu-button"
+                <button type="button" class="mobile-menu-button" id="mobile-menu-button"
                     aria-label="Open navigation menu">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -105,9 +65,7 @@ $user = Authentication::user();
                         Your account
                     </p>
 
-                    <h1>
-                        My Profile
-                    </h1>
+                    <h1>My Profile</h1>
 
                     <p class="dashboard-subtitle">
                         Manage your personal information and account details.
@@ -117,28 +75,56 @@ $user = Authentication::user();
 
             </header>
 
-
             <!-- PROFILE OVERVIEW -->
-
             <section class="profile-page-card">
 
                 <div class="profile-page-header">
 
                     <div class="profile-page-user">
 
-                        <img
-                            src="images/profiles/default-profile.jpg"
-                            alt="<?= $user["first_name"] ?>"
-                            class="profile-page-image">
+                        <!-- Profile Picture and Camera Icon -->
 
+
+                        <div class="profile-avatar-section">
+
+                            <div class="profile-avatar-wrapper">
+
+                                <img src="<?= htmlspecialchars($profilePicturePath) ?>"
+                                    alt="<?= htmlspecialchars($user['first_name'] ?? 'User') ?>"
+                                    class="profile-page-image" id="profile-page-image">
+
+                                <label for="profile-image-upload" class="profile-camera-icon"
+                                    title="Change profile picture">
+                                    <i class="fa-solid fa-camera"></i>
+                                </label>
+
+                                <input type="file" id="profile-image-upload" name="profile_image"
+                                    accept="image/png, image/jpeg, image/webp" hidden>
+
+                            </div>
+
+                            <button type="button" id="update-profile-picture" class="update-profile-picture-button"
+                                hidden>
+                                <i class="fa-solid fa-check"></i>
+                                Update Picture
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- User Details -->
                         <div>
 
                             <h2>
-                                <?= $user["first_name"] . " " . $user["last_name"] ?>
+                                <?= htmlspecialchars(
+                                    ($user["first_name"] ?? "") . " " .
+                                    ($user["last_name"] ?? "")
+                                ) ?>
                             </h2>
 
                             <p>
-                                <?= $user["email"] ?>
+                                <?= htmlspecialchars($user["email"] ?? "") ?>
                             </p>
 
                             <span class="profile-member">
@@ -150,20 +136,17 @@ $user = Authentication::user();
 
                     </div>
 
-                    <button
-                        type="button"
-                        class="profile-edit-page-button">
+                    <!-- Edit Profile Link -->
+                    <a href="/hotel.com/user/edit-profile" class="profile-edit-page-button">
                         <i class="fa-solid fa-pen"></i>
-                        Edit Profile 
-                    </button>
+                        Edit Profile
+                    </a>
 
                 </div>
 
             </section>
 
-
             <!-- PERSONAL INFORMATION -->
-
             <section class="profile-information-card">
 
                 <div class="profile-section-heading">
@@ -174,92 +157,66 @@ $user = Authentication::user();
                             Account details
                         </p>
 
-                        <h2>
-                            Personal Information
-                        </h2>
+                        <h2>Personal Information</h2>
 
                     </div>
 
                 </div>
 
-
                 <div class="profile-information-grid">
 
                     <div class="profile-information-item">
 
-                        <span>
-                            Full Name
-                        </span>
+                        <span>Full Name</span>
 
                         <strong>
-                            <?= $user["first_name"] . " " . $user["last_name"] ?>
-
+                            <?= htmlspecialchars(
+                                ($user["first_name"] ?? "") . " " .
+                                ($user["last_name"] ?? "")
+                            ) ?>
                         </strong>
 
                     </div>
 
-
                     <div class="profile-information-item">
 
-                        <span>
-                            Email Address
-                        </span>
+                        <span>Email Address</span>
 
                         <strong>
-                            <?= $user["email"] ?>
+                            <?= htmlspecialchars($user["email"] ?? "") ?>
                         </strong>
 
                     </div>
 
-
                     <div class="profile-information-item">
 
-                        <span>
-                            Phone Number
-                        </span>
+                        <span>Phone Number</span>
 
-                        <strong>
-                            +234 801 234 5678
-                        </strong>
+                        <strong>+234 801 234 5678</strong>
 
                     </div>
 
-
                     <div class="profile-information-item">
 
-                        <span>
-                            Date of Birth
-                        </span>
+                        <span>Date of Birth</span>
 
-                        <strong>
-                            15 March 1998
-                        </strong>
+                        <strong>15 March 1998</strong>
 
                     </div>
 
-
                     <div class="profile-information-item">
 
-                        <span>
-                            Gender
-                        </span>
+                        <span>Gender</span>
 
-                        <strong>
-                            Male
-                        </strong>
+                        <strong>Male</strong>
 
                     </div>
 
-
                     <div class="profile-information-item">
 
-                        <span>
-                            Country
-                        </span>
+                        <span>Country</span>
 
-                        <strong>
-                            Nigeria
-                        </strong>
+                        <strong>Nigeria</strong>
 
                     </div>
 
@@ -267,9 +224,7 @@ $user = Authentication::user();
 
             </section>
 
-
             <!-- CONTACT INFORMATION -->
-
             <section class="profile-information-card">
 
                 <div class="profile-section-heading">
@@ -280,22 +235,17 @@ $user = Authentication::user();
                             Where you live
                         </p>
 
-                        <h2>
-                            Contact Information
-                        </h2>
+                        <h2>Contact Information</h2>
 
                     </div>
 
                 </div>
 
-
                 <div class="profile-information-grid">
 
                     <div class="profile-information-item profile-full-width">
 
-                        <span>
-                            Address
-                        </span>
+                        <span>Address</span>
 
                         <strong>
                             15 Admiralty Way, Lagos, Nigeria
@@ -303,29 +253,19 @@ $user = Authentication::user();
 
                     </div>
 
-
                     <div class="profile-information-item">
 
-                        <span>
-                            City
-                        </span>
+                        <span>City</span>
 
-                        <strong>
-                            Lagos
-                        </strong>
+                        <strong>Lagos</strong>
 
                     </div>
 
-
                     <div class="profile-information-item">
 
-                        <span>
-                            State
-                        </span>
+                        <span>State</span>
 
-                        <strong>
-                            Lagos State
-                        </strong>
+                        <strong>Lagos State</strong>
 
                     </div>
 
@@ -333,9 +273,7 @@ $user = Authentication::user();
 
             </section>
 
-
             <!-- ACCOUNT INFORMATION -->
-
             <section class="profile-information-card">
 
                 <div class="profile-section-heading">
@@ -346,14 +284,11 @@ $user = Authentication::user();
                             Account status
                         </p>
 
-                        <h2>
-                            Account Information
-                        </h2>
+                        <h2>Account Information</h2>
 
                     </div>
 
                 </div>
-
 
                 <div class="profile-account-list">
 
@@ -365,18 +300,13 @@ $user = Authentication::user();
 
                         <div>
 
-                            <span>
-                                Member Since
-                            </span>
+                            <span>Member Since</span>
 
-                            <strong>
-                                January 2026
-                            </strong>
+                            <strong>January 2026</strong>
 
                         </div>
 
                     </div>
-
 
                     <div class="profile-account-item">
 
@@ -386,9 +316,7 @@ $user = Authentication::user();
 
                         <div>
 
-                            <span>
-                                Account Status
-                            </span>
+                            <span>Account Status</span>
 
                             <strong class="account-active">
                                 Active
@@ -398,7 +326,6 @@ $user = Authentication::user();
 
                     </div>
 
-
                     <div class="profile-account-item">
 
                         <div class="profile-account-icon">
@@ -407,13 +334,9 @@ $user = Authentication::user();
 
                         <div>
 
-                            <span>
-                                Total Bookings
-                            </span>
+                            <span>Total Bookings</span>
 
-                            <strong>
-                                8 Bookings
-                            </strong>
+                            <strong>8 Bookings</strong>
 
                         </div>
 
@@ -426,9 +349,8 @@ $user = Authentication::user();
         </main>
 
     </div>
-
-
-    <script src="<?php assets("js/dashboard.css") ?>"></script>
+    <script src="<?php assets("js/profile-image.js") ?>"></script>
+    <script src="<?php assets("js/dashboard.js") ?>"></script>
 
 </body>
 

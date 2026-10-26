@@ -9,3 +9,6 @@ $router->patch('/update-password', 'User@passwordUpdate');
 $router->get('/booking-history', 'User@bookingHistory');
 $router->get("/profile", "Profile@profilePage");
 $router->get("/bookings", "User@showBookings");
+$router->get("/browse-room", "User@browseRoom");
+$router->get("/edit-profile", "User@showEditProfile");
+$router->post("/update-picture", "User@updateProfilePicture");

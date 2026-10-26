@@ -276,6 +276,20 @@ body {
 }
 
 .btn-edit {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #f68b1e;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background: #df7410;
+}
+
+/* .btn-edit {
   background: transparent;
   border: 1px solid var(--border-card-accent);
   color: var(--text-card-value);
@@ -286,12 +300,12 @@ body {
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
-}
+} */
 
-.btn-edit:hover {
+/* .btn-edit:hover {
   background-color: var(--bg-nav-active);
   color: var(--text-nav-active);
-}
+} */
 
 .btn-delete:hover {
   background-color: var(--bg-nav-active);

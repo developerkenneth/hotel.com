@@ -3,6 +3,7 @@
 use App\Helpers\View;
 use App\Controller\AdminController;
 
+
 ?>
 <!-- header -->
 
@@ -33,7 +34,7 @@ use App\Controller\AdminController;
                         <th></th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         <?php foreach ($rooms as $room): ?>
                             <tr>
@@ -56,21 +57,23 @@ use App\Controller\AdminController;
                                     <input
                                         type="number"
                                         class="table-input short-input"
-                                        value=""
-                                        readonly>
+                                        value="">
                                 </td>
 
                                 <td>
                                     <input
                                         type="checkbox"
-                                        class="custom-checkbox"
-                                        
-                                        >
+                                        class="custom-checkbox">
                                 </td>
 
+
                                 <td>
-                                    <button type="button" class="btn-edit">Edit</button>
+                                    <a href="/hotel.com/rooms/edit-room?id=<?= (int) $room['id'] ?>" class="btn-edit">
+                                        Edit
+                                    </a>
                                 </td>
+
+
 
                                 <td>
                                     <button
@@ -83,7 +86,7 @@ use App\Controller\AdminController;
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
-                
+
 
                 </table>
             </div>
@@ -114,7 +117,7 @@ use App\Controller\AdminController;
 
                     <div class="form-group">
                         <label for="room-number">Room Number</label>
-                        <input type="number" id="room-number" name="room-number" class="form-input" value="1">
+                        <input type="number" id="room-number" name="room_number" class="form-input" value="1">
                     </div>
 
                     <div class="form-group">
@@ -143,10 +146,10 @@ use App\Controller\AdminController;
                     </div>
 
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="room-image">Add Image</label>
-                        <input type="file" id="room-image" name="room_image" class="form-input" accept="image/*">
-                    </div> -->
+                        <input type="file" id="room-image" name="room_image" multiple class="form-input">
+                    </div>
 
                     <button type="submit" class="btn-submit">Add room</button>
                 </form>

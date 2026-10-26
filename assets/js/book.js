@@ -13,8 +13,7 @@ function formatMoney(amount) {
     return "₦" + amount.toLocaleString("en-NG");
 }
 
-
-async function handleBoonking(data) {
+async function handleBooking(data) {
     const body = JSON.stringify(data);
     try {
         const url = "/hotel.com/bookings/api/book";
@@ -151,7 +150,7 @@ document
 
 
 
-        handleBoonking(bookindDetails);
+        handleBooking(bookindDetails);
 
 
 

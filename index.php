@@ -22,6 +22,10 @@ $router->mount('/user', function () use ($router) {
     require_once('./routes/user.php');
 });
 
+$router->mount('/user', function () use ($router) {
+    require_once __DIR__ . '/routes/user.php';
+});
+
 $router->mount('/bookings', function () use ($router) {
     require_once('./routes/bookings.php');
 });

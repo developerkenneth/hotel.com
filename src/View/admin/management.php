@@ -1,0 +1,360 @@
+<?php
+
+use App\Helpers\View;
+use App\Controller\AdminController;
+
+// 1. Render Header Component (Includes DOCTYPE, head, and admin.css)
+View::handleComponents('admin/header.php');
+$users = $data['users'];
+?>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Wrapper (Matches rooms.php) -->
+        <aside class="sidebar">
+            <div class="brand">
+                <h2 class="brand-title">Hotel.com</h2>
+            </div>
+
+            <?php View::handleComponents('admin/sidebar.php'); ?>
+        </aside>
+
+        <!-- Main Content Area (Matches rooms.php) -->
+        <main class="main-content">
+            <!-- Header Section -->
+            <div class="page-header">
+                <div class="header-title">
+                    <h1>User Management</h1>
+                    <p>Monitor platform users, access levels, and account statuses.</p>
+                </div>
+            </div>
+
+            <!-- Card & Table Container -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>User Info</th>
+                                <th>Current Role</th>
+                                <th>Change Role</th>
+                                <th>Contact Details</th>
+                                <th>Account Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php foreach ($users as $user) : ?>
+                                <!-- Row 1 -->
+                                <tr id="row-1">
+                                    <td>
+                                        <div class="user-info">
+                                            <div class="avatar">K</div>
+                                            <div class="user-details">
+                                                <div class="name"><?= $user['first_name'] ?></div>
+                                                <div class="id">ID: HOT-<?= $user['id'] ?></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge-role badge-admin" id="badge-role-1"><?= $user['user_type'] == "admin" ? "admin" : "staff" ?></span></td>
+                                    <td>
+                                        <select class="role-change-select" onchange="updateUserRole()">
+                                            <option value="admin" selected>Admin</option>
+                                            <option value="buyer">Buyer</option>
+                                            <option value="staff">Staff</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="contact-info">
+                                            <div class="contact-item">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                </svg>
+                                                <?= $user['email'] ?>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+
+                                        <?php if ($user['account_status'] != "suspended") : ?>
+                                            <span class="badge-status badge-active" id="status-badge-1">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                                </svg>
+                                                <span id="status-text-1">Active</span>
+                                            </span>
+                                        <?php else : ?>
+
+                                            <span class="badge-status badge-suspended" id="status-badge-1">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                                </svg>
+                                                <span id="status-text-1">Suspend</span>
+                                            </span>
+                                        <?php endif ?>
+                                    </td>
+                                    <td>
+                                        <div class="actions-cell">
+
+                                            <?php if ($user['account_status'] !== 'suspended') : ?>
+                                                <button data-id="<?= $user['id'] ?>" class="btn-action btn-lock" title="Suspend / Activate User" onclick="suspend(this)">
+                                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                    </svg>
+                                                </button>
+
+                                            <?php else : ?>
+                                                <button data-id="<?= $user['id'] ?>" class="btn-action btn-lock badge-active" title="Suspend / Activate User" onclick="unsuspend(this)">
+                                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                                    </svg>
+                                                </button>
+
+                                            <?php endif; ?>
+
+                                            <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(1)">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            <?php endforeach; ?>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scoped Custom CSS for User Management Component Elements -->
+    <style>
+        .page-header {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        @media (min-width: 640px) {
+            .page-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .header-title p {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #f3f4f6;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .user-table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #fdfdfd;
+            padding: 12px 20px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .user-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f9fafb;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+
+        .user-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #ccfbf1;
+            color: #0f766e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .user-details .name {
+            font-weight: 600;
+            color: #111827;
+            font-size: 13px;
+            line-height: 1.2;
+        }
+
+        .user-details .id {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+
+        .badge-role {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-admin {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-buyer {
+            background-color: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .badge-staff {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .role-change-select {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-size: 12px;
+            background-color: #ffffff;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .contact-info {
+            color: #4b5563;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-item svg {
+            width: 14px;
+            height: 14px;
+            stroke: #9ca3af;
+            flex-shrink: 0;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background-color: #ecfdf5;
+            color: #047857;
+        }
+
+        .badge-suspended {
+            background-color: #fef2f2;
+            color: #dc2626;
+        }
+
+        .badge-status svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .actions-cell {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .btn-lock {
+            border-color: #fef3c7;
+            color: #f59e0b;
+            background-color: #fffbeb;
+        }
+
+        .btn-delete {
+            border-color: #fee2e2;
+            color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .btn-action svg {
+            width: 14px;
+            height: 14px;
+            stroke-width: 2;
+        }
+    </style>
+
+    <script src="<?php assets('js/regulate.js') ?>"></script>
+</body>
+
+</html>
